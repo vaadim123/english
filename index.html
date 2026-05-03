@@ -312,7 +312,7 @@ const GH = {
       return await r.json();
     }catch{ return null; }
   },
-  async push(){
+  async push(keepalive=false){
     const token = this.token();
     if(!token) return false;
     S.syncStatus = 'syncing'; updateSyncBadge();
@@ -322,10 +322,13 @@ const GH = {
     try{
       const body = {message:`WordFlash sync ${new Date().toISOString().slice(0,10)}`, content, branch:GH_BRANCH};
       if(sha) body.sha = sha;
-      const r = await fetch(this.apiUrl(),{method:'PUT',headers:{...this.headers(),'Content-Type':'application/json'},body:JSON.stringify(body)});
+      const opts = {method:'PUT',headers:{...this.headers(),'Content-Type':'application/json'},body:JSON.stringify(body)};
+      if(keepalive) opts.keepalive = true;
+      const r = await fetch(this.apiUrl(), opts);
       S.syncStatus = r.ok ? 'ok' : 'error'; updateSyncBadge();
+      if(!r.ok){ const err=await r.text(); console.error('GH push error:', r.status, err); }
       return r.ok;
-    }catch{ S.syncStatus='error'; updateSyncBadge(); return false; }
+    }catch(e){ console.error('GH push exception:', e); S.syncStatus='error'; updateSyncBadge(); return false; }
   },
 };
 
@@ -335,9 +338,17 @@ function schedulePush(){
   clearTimeout(_syncTimer);
   _syncTimer = setTimeout(async()=>{
     const ok = await GH.push();
-    showToast(ok ? '☁️ Дані збережено!' : '⚠️ Помилка синхронізації');
-  }, 4000);
+    showToast(ok ? '☁️ Дані збережено!' : '⚠️ Не вдалось синхронізувати');
+  }, 1500);
 }
+
+// Пуш при закритті/переключенні вкладки
+document.addEventListener('visibilitychange', ()=>{
+  if(document.visibilityState === 'hidden' && GH.token() && S.profiles.length > 0){
+    clearTimeout(_syncTimer);
+    GH.push(true); // keepalive=true — запит завершується навіть після закриття вкладки
+  }
+});
 function updateSyncBadge(){
   const b = document.getElementById('sync-badge');
   if(b) b.textContent = {idle:'',syncing:'🔄',ok:'☁️',error:'⚠️'}[S.syncStatus]||'';
