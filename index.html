@@ -297,12 +297,17 @@ const GH = {
   token(){ return localStorage.getItem('wf_gh_token') || _GH_T.trim(); },
   setToken(t){ localStorage.setItem('wf_gh_token', t.trim()); },
   clearToken(){ localStorage.removeItem('wf_gh_token'); },
+  getSha(){ return localStorage.getItem('wf_gh_sha') || null; },
+  setSha(s){ if(s) localStorage.setItem('wf_gh_sha', s); },
   rawUrl(){ return `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/${GH_DATA_PATH}?t=${Date.now()}`; },
   apiUrl(){ return `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_DATA_PATH}`; },
   headers(){
-    const h = {'Accept':'application/vnd.github.v3+json'};
+    const h = {
+      'Accept': 'application/vnd.github.v3+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+    };
     const t = this.token();
-    if(t) h['Authorization'] = `token ${t}`;
+    if(t) h['Authorization'] = `Bearer ${t}`;
     return h;
   },
   async pull(){
@@ -316,19 +321,46 @@ const GH = {
     const token = this.token();
     if(!token) return false;
     S.syncStatus = 'syncing'; updateSyncBadge();
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify(S.profiles, null, 2))));
-    let sha = null;
-    try{ const r = await fetch(this.apiUrl(),{headers:this.headers()}); if(r.ok) sha=(await r.json()).sha; }catch{}
+    const json = JSON.stringify(S.profiles, null, 2);
+    const bytes = new TextEncoder().encode(json);
+    const content = btoa(Array.from(bytes).map(b=>String.fromCharCode(b)).join(''));
+    // Get current SHA (from cache or fresh fetch)
+    let sha = this.getSha();
+    if(!sha){
+      try{
+        const r = await fetch(this.apiUrl(), {headers: this.headers()});
+        if(r.ok){ const d = await r.json(); sha = d.sha; this.setSha(sha); }
+      }catch{}
+    }
     try{
       const body = {message:`WordFlash sync ${new Date().toISOString().slice(0,10)}`, content, branch:GH_BRANCH};
       if(sha) body.sha = sha;
-      const opts = {method:'PUT',headers:{...this.headers(),'Content-Type':'application/json'},body:JSON.stringify(body)};
+      const opts = {method:'PUT', headers:{...this.headers(),'Content-Type':'application/json'}, body:JSON.stringify(body)};
       if(keepalive) opts.keepalive = true;
       const r = await fetch(this.apiUrl(), opts);
-      S.syncStatus = r.ok ? 'ok' : 'error'; updateSyncBadge();
-      if(!r.ok){ const err=await r.text(); console.error('GH push error:', r.status, err); }
-      return r.ok;
-    }catch(e){ console.error('GH push exception:', e); S.syncStatus='error'; updateSyncBadge(); return false; }
+      if(r.ok){
+        const d = await r.json();
+        this.setSha(d.content.sha);
+        S.syncStatus = 'ok'; updateSyncBadge();
+        return true;
+      }
+      // SHA conflict — clear cache and retry once
+      if(r.status === 409 || r.status === 422){
+        this.setSha(null);
+        localStorage.removeItem('wf_gh_sha');
+        const r2 = await fetch(this.apiUrl(), {headers: this.headers()});
+        if(r2.ok){ const d2 = await r2.json(); body.sha = d2.sha; this.setSha(d2.sha); }
+        const r3 = await fetch(this.apiUrl(), {method:'PUT', headers:{...this.headers(),'Content-Type':'application/json'}, body:JSON.stringify(body)});
+        if(r3.ok){ const d3 = await r3.json(); this.setSha(d3.content.sha); S.syncStatus='ok'; updateSyncBadge(); return true; }
+      }
+      const errText = await r.text().catch(()=>'');
+      console.error('GH push failed:', r.status, errText);
+      S.syncStatus = 'error'; updateSyncBadge();
+      return false;
+    }catch(e){
+      console.error('GH push exception:', e);
+      S.syncStatus='error'; updateSyncBadge(); return false;
+    }
   },
 };
 
