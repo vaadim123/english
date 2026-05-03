@@ -1,19 +1,1028 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>WordFlash 🌟 — Вивчай Англійську!</title>
-    <link rel="stylesheet" href="css/style.css?v=1.4">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
-    <meta name="theme-color" content="#7C3AED">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>WordFlash 🌟 — Вивчай Англійську!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#7C3AED">
+<style>
+:root {
+  --primary: #7C3AED;
+  --primary-light: #A78BFA;
+  --success: #10B981;
+  --danger: #EF4444;
+  --text: #1F2937;
+  --text-light: #6B7280;
+  --text-muted: #9CA3AF;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.2);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  min-height:100vh;
+  font-family:'Nunito','Segoe UI',sans-serif;
+  background:linear-gradient(-45deg,#667eea,#764ba2,#f64f59,#c471ed,#12c2e9);
+  background-size:400% 400%;
+  animation:bgShift 18s ease infinite;
+  padding:16px 16px 40px;
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+@keyframes bgShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+#app{max-width:560px;margin:0 auto}
+#confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999}
+#toast-container{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:8888;display:flex;flex-direction:column;gap:8px;align-items:center}
+.toast{background:#1F2937;color:white;padding:12px 24px;border-radius:50px;font-weight:700;font-size:15px;animation:toastIn .3s ease,toastOut .3s ease 2.5s forwards;box-shadow:0 4px 20px rgba(0,0,0,.3);white-space:nowrap}
+@keyframes toastIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes toastOut{from{opacity:1}to{opacity:0;transform:translateY(10px)}}
+.card{background:rgba(255,255,255,.97);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:28px;animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.app-logo{text-align:center;margin-bottom:28px;animation:bounceIn .6s cubic-bezier(.68,-.55,.265,1.55)}
+.app-logo .logo-icon{font-size:56px;display:block;margin-bottom:4px}
+.app-logo h1{font-size:32px;font-weight:900;background:linear-gradient(135deg,#7C3AED,#EC4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.app-logo p{color:var(--text-light);font-size:15px;font-weight:600;margin-top:4px}
+@keyframes bounceIn{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.2);border:none;border-radius:50px;color:white;font-family:inherit;font-weight:700;font-size:15px;padding:8px 16px;cursor:pointer;margin-bottom:16px;transition:background .2s}
+.back-btn:hover{background:rgba(255,255,255,.3)}
+.section-title{font-size:22px;font-weight:900;color:var(--text);margin-bottom:20px}
+/* Profiles */
+.profiles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}
+.profile-card{background:white;border-radius:var(--radius);padding:24px 16px;text-align:center;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 16px rgba(0,0,0,.1);position:relative;overflow:hidden;border:3px solid transparent}
+.profile-card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(0,0,0,.15)}
+.profile-card .profile-avatar{font-size:48px;margin-bottom:10px;display:block}
+.profile-card .profile-name{font-weight:800;font-size:16px;color:var(--text);margin-bottom:4px}
+.profile-card .profile-meta{font-size:12px;color:var(--text-muted);font-weight:600}
+.profile-card .profile-delete{position:absolute;top:8px;right:8px;background:none;border:none;font-size:16px;cursor:pointer;opacity:0;transition:opacity .2s;line-height:1;padding:2px}
+.profile-card:hover .profile-delete{opacity:.5}
+.profile-card .profile-delete:hover{opacity:1 !important}
+.profile-card-new{border:3px dashed #D1D5DB;background:#F9FAFB;color:var(--text-light);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:140px}
+.profile-card-new .plus-icon{font-size:36px}
+.profile-card-new .new-label{font-weight:700;font-size:14px}
+.profile-card-new:hover{border-color:var(--primary);color:var(--primary)}
+/* New profile */
+.avatar-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:20px}
+.avatar-option{font-size:28px;padding:8px;border-radius:12px;border:3px solid transparent;cursor:pointer;text-align:center;transition:transform .15s,border-color .15s;background:#F3F4F6;line-height:1}
+.avatar-option:hover{transform:scale(1.15)}
+.avatar-option.selected{border-color:var(--primary);background:#EDE9FE}
+.color-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-bottom:20px}
+.color-option{width:32px;height:32px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.color-option:hover{transform:scale(1.15)}
+.color-option.selected{border-color:white;box-shadow:0 0 0 3px var(--primary)}
+/* Menu */
+.profile-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:20px;border-bottom:2px solid #F3F4F6}
+.profile-header .ph-avatar{font-size:52px}
+.profile-header .ph-info{flex:1}
+.profile-header .ph-name{font-size:22px;font-weight:900;color:var(--text)}
+.profile-header .ph-level{font-size:13px;font-weight:700;color:var(--text-light);margin-top:2px}
+.xp-bar{height:8px;background:#E5E7EB;border-radius:4px;overflow:hidden;margin-top:6px}
+.xp-bar-fill{height:100%;background:linear-gradient(90deg,#7C3AED,#EC4899);border-radius:4px;transition:width .6s ease}
+.streak-badge{display:flex;flex-direction:column;align-items:center;background:linear-gradient(135deg,#FF6B6B,#FF8E53);border-radius:16px;padding:10px 14px;min-width:64px;color:white;box-shadow:0 4px 12px rgba(255,107,107,.4)}
+.streak-badge .s-icon{font-size:22px}
+.streak-badge .s-num{font-size:20px;font-weight:900;line-height:1}
+.streak-badge .s-label{font-size:11px;font-weight:700}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.menu-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:white;border:2px solid #F3F4F6;border-radius:var(--radius);padding:20px;cursor:pointer;font-family:inherit;transition:transform .2s,box-shadow .2s,border-color .2s;color:var(--text)}
+.menu-btn:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,.1);border-color:var(--primary-light)}
+.menu-btn .mb-icon{font-size:36px}
+.menu-btn .mb-label{font-size:14px;font-weight:800;color:var(--text)}
+.menu-btn .mb-sub{font-size:12px;color:var(--text-muted);font-weight:600}
+.menu-btn.primary-btn{background:linear-gradient(135deg,#7C3AED,#A78BFA);border-color:transparent;color:white;grid-column:1/-1;padding:24px;box-shadow:0 6px 20px rgba(124,58,237,.4)}
+.menu-btn.primary-btn .mb-label{color:white;font-size:18px}
+.menu-btn.primary-btn .mb-sub{color:rgba(255,255,255,.8)}
+.menu-btn.primary-btn:hover{box-shadow:0 12px 30px rgba(124,58,237,.5)}
+/* Dictionary */
+.dict-toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.search-input{flex:1;min-width:140px;padding:10px 16px;border:2px solid #E5E7EB;border-radius:50px;font-family:inherit;font-size:14px;font-weight:600;outline:none;transition:border-color .2s;background:#F9FAFB}
+.search-input:focus{border-color:var(--primary);background:white}
+.dict-stats{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.dict-stat{background:#F3F4F6;border-radius:12px;padding:8px 14px;font-size:13px;font-weight:700;color:var(--text-light)}
+.word-list{display:flex;flex-direction:column;gap:8px;max-height:55vh;overflow-y:auto;padding-right:4px}
+.word-list::-webkit-scrollbar{width:4px}
+.word-list::-webkit-scrollbar-track{background:#F3F4F6;border-radius:2px}
+.word-list::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:2px}
+.word-item{display:flex;align-items:center;gap:10px;background:#F9FAFB;border-radius:14px;padding:12px 14px;border:2px solid transparent;transition:border-color .2s,background .2s;cursor:pointer}
+.word-item:hover{background:#F3F4F6}
+.word-item.selected{border-color:var(--primary);background:#EDE9FE}
+.word-item-check{width:22px;height:22px;border-radius:6px;border:2px solid #D1D5DB;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px;transition:border-color .2s,background .2s;background:white}
+.word-item.selected .word-item-check{background:var(--primary);border-color:var(--primary);color:white}
+.word-item-text{flex:1}
+.word-en{font-weight:800;font-size:15px;color:var(--text)}
+.word-ua{font-weight:600;font-size:13px;color:var(--text-light);margin-top:1px}
+.word-difficulty{font-size:11px;font-weight:700;padding:3px 8px;border-radius:50px}
+.diff-new{background:#E0F2FE;color:#0369A1}
+.diff-easy{background:#DCFCE7;color:#15803D}
+.diff-medium{background:#FEF9C3;color:#A16207}
+.diff-hard{background:#FEE2E2;color:#B91C1C}
+.word-actions{display:flex;gap:4px;flex-shrink:0}
+.icon-btn{background:none;border:none;font-size:18px;cursor:pointer;padding:4px;border-radius:8px;line-height:1;transition:background .2s;opacity:.6}
+.icon-btn:hover{background:rgba(0,0,0,.08);opacity:1}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text-muted)}
+.empty-state .empty-icon{font-size:56px;margin-bottom:12px}
+.empty-state p{font-weight:700;font-size:16px}
+.dict-footer{margin-top:16px;padding-top:16px;border-top:2px solid #F3F4F6;display:flex;gap:10px;flex-wrap:wrap}
+/* Forms */
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-weight:800;font-size:14px;color:var(--text);margin-bottom:6px}
+.form-input{width:100%;padding:12px 16px;border:2px solid #E5E7EB;border-radius:14px;font-family:inherit;font-size:16px;font-weight:600;outline:none;transition:border-color .2s;color:var(--text)}
+.form-input:focus{border-color:var(--primary)}
+/* Study setup */
+.direction-choice{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.dir-btn{padding:16px;border:3px solid #E5E7EB;border-radius:var(--radius-sm);background:white;cursor:pointer;font-family:inherit;text-align:center;transition:border-color .2s,background .2s,transform .15s}
+.dir-btn:hover{border-color:var(--primary-light);transform:scale(1.02)}
+.dir-btn.selected{border-color:var(--primary);background:#EDE9FE}
+.dir-btn .dir-icon{font-size:28px;margin-bottom:6px}
+.dir-btn .dir-label{font-size:13px;font-weight:800;color:var(--text)}
+.dir-btn .dir-sub{font-size:11px;color:var(--text-muted);font-weight:600}
+.word-count-info{background:#F3F4F6;border-radius:var(--radius-sm);padding:16px;margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.wci-icon{font-size:28px}
+.wci-text .wci-num{font-size:20px;font-weight:900;color:var(--primary)}
+.wci-text .wci-label{font-size:13px;font-weight:600;color:var(--text-light)}
+/* Study */
+.study-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.study-info{text-align:center}
+.study-count{font-size:16px;font-weight:800;color:var(--text)}
+.study-remaining{font-size:12px;font-weight:600;color:var(--text-muted)}
+.progress-bar{height:10px;background:#E5E7EB;border-radius:5px;overflow:hidden;margin-bottom:24px}
+.progress-fill{height:100%;background:linear-gradient(90deg,#7C3AED,#EC4899);border-radius:5px;transition:width .5s ease}
+/* Flashcard */
+.flashcard-wrap{perspective:1200px;height:260px;margin-bottom:24px;cursor:pointer}
+.flashcard{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.flashcard.flipped{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--radius);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center;box-shadow:var(--shadow-lg)}
+.fc-front{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white}
+.fc-back{background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);color:white;transform:rotateY(180deg)}
+.fc-lang-tag{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;opacity:.7;margin-bottom:16px}
+.fc-word{font-size:36px;font-weight:900;line-height:1.2;word-break:break-word}
+.fc-tip{font-size:12px;opacity:.7;margin-top:16px;font-weight:600}
+/* Study buttons */
+.study-btns{display:flex;flex-direction:column;gap:10px}
+.study-btns-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.study-btn{padding:16px;border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:16px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.study-btn:hover{transform:translateY(-2px)}
+.study-btn:active{transform:translateY(0)}
+.btn-know{background:linear-gradient(135deg,#10B981,#059669);color:white;box-shadow:0 4px 16px rgba(16,185,129,.4)}
+.btn-know:hover{box-shadow:0 8px 24px rgba(16,185,129,.5)}
+.btn-unknown{background:linear-gradient(135deg,#EF4444,#DC2626);color:white;box-shadow:0 4px 16px rgba(239,68,68,.4)}
+.btn-unknown:hover{box-shadow:0 8px 24px rgba(239,68,68,.5)}
+.btn-flip{background:linear-gradient(135deg,#F59E0B,#D97706);color:white;box-shadow:0 4px 16px rgba(245,158,11,.4);width:100%}
+.btn-flip:hover{box-shadow:0 8px 24px rgba(245,158,11,.5)}
+.btn-quit{background:none;border:2px solid #E5E7EB;color:var(--text-light);font-size:13px;width:100%;padding:10px}
+.btn-quit:hover{background:#F3F4F6}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.card-shake{animation:shake .4s ease}
+@keyframes successPulse{0%{transform:scale(1)}30%{transform:scale(1.04)}100%{transform:scale(1)}}
+.card-success{animation:successPulse .3s ease}
+/* Complete */
+.complete-hero{text-align:center;padding:12px 0 24px}
+.complete-emoji{font-size:72px;display:block;animation:heroEntrance .6s cubic-bezier(.68,-.55,.265,1.55);margin-bottom:8px}
+@keyframes heroEntrance{from{transform:scale(0) rotate(-20deg);opacity:0}to{transform:scale(1) rotate(0deg);opacity:1}}
+.complete-title{font-size:26px;font-weight:900;color:var(--text);margin-bottom:4px}
+.complete-subtitle{font-size:15px;color:var(--text-light);font-weight:600}
+.stars{display:flex;justify-content:center;gap:8px;margin:20px 0}
+.star{font-size:48px;animation:starPop .4s cubic-bezier(.68,-.55,.265,1.55) both;filter:grayscale(1);opacity:.3}
+.star.lit{filter:grayscale(0);opacity:1;animation:starPop .4s cubic-bezier(.68,-.55,.265,1.55) both,starShine 2s ease infinite .5s}
+.star:nth-child(1){animation-delay:.2s}
+.star:nth-child(2){animation-delay:.4s}
+.star:nth-child(3){animation-delay:.6s}
+@keyframes starPop{from{transform:scale(0) rotate(-30deg)}to{transform:scale(1) rotate(0deg)}}
+@keyframes starShine{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.result-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.result-item{background:#F9FAFB;border-radius:14px;padding:14px 10px;text-align:center}
+.result-item .ri-num{font-size:24px;font-weight:900;color:var(--primary)}
+.result-item .ri-label{font-size:11px;font-weight:700;color:var(--text-muted);margin-top:2px}
+.xp-gained{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#7C3AED,#EC4899);color:white;border-radius:50px;padding:8px 20px;font-size:15px;font-weight:800;margin-bottom:20px;animation:xpPulse .5s ease .8s both}
+@keyframes xpPulse{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+.achievements-earned{background:linear-gradient(135deg,#FFF7ED,#FEF3C7);border:2px solid #FDE68A;border-radius:var(--radius-sm);padding:14px;margin-bottom:16px}
+.achievements-earned h4{font-size:13px;font-weight:800;color:#92400E;margin-bottom:10px}
+.achievement-badge{display:flex;align-items:center;gap:10px;padding:8px 0}
+.achievement-badge .ab-icon{font-size:28px}
+.achievement-badge .ab-info .ab-name{font-weight:800;font-size:14px;color:var(--text)}
+.achievement-badge .ab-info .ab-desc{font-size:12px;color:var(--text-muted);font-weight:600}
+/* Stats */
+.stats-hero{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px}
+.stat-box{background:#F9FAFB;border-radius:var(--radius-sm);padding:16px;text-align:center}
+.stat-box .sb-num{font-size:28px;font-weight:900;color:var(--primary)}
+.stat-box .sb-label{font-size:12px;font-weight:700;color:var(--text-muted);margin-top:4px}
+.stat-box .sb-icon{font-size:22px;margin-bottom:4px}
+.stats-section-title{font-size:16px;font-weight:800;color:var(--text);margin:20px 0 12px}
+.sessions-list{display:flex;flex-direction:column;gap:8px}
+.session-item{display:flex;align-items:center;gap:12px;background:#F9FAFB;border-radius:14px;padding:12px 14px}
+.session-icon{font-size:24px}
+.session-info{flex:1}
+.session-date{font-size:13px;font-weight:700;color:var(--text)}
+.session-meta{font-size:12px;color:var(--text-muted);font-weight:600}
+.session-score{font-size:14px;font-weight:900;color:var(--primary)}
+/* Achievements */
+.achievements-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ach-card{background:#F9FAFB;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px;border:2px solid transparent}
+.ach-card.earned{background:#FFFBEB;border-color:#FDE68A}
+.ach-card.locked{opacity:.45;filter:grayscale(1)}
+.ach-icon{font-size:28px}
+.ach-name{font-size:13px;font-weight:800;color:var(--text)}
+.ach-desc{font-size:11px;color:var(--text-muted);font-weight:600}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border:none;border-radius:50px;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s,opacity .2s;text-decoration:none}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none !important}
+.btn-primary{background:linear-gradient(135deg,#7C3AED,#A78BFA);color:white;box-shadow:0 4px 16px rgba(124,58,237,.35)}
+.btn-primary:hover{box-shadow:0 8px 24px rgba(124,58,237,.5)}
+.btn-success{background:linear-gradient(135deg,#10B981,#059669);color:white;box-shadow:0 4px 16px rgba(16,185,129,.35)}
+.btn-outline{background:white;border:2px solid #E5E7EB;color:var(--text)}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+.btn-danger{background:linear-gradient(135deg,#EF4444,#DC2626);color:white}
+.btn-sm{padding:8px 16px;font-size:13px}
+.btn-block{width:100%}
+/* Helpers */
+.text-center{text-align:center}
+.mt-8{margin-top:8px}
+.flex-1{flex:1}
+@media(max-width:400px){
+  body{padding:10px}
+  .card{padding:20px}
+  .fc-word{font-size:28px}
+  .avatar-grid{grid-template-columns:repeat(5,1fr)}
+}
+</style>
 </head>
 <body>
-    <div id="app"></div>
-    <canvas id="confetti-canvas"></canvas>
-    <div id="toast-container"></div>
-    <script src="js/config.js?v=1.4"></script>
-    <script src="js/app.js?v=1.4"></script>
+<div id="app"></div>
+<canvas id="confetti-canvas"></canvas>
+<div id="toast-container"></div>
+<script>
+// ── CONFIG ──
+const GH_OWNER = 'vaadim123';
+const GH_REPO  = 'english';
+const GH_BRANCH = 'main';
+const GH_DATA_PATH = 'data/profiles.json';
+const _A = ['Z2hwXzJDVEt0WGlJUVBl','UTlENnIyOEZNS2RITEJW','ekNTZjI0MWZDTQ=='];
+const _GH_T = atob(_A.join(''));
+
+// ── CONSTANTS ──
+const AVATARS = ['🦁','🐯','🦊','🐺','🐻','🦅','🐧','🦋','🐉','🦄','⭐','🚀','🎯','🌈','🎸','🏆','👦','👧','🧒','👨','👩','🧑'];
+const COLORS  = ['#FF6B6B','#FF8E53','#FFC107','#4CAF50','#2196F3','#9C27B0','#E91E63','#00BCD4','#FF5722','#607D8B','#8BC34A','#795548'];
+const ACHIEVEMENTS = [
+  {id:'first_word',  icon:'📝',name:'Перше слово',   desc:'Додав перше слово'},
+  {id:'words_10',    icon:'📚',name:'Початківець',   desc:'10 слів у словнику'},
+  {id:'words_25',    icon:'🎓',name:'Учень',          desc:'25 слів у словнику'},
+  {id:'words_50',    icon:'🏆',name:'Знавець',        desc:'50 слів у словнику'},
+  {id:'words_100',   icon:'👑',name:'Ерудит',         desc:'100 слів у словнику'},
+  {id:'first_session',icon:'🃏',name:'Перший урок',  desc:'Завершив перше заняття'},
+  {id:'sessions_5',  icon:'🌟',name:'Старанний',      desc:'5 занять завершено'},
+  {id:'sessions_20', icon:'💎',name:'Посидючий',      desc:'20 занять завершено'},
+  {id:'perfect',     icon:'🔥',name:'Відмінник',      desc:'Всі слова з першого разу!'},
+  {id:'streak_3',    icon:'🎯',name:'3 дні поспіль', desc:'Займався 3 дні поспіль'},
+  {id:'streak_7',    icon:'🌈',name:'Тиждень',        desc:'7 днів поспіль'},
+  {id:'streak_30',   icon:'🎖️',name:'Місяць',        desc:'30 днів поспіль'},
+];
+const ENCOURAGEMENTS = {
+  high:['🌟 Ти справжня зірка!','🏆 Чудовий результат!','🚀 Ти молодець!','💪 Відмінна робота!'],
+  mid: ['👏 Непоганий результат!','📈 Ти прогресуєш!','💡 Ще трошки практики!','😊 Гарна робота!'],
+  low: ['💪 Не здавайся!','📚 Практика — шлях до успіху!','🔄 Спробуй ще раз!','⭐ Ти впораєшся!'],
+};
+
+// ── STATE ──
+const S = {
+  profiles:[], profileId:null, view:'profiles', params:{},
+  session:null, dictSearch:'', dictSelected:new Set(),
+  syncStatus:'idle', _confettiDone:false,
+};
+
+// ── GITHUB STORAGE ──
+const GH = {
+  token(){ return localStorage.getItem('wf_gh_token') || _GH_T.trim(); },
+  setToken(t){ localStorage.setItem('wf_gh_token', t.trim()); },
+  clearToken(){ localStorage.removeItem('wf_gh_token'); },
+  rawUrl(){ return `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/${GH_DATA_PATH}?t=${Date.now()}`; },
+  apiUrl(){ return `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_DATA_PATH}`; },
+  headers(){
+    const h = {'Accept':'application/vnd.github.v3+json'};
+    const t = this.token();
+    if(t) h['Authorization'] = `token ${t}`;
+    return h;
+  },
+  async pull(){
+    try{
+      const r = await fetch(this.rawUrl());
+      if(!r.ok) return null;
+      return await r.json();
+    }catch{ return null; }
+  },
+  async push(){
+    const token = this.token();
+    if(!token) return false;
+    S.syncStatus = 'syncing'; updateSyncBadge();
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(S.profiles, null, 2))));
+    let sha = null;
+    try{ const r = await fetch(this.apiUrl(),{headers:this.headers()}); if(r.ok) sha=(await r.json()).sha; }catch{}
+    try{
+      const body = {message:`WordFlash sync ${new Date().toISOString().slice(0,10)}`, content, branch:GH_BRANCH};
+      if(sha) body.sha = sha;
+      const r = await fetch(this.apiUrl(),{method:'PUT',headers:{...this.headers(),'Content-Type':'application/json'},body:JSON.stringify(body)});
+      S.syncStatus = r.ok ? 'ok' : 'error'; updateSyncBadge();
+      return r.ok;
+    }catch{ S.syncStatus='error'; updateSyncBadge(); return false; }
+  },
+};
+
+let _syncTimer = null;
+function schedulePush(){
+  if(!GH.token()) return;
+  clearTimeout(_syncTimer);
+  _syncTimer = setTimeout(async()=>{
+    const ok = await GH.push();
+    showToast(ok ? '☁️ Дані збережено!' : '⚠️ Помилка синхронізації');
+  }, 4000);
+}
+function updateSyncBadge(){
+  const b = document.getElementById('sync-badge');
+  if(b) b.textContent = {idle:'',syncing:'🔄',ok:'☁️',error:'⚠️'}[S.syncStatus]||'';
+}
+
+// ── STORAGE ──
+const DB_KEY = 'wordflash_v2';
+async function loadData(){
+  try{ const r=localStorage.getItem(DB_KEY); if(r) S.profiles=JSON.parse(r); }catch{ S.profiles=[]; }
+  const gh = await GH.pull();
+  if(gh && Array.isArray(gh)){
+    S.profiles = gh;
+    localStorage.setItem(DB_KEY, JSON.stringify(gh));
+    render();
+  }
+}
+function saveData(){
+  localStorage.setItem(DB_KEY, JSON.stringify(S.profiles));
+  schedulePush();
+}
+
+// ── HELPERS ──
+const uid = ()=> Math.random().toString(36).substr(2,9)+Date.now().toString(36);
+const shuffle = a=>{ const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; };
+const today = ()=> new Date().toISOString().split('T')[0];
+const pick  = a=> a[Math.floor(Math.random()*a.length)];
+const fmtDate = d=> d ? new Date(d).toLocaleDateString('uk-UA',{day:'numeric',month:'short',year:'numeric'}) : '—';
+const fmtDur  = s=> s<60 ? `${s} сек` : `${Math.floor(s/60)} хв ${s%60} сек`;
+const esc = s=> String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const getProfile = ()=> S.profiles.find(p=>p.id===S.profileId)||null;
+const getWord    = id=>{ const p=getProfile(); return p?p.words.find(w=>w.id===id):null; };
+const getLevel   = xp=> Math.floor((xp||0)/50)+1;
+const getXpInLevel = xp=> (xp||0)%50;
+
+// ── PROFILE OPS ──
+function createProfile(name,avatar,color){
+  const p={id:uid(),name,avatar,color,words:[],sessions:[],streak:0,bestStreak:0,lastStudied:null,achievements:[],xp:0};
+  S.profiles.push(p); saveData(); return p;
+}
+function deleteProfile(id){
+  if(!confirm('Видалити профіль? Всі слова та статистика будуть втрачені.')) return;
+  S.profiles=S.profiles.filter(p=>p.id!==id); saveData(); render();
+}
+function addXP(p,n){
+  const prev=getLevel(p.xp); p.xp=(p.xp||0)+n;
+  if(getLevel(p.xp)>prev) showToast(`🎉 Рівень ${getLevel(p.xp)}! Вітаємо!`);
+}
+function updateStreak(p){
+  const t=today();
+  if(!p.lastStudied){ p.streak=1; }
+  else if(p.lastStudied===t){ return; }
+  else{ const d=Math.round((new Date(t)-new Date(p.lastStudied))/86400000); p.streak=d===1?p.streak+1:1; }
+  p.bestStreak=Math.max(p.bestStreak||0,p.streak); p.lastStudied=t;
+}
+function checkAchievements(p){
+  const earned=[]; const give=id=>{ if(!p.achievements.includes(id)){p.achievements.push(id);earned.push(id);} };
+  const wc=p.words.length, sc=p.sessions.length;
+  if(wc>=1) give('first_word'); if(wc>=10) give('words_10'); if(wc>=25) give('words_25');
+  if(wc>=50) give('words_50'); if(wc>=100) give('words_100');
+  if(sc>=1) give('first_session'); if(sc>=5) give('sessions_5'); if(sc>=20) give('sessions_20');
+  if(p.streak>=3) give('streak_3'); if(p.streak>=7) give('streak_7'); if(p.streak>=30) give('streak_30');
+  if(sc>0){const l=p.sessions[sc-1]; if(l&&l.knownFirst===l.totalWords&&l.totalWords>0) give('perfect');}
+  return earned;
+}
+
+// ── WORD OPS ──
+function getDifficulty(w){
+  const t=w.timesKnown+w.timesUnknown; if(t===0) return 'new';
+  const r=w.timesKnown/t; return r>=.8?'easy':r>=.5?'medium':'hard';
+}
+function diffBadge(w){
+  const m={new:['diff-new','🆕'],easy:['diff-easy','😊'],medium:['diff-medium','🤔'],hard:['diff-hard','😅']};
+  const [c,i]=m[getDifficulty(w)]; return `<span class="word-difficulty ${c}">${i}</span>`;
+}
+
+// ── SESSION ──
+function startSession(ids,dir){
+  const p=getProfile(); if(!p||ids.length===0) return;
+  const words=ids.map(id=>p.words.find(w=>w.id===id)).filter(Boolean);
+  S.session={allWords:words,queue:shuffle([...words]),completed:[],direction:dir||'en-ua',isFlipped:false,startTime:Date.now(),knownFirst:0,attempts:{}};
+  go('study');
+}
+const currentCard = ()=> S.session&&S.session.queue.length>0 ? S.session.queue[0] : null;
+
+function actionKnow(){
+  const s=S.session, w=currentCard(); if(!w) return;
+  w.timesStudied++; w.timesKnown++; s.completed.push(w);
+  if(!s.attempts[w.id]) s.knownFirst++;
+  addXP(getProfile(),10); saveData();
+  s.queue.shift(); s.isFlipped=false;
+  const wrap=document.querySelector('.flashcard-wrap');
+  if(wrap){ wrap.classList.add('card-success'); setTimeout(()=>wrap&&wrap.classList.remove('card-success'),300); }
+  s.queue.length===0 ? finishSession() : updateStudyCard();
+}
+function actionUnknown(){
+  const s=S.session, w=currentCard(); if(!w) return;
+  w.timesStudied++; w.timesUnknown++; s.attempts[w.id]=(s.attempts[w.id]||0)+1;
+  addXP(getProfile(),2); saveData();
+  s.queue.shift(); s.queue.push(w); s.isFlipped=false;
+  const fc=document.querySelector('.flashcard');
+  if(fc){ fc.classList.remove('flipped'); const wrap=document.querySelector('.flashcard-wrap'); if(wrap){wrap.classList.add('card-shake');setTimeout(()=>wrap&&wrap.classList.remove('card-shake'),500);} }
+  setTimeout(updateStudyCard,50);
+}
+function actionFlip(){
+  const s=S.session; s.isFlipped=!s.isFlipped;
+  const fc=document.querySelector('.flashcard'); if(fc) fc.classList.toggle('flipped',s.isFlipped);
+  const btn=document.querySelector('[data-action="flip"]'); if(btn) btn.textContent=s.isFlipped?'🙈 Сховати':'👁️ Подивитись переклад';
+}
+function updateStudyCard(){
+  const s=S.session, w=currentCard(); if(!w) return;
+  const done=s.completed.length, total=s.allWords.length;
+  const pc=document.querySelector('.study-count'); if(pc) pc.textContent=`✅ ${done} / ${total} слів`;
+  const pb=document.querySelector('.progress-fill'); if(pb) pb.style.width=Math.round(done/total*100)+'%';
+  const pr=document.querySelector('.study-remaining'); if(pr) pr.textContent=`🔄 В черзі: ${s.queue.length}`;
+  const front=document.querySelector('.fc-front .fc-word'), back=document.querySelector('.fc-back .fc-word');
+  const ftag=document.querySelector('.fc-front .fc-lang-tag'), btag=document.querySelector('.fc-back .fc-lang-tag');
+  if(s.direction==='en-ua'){
+    if(front) front.textContent=w.english; if(back) back.textContent=w.ukrainian;
+    if(ftag) ftag.textContent='🇬🇧 English'; if(btag) btag.textContent='🇺🇦 Українська';
+  } else {
+    if(front) front.textContent=w.ukrainian; if(back) back.textContent=w.english;
+    if(ftag) ftag.textContent='🇺🇦 Українська'; if(btag) btag.textContent='🇬🇧 English';
+  }
+  const fc=document.querySelector('.flashcard'); if(fc) fc.classList.remove('flipped');
+  const btn=document.querySelector('[data-action="flip"]'); if(btn) btn.textContent='👁️ Подивитись переклад';
+}
+function finishSession(){
+  const s=S.session, p=getProfile(); if(!p) return;
+  const session={id:uid(),date:today(),direction:s.direction,totalWords:s.allWords.length,knownFirst:s.knownFirst,duration:Math.round((Date.now()-s.startTime)/1000)};
+  p.sessions.push(session); updateStreak(p); const newAch=checkAchievements(p); addXP(p,50); saveData();
+  S.params={session,newAch}; go('complete');
+}
+
+// ── NAVIGATION ──
+function go(view,params={}){ S.view=view; S.params=params; window.scrollTo({top:0,behavior:'smooth'}); render(); }
+function goBack(){
+  const m={newProfile:'profiles',menu:'profiles',dictionary:'menu',addWord:'dictionary',editWord:'dictionary',studySetup:'menu',study:'menu',complete:'menu',stats:'menu',achievements:'menu',settings:'menu'};
+  go(m[S.view]||'profiles');
+}
+
+// ── VIEWS ──
+function viewProfiles(){
+  const cards=S.profiles.map(p=>`
+  <div class="profile-card" data-action="selectProfile" data-id="${p.id}" style="border-top:6px solid ${p.color}">
+    <button class="profile-delete" data-action="deleteProfile" data-id="${p.id}">✕</button>
+    <span class="profile-avatar">${p.avatar}</span>
+    <div class="profile-name">${esc(p.name)}</div>
+    <div class="profile-meta">📚 ${p.words.length} слів · 🃏 ${p.sessions.length} занять</div>
+    ${p.streak>1?`<div class="profile-meta">🔥 ${p.streak} днів поспіль</div>`:''}
+  </div>`).join('');
+  return `
+  <div class="app-logo">
+    <span class="logo-icon">🌟</span>
+    <h1>WordFlash</h1>
+    <p>Вивчай англійську легко та весело!</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v2.0</p>
+  </div>
+  <div class="card">
+    <div class="section-title">Оберіть профіль</div>
+    <div class="profiles-grid">
+      ${cards}
+      <div class="profile-card profile-card-new" data-action="newProfile">
+        <span class="plus-icon">➕</span>
+        <span class="new-label">Новий профіль</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function viewNewProfile(){
+  const sa=S.params.avatar||AVATARS[0], sc=S.params.color||COLORS[0];
+  return `
+  <button class="back-btn" data-action="back">← Назад</button>
+  <div class="card">
+    <div class="section-title">Новий профіль</div>
+    <div style="text-align:center;font-size:64px;margin-bottom:8px">${sa}</div>
+    <div style="width:40px;height:40px;border-radius:50%;background:${sc};margin:0 auto 20px;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,.2)"></div>
+    <div class="form-group">
+      <label class="form-label">Ім'я</label>
+      <input class="form-input" id="profile-name" type="text" placeholder="Наприклад: Вадим" maxlength="20">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Аватар</label>
+      <div class="avatar-grid">${AVATARS.map(a=>`<div class="avatar-option ${a===sa?'selected':''}" data-action="pickAvatar" data-val="${a}">${a}</div>`).join('')}</div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Колір</label>
+      <div class="color-grid">${COLORS.map(c=>`<div class="color-option ${c===sc?'selected':''}" data-action="pickColor" data-val="${c}" style="background:${c}"></div>`).join('')}</div>
+    </div>
+    <button class="btn btn-primary btn-block" data-action="createProfile">🚀 Створити профіль</button>
+  </div>`;
+}
+
+function viewMenu(){
+  const p=getProfile(); if(!p){ go('profiles'); return ''; }
+  const lvl=getLevel(p.xp), xpPct=Math.round(getXpInLevel(p.xp)/50*100);
+  return `
+  <button class="back-btn" data-action="back">← Профілі</button>
+  <div class="card">
+    <div class="profile-header">
+      <span class="ph-avatar">${p.avatar}</span>
+      <div class="ph-info">
+        <div class="ph-name">${esc(p.name)}</div>
+        <div class="ph-level">⭐ Рівень ${lvl} · ${p.xp||0} XP</div>
+        <div class="xp-bar"><div class="xp-bar-fill" style="width:${xpPct}%"></div></div>
+      </div>
+      <div class="streak-badge">
+        <span class="s-icon">🔥</span>
+        <span class="s-num">${p.streak||0}</span>
+        <span class="s-label">днів</span>
+      </div>
+    </div>
+    <div class="menu-grid">
+      <button class="menu-btn primary-btn" data-action="goStudySetup">
+        <span class="mb-icon">🃏</span>
+        <span class="mb-label">Почати навчання</span>
+        <span class="mb-sub">${p.words.length>0?`${p.words.length} слів у словнику`:'Спочатку додай слова'}</span>
+      </button>
+      <button class="menu-btn" data-action="goDictionary">
+        <span class="mb-icon">📚</span><span class="mb-label">Словник</span>
+        <span class="mb-sub">${p.words.length} слів</span>
+      </button>
+      <button class="menu-btn" data-action="goStats">
+        <span class="mb-icon">📊</span><span class="mb-label">Статистика</span>
+        <span class="mb-sub">${p.sessions.length} занять</span>
+      </button>
+      <button class="menu-btn" data-action="goAchievements">
+        <span class="mb-icon">🏆</span><span class="mb-label">Досягнення</span>
+        <span class="mb-sub">${p.achievements.length} / ${ACHIEVEMENTS.length}</span>
+      </button>
+      <button class="menu-btn" data-action="goSettings" style="grid-column:1/-1">
+        <span class="mb-icon">⚙️ <span id="sync-badge" style="font-size:18px"></span></span>
+        <span class="mb-label">Налаштування та синхронізація</span>
+        <span class="mb-sub">${GH.token()?'☁️ GitHub sync увімкнено':'💾 Локальне збереження'}</span>
+      </button>
+    </div>
+  </div>`;
+}
+
+function viewDictionary(){
+  const p=getProfile(); if(!p){ go('profiles'); return ''; }
+  const q=S.dictSearch.toLowerCase();
+  const filtered=p.words.filter(w=>!q||w.english.toLowerCase().includes(q)||w.ukrainian.toLowerCase().includes(q));
+  const selCount=S.dictSelected.size;
+  const rows=filtered.length===0
+    ? `<div class="empty-state"><div class="empty-icon">📭</div><p>${p.words.length===0?'Словник порожній':'Нічого не знайдено'}</p><small>${p.words.length===0?'Додай перше слово!':'Спробуй інший запит'}</small></div>`
+    : filtered.map(w=>`
+      <div class="word-item ${S.dictSelected.has(w.id)?'selected':''}" data-action="toggleWord" data-id="${w.id}">
+        <div class="word-item-check">${S.dictSelected.has(w.id)?'✓':''}</div>
+        <div class="word-item-text"><div class="word-en">${esc(w.english)}</div><div class="word-ua">${esc(w.ukrainian)}</div></div>
+        ${diffBadge(w)}
+        <div class="word-actions">
+          <button class="icon-btn" data-action="editWord" data-id="${w.id}">✏️</button>
+          <button class="icon-btn" data-action="deleteWord" data-id="${w.id}">🗑️</button>
+        </div>
+      </div>`).join('');
+  const hard=p.words.filter(w=>getDifficulty(w)==='hard').length;
+  const easy=p.words.filter(w=>getDifficulty(w)==='easy').length;
+  return `
+  <button class="back-btn" data-action="back">← Меню</button>
+  <div class="card">
+    <div class="section-title">📚 Словник</div>
+    <div class="dict-stats">
+      <div class="dict-stat">📝 Всього: <strong>${p.words.length}</strong></div>
+      <div class="dict-stat">😊 Легких: <strong>${easy}</strong></div>
+      <div class="dict-stat">😅 Важких: <strong>${hard}</strong></div>
+    </div>
+    <div class="dict-toolbar">
+      <input class="search-input flex-1" type="search" id="dict-search" placeholder="🔍 Пошук..." value="${esc(S.dictSearch)}">
+      <button class="btn btn-primary btn-sm" data-action="addWord">➕ Додати</button>
+    </div>
+    <div style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <button class="btn btn-outline btn-sm" data-action="selectAll">☑ Всі</button>
+      <button class="btn btn-outline btn-sm" data-action="deselectAll">☐ Зняти</button>
+      ${selCount>0?`<span style="font-size:13px;font-weight:700;color:var(--primary)">Обрано: ${selCount}</span>`:''}
+    </div>
+    <div class="word-list">${rows}</div>
+    <div class="dict-footer">
+      <button class="btn btn-success flex-1" data-action="studySelected" ${selCount===0&&p.words.length===0?'disabled':''}>
+        🃏 ${selCount>0?`Вчити обрані (${selCount})`:'Вчити всі слова'}
+      </button>
+    </div>
+  </div>`;
+}
+
+function viewAddWord(){
+  return `
+  <button class="back-btn" data-action="back">← Словник</button>
+  <div class="card">
+    <div class="section-title">➕ Нове слово</div>
+    <div class="form-group">
+      <label class="form-label">🇬🇧 Англійською</label>
+      <input class="form-input" id="word-en" type="text" placeholder="apple" autocomplete="off" autofocus>
+    </div>
+    <div class="form-group">
+      <label class="form-label">🇺🇦 Українською</label>
+      <input class="form-input" id="word-ua" type="text" placeholder="яблуко" autocomplete="off">
+    </div>
+    <div style="display:flex;gap:10px;margin-top:8px">
+      <button class="btn btn-outline flex-1" data-action="back">Скасувати</button>
+      <button class="btn btn-primary flex-1" data-action="saveWord">💾 Зберегти</button>
+    </div>
+    <div style="margin-top:20px;padding-top:16px;border-top:2px solid #F3F4F6">
+      <div class="form-label" style="margin-bottom:10px">📋 Або додати декілька одразу:</div>
+      <div style="font-size:13px;color:var(--text-light);font-weight:600;margin-bottom:8px">По одній парі на рядок: <code style="background:#F3F4F6;padding:2px 6px;border-radius:4px">apple - яблуко</code></div>
+      <textarea class="form-input" id="bulk-input" rows="5" placeholder="apple - яблуко&#10;dog - собака&#10;cat - кіт"></textarea>
+      <button class="btn btn-outline btn-block mt-8" data-action="saveBulk">📥 Додати всі</button>
+    </div>
+  </div>`;
+}
+
+function viewEditWord(){
+  const w=getWord(S.params.wordId); if(!w){ go('dictionary'); return ''; }
+  return `
+  <button class="back-btn" data-action="back">← Словник</button>
+  <div class="card">
+    <div class="section-title">✏️ Редагувати слово</div>
+    <div class="form-group">
+      <label class="form-label">🇬🇧 Англійською</label>
+      <input class="form-input" id="word-en" type="text" value="${esc(w.english)}" autofocus>
+    </div>
+    <div class="form-group">
+      <label class="form-label">🇺🇦 Українською</label>
+      <input class="form-input" id="word-ua" type="text" value="${esc(w.ukrainian)}">
+    </div>
+    <div style="background:#F9FAFB;border-radius:14px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--text-light);font-weight:600">
+      📈 Показано ${w.timesStudied||0} разів · ✅ знав ${w.timesKnown||0} · ❌ не знав ${w.timesUnknown||0}
+    </div>
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-outline flex-1" data-action="back">Скасувати</button>
+      <button class="btn btn-primary flex-1" data-action="updateWord" data-id="${w.id}">💾 Зберегти</button>
+    </div>
+  </div>`;
+}
+
+function viewStudySetup(){
+  const p=getProfile(); if(!p){ go('profiles'); return ''; }
+  const selCount=S.dictSelected.size, wordCount=selCount>0?selCount:p.words.length;
+  const dir=S.params.direction||'en-ua';
+  if(p.words.length===0) return `
+    <button class="back-btn" data-action="back">← Меню</button>
+    <div class="card text-center">
+      <div style="font-size:64px;margin-bottom:16px">📭</div>
+      <div class="section-title">Словник порожній</div>
+      <p style="color:var(--text-light);font-weight:600;margin-bottom:20px">Спочатку додай слова!</p>
+      <button class="btn btn-primary btn-block" data-action="goDictionary">📚 Відкрити словник</button>
+    </div>`;
+  return `
+  <button class="back-btn" data-action="back">← Меню</button>
+  <div class="card">
+    <div class="section-title">🃏 Налаштування заняття</div>
+    <div class="form-label" style="margin-bottom:10px">Напрямок перекладу:</div>
+    <div class="direction-choice">
+      <button class="dir-btn ${dir==='en-ua'?'selected':''}" data-action="setDir" data-dir="en-ua">
+        <div class="dir-icon">🇬🇧➡️🇺🇦</div><div class="dir-label">English → Українська</div><div class="dir-sub">Бачиш англійське слово</div>
+      </button>
+      <button class="dir-btn ${dir==='ua-en'?'selected':''}" data-action="setDir" data-dir="ua-en">
+        <div class="dir-icon">🇺🇦➡️🇬🇧</div><div class="dir-label">Українська → English</div><div class="dir-sub">Бачиш українське слово</div>
+      </button>
+    </div>
+    <div class="word-count-info">
+      <span class="wci-icon">📝</span>
+      <div class="wci-text">
+        <div class="wci-num">${wordCount} слів</div>
+        <div class="wci-label">${selCount>0?'вибрані в словнику':'всього в словнику'}</div>
+      </div>
+    </div>
+    ${selCount>0
+      ? `<div style="display:flex;gap:10px;margin-bottom:16px"><button class="btn btn-success flex-1" data-action="startSelected">🎯 Вчити обрані (${selCount})</button><button class="btn btn-outline" data-action="startAll">Всі ${p.words.length}</button></div>`
+      : `<button class="btn btn-primary btn-block" style="margin-bottom:12px" data-action="startAll">🚀 Почати! (${p.words.length} слів)</button><button class="btn btn-outline btn-block btn-sm" data-action="goDictionary">☑ Вибрати конкретні слова</button>`}
+  </div>`;
+}
+
+function viewStudy(){
+  const s=S.session; if(!s){ go('menu'); return ''; }
+  const w=currentCard(); if(!w){ finishSession(); return ''; }
+  const done=s.completed.length, total=s.allWords.length;
+  const fw=s.direction==='en-ua'?w.english:w.ukrainian, bw=s.direction==='en-ua'?w.ukrainian:w.english;
+  const fl=s.direction==='en-ua'?'🇬🇧 English':'🇺🇦 Українська', bl=s.direction==='en-ua'?'🇺🇦 Українська':'🇬🇧 English';
+  return `
+  <div class="study-header">
+    <button class="back-btn" style="margin-bottom:0" data-action="quitStudy">← Вийти</button>
+    <div class="study-info">
+      <div class="study-count">✅ ${done} / ${total} слів</div>
+      <div class="study-remaining">🔄 В черзі: ${s.queue.length}</div>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" style="width:${Math.round(done/total*100)}%"></div></div>
+  <div class="flashcard-wrap" data-action="flip">
+    <div class="flashcard">
+      <div class="fc-face fc-front">
+        <div class="fc-lang-tag">${fl}</div>
+        <div class="fc-word">${esc(fw)}</div>
+        <div class="fc-tip">👆 Натисни або кнопку нижче</div>
+      </div>
+      <div class="fc-face fc-back">
+        <div class="fc-lang-tag">${bl}</div>
+        <div class="fc-word">${esc(bw)}</div>
+        <div class="fc-tip">Ти знаєш це слово?</div>
+      </div>
+    </div>
+  </div>
+  <div class="study-btns">
+    <div class="study-btns-row">
+      <button class="study-btn btn-know" data-action="know">✅ Знаю!</button>
+      <button class="study-btn btn-unknown" data-action="unknown">❌ Не знаю</button>
+    </div>
+    <button class="study-btn btn-flip" data-action="flip">👁️ Подивитись переклад</button>
+    <button class="study-btn btn-quit" data-action="quitStudy">⏹ Завершити заняття</button>
+  </div>`;
+}
+
+function viewComplete(){
+  const {session,newAch}=S.params; if(!session){ go('menu'); return ''; }
+  const pct=session.totalWords>0?Math.round(session.knownFirst/session.totalWords*100):0;
+  const stars=pct>=90?3:pct>=60?2:pct>=30?1:0;
+  const emoji=stars===3?'🏆':stars===2?'🌟':stars===1?'😊':'💪';
+  const msg=pick(pct>=80?ENCOURAGEMENTS.high:pct>=50?ENCOURAGEMENTS.mid:ENCOURAGEMENTS.low);
+  const starsHtml=[1,2,3].map(i=>`<span class="star ${i<=stars?'lit':''}">⭐</span>`).join('');
+  const achHtml=newAch&&newAch.length>0
+    ? `<div class="achievements-earned"><h4>🎖️ Нові досягнення!</h4>${newAch.map(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);return a?`<div class="achievement-badge"><span class="ab-icon">${a.icon}</span><div class="ab-info"><div class="ab-name">${a.name}</div><div class="ab-desc">${a.desc}</div></div></div>`:''}).join('')}</div>` : '';
+  return `
+  <div class="card">
+    <div class="complete-hero">
+      <span class="complete-emoji">${emoji}</span>
+      <div class="complete-title">${msg}</div>
+      <div class="complete-subtitle">Заняття завершено · ${session.direction==='en-ua'?'EN → UA':'UA → EN'}</div>
+    </div>
+    <div class="stars">${starsHtml}</div>
+    <div class="result-grid">
+      <div class="result-item"><div class="ri-num">${session.totalWords}</div><div class="ri-label">Карток</div></div>
+      <div class="result-item"><div class="ri-num" style="color:var(--success)">${session.knownFirst}</div><div class="ri-label">З першого разу</div></div>
+      <div class="result-item"><div class="ri-num">${session.totalWords-session.knownFirst}</div><div class="ri-label">Потребують практики</div></div>
+    </div>
+    <div class="result-grid" style="grid-template-columns:1fr 1fr;margin-bottom:16px">
+      <div class="result-item"><div class="ri-num">${pct}%</div><div class="ri-label">Результат</div></div>
+      <div class="result-item"><div class="ri-num">${fmtDur(session.duration)}</div><div class="ri-label">Час заняття</div></div>
+    </div>
+    <div class="text-center" style="margin-bottom:16px"><span class="xp-gained">⚡ +${50+session.knownFirst*10} XP отримано!</span></div>
+    ${achHtml}
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-outline flex-1" data-action="back">← Меню</button>
+      <button class="btn btn-primary flex-1" data-action="studyAgain">🔄 Ще раз</button>
+    </div>
+  </div>`;
+}
+
+function viewStats(){
+  const p=getProfile(); if(!p){ go('profiles'); return ''; }
+  const sc=p.sessions.length;
+  const avgPct=sc>0?Math.round(p.sessions.reduce((a,s)=>a+(s.totalWords>0?s.knownFirst/s.totalWords:0),0)/sc*100):0;
+  const recent=[...p.sessions].reverse().slice(0,8);
+  const sessionRows=recent.length===0
+    ? `<div class="empty-state"><div class="empty-icon">🃏</div><p>Занять ще не було</p></div>`
+    : recent.map(s=>{
+        const pct=s.totalWords>0?Math.round(s.knownFirst/s.totalWords*100):0;
+        return `<div class="session-item">
+          <span class="session-icon">${pct>=80?'🏆':pct>=50?'⭐':'📚'}</span>
+          <div class="session-info">
+            <div class="session-date">${fmtDate(s.date)} · ${s.direction==='en-ua'?'🇬🇧→🇺🇦':'🇺🇦→🇬🇧'}</div>
+            <div class="session-meta">${s.totalWords} карток · ${fmtDur(s.duration||0)}</div>
+          </div>
+          <div class="session-score">${pct}%</div>
+        </div>`;
+      }).join('');
+  const hardWords=p.words.filter(w=>(w.timesUnknown||0)>0).sort((a,b)=>(b.timesUnknown||0)-(a.timesUnknown||0)).slice(0,5);
+  const hardList=hardWords.length===0
+    ? `<p style="color:var(--text-muted);font-size:13px;font-weight:600;text-align:center">Поки немає важких слів 🎉</p>`
+    : hardWords.map(w=>`<div class="word-item" style="pointer-events:none"><div class="word-item-text"><div class="word-en">${esc(w.english)}</div><div class="word-ua">${esc(w.ukrainian)}</div></div>${diffBadge(w)}<span style="font-size:12px;font-weight:700;color:var(--danger)">❌ ${w.timesUnknown}x</span></div>`).join('');
+  return `
+  <button class="back-btn" data-action="back">← Меню</button>
+  <div class="card">
+    <div class="section-title">📊 Статистика</div>
+    <div class="stats-hero">
+      <div class="stat-box"><div class="sb-icon">📚</div><div class="sb-num">${p.words.length}</div><div class="sb-label">Слів у словнику</div></div>
+      <div class="stat-box"><div class="sb-icon">🃏</div><div class="sb-num">${sc}</div><div class="sb-label">Занять</div></div>
+      <div class="stat-box"><div class="sb-icon">🔥</div><div class="sb-num">${p.streak||0}</div><div class="sb-label">Поточна серія</div></div>
+      <div class="stat-box"><div class="sb-icon">🏆</div><div class="sb-num">${p.bestStreak||0}</div><div class="sb-label">Найкраща серія</div></div>
+      <div class="stat-box"><div class="sb-icon">⭐</div><div class="sb-num">${getLevel(p.xp)}</div><div class="sb-label">Рівень</div></div>
+      <div class="stat-box"><div class="sb-icon">💡</div><div class="sb-num">${avgPct}%</div><div class="sb-label">Середній результат</div></div>
+    </div>
+    <div class="stats-section-title">😅 Важкі слова</div>
+    <div class="word-list" style="max-height:200px">${hardList}</div>
+    <div class="stats-section-title">📅 Останні заняття</div>
+    <div class="sessions-list">${sessionRows}</div>
+    <div style="margin-top:16px"><button class="btn btn-outline btn-block btn-sm" data-action="goAchievements">🏆 Переглянути досягнення</button></div>
+  </div>`;
+}
+
+function viewAchievements(){
+  const p=getProfile(); if(!p){ go('profiles'); return ''; }
+  return `
+  <button class="back-btn" data-action="back">← Меню</button>
+  <div class="card">
+    <div class="section-title">🏆 Досягнення</div>
+    <div style="font-size:15px;font-weight:700;color:var(--text-light);margin-bottom:16px">${p.achievements.length} / ${ACHIEVEMENTS.length} отримано</div>
+    <div class="achievements-grid">${ACHIEVEMENTS.map(a=>`
+      <div class="ach-card ${p.achievements.includes(a.id)?'earned':'locked'}">
+        <span class="ach-icon">${a.icon}</span>
+        <div class="ach-name">${a.name}</div>
+        <div class="ach-desc">${a.desc}</div>
+        ${p.achievements.includes(a.id)?'<div style="font-size:11px;color:#92400E;font-weight:700;margin-top:4px">✅ Отримано!</div>':''}
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function viewSettings(){
+  const hasToken=!!GH.token();
+  return `
+  <button class="back-btn" data-action="back">← Меню</button>
+  <div class="card">
+    <div class="section-title">⚙️ Налаштування</div>
+    <div style="background:${hasToken?'#DCFCE7':'#FEF9C3'};border-radius:14px;padding:14px;margin-bottom:20px;font-size:13px;font-weight:700;color:${hasToken?'#15803D':'#92400E'}">
+      ${hasToken?'✅ GitHub sync увімкнено. Дані зберігаються в репозиторії.':'⚠️ Токен не налаштовано. Дані тільки в браузері.'}
+    </div>
+    <div class="form-group">
+      <label class="form-label">🔑 GitHub Personal Access Token</label>
+      <div style="font-size:12px;color:var(--text-muted);font-weight:600;margin-bottom:8px">Зберігається тільки в цьому браузері. Репо: <strong>${GH_OWNER}/${GH_REPO}</strong></div>
+      <input class="form-input" id="gh-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxx" value="${hasToken?'••••••••••••••••':''}">
+    </div>
+    <div style="display:flex;gap:10px;margin-bottom:20px">
+      <button class="btn btn-primary flex-1" data-action="saveGhToken">💾 Зберегти токен</button>
+      ${hasToken?`<button class="btn btn-danger btn-sm" data-action="clearGhToken">🗑️</button>`:''}
+    </div>
+    ${hasToken?`<button class="btn btn-success btn-block" style="margin-bottom:12px" data-action="manualSync">🔄 Синхронізувати зараз</button>`:''}
+    <div style="border-top:2px solid #F3F4F6;padding-top:16px">
+      <div class="section-title" style="font-size:16px;margin-bottom:12px">📦 Резервна копія</div>
+      <button class="btn btn-outline btn-block" data-action="exportData">📥 Скачати дані (JSON)</button>
+      <label class="btn btn-outline btn-block mt-8" style="cursor:pointer;justify-content:center">
+        📤 Відновити з файлу
+        <input type="file" id="import-file" accept=".json" style="display:none">
+      </label>
+    </div>
+  </div>`;
+}
+
+// ── RENDER ──
+function render(){
+  const el=document.getElementById('app'); if(!el) return;
+  const views={profiles:viewProfiles,newProfile:viewNewProfile,menu:viewMenu,dictionary:viewDictionary,addWord:viewAddWord,editWord:viewEditWord,studySetup:viewStudySetup,study:viewStudy,complete:viewComplete,stats:viewStats,achievements:viewAchievements,settings:viewSettings};
+  el.innerHTML=(views[S.view]||(() =>'<p>404</p>'))();
+  attachEvents();
+  if(S.view==='complete'&&!S._confettiDone){
+    S._confettiDone=true;
+    const {session}=S.params||{};
+    if(session){ const pct=session.totalWords>0?session.knownFirst/session.totalWords:0; setTimeout(()=>launchConfetti(pct>=.9?1.5:pct>=.6?1:.4),400); }
+  } else if(S.view!=='complete'){ S._confettiDone=false; }
+}
+
+function attachEvents(){
+  const search=document.getElementById('dict-search');
+  if(search) search.addEventListener('input',e=>{ S.dictSearch=e.target.value; render(); });
+  const imp=document.getElementById('import-file');
+  if(imp) imp.addEventListener('change',e=>{
+    const file=e.target.files[0]; if(!file) return;
+    const r=new FileReader(); r.onload=ev=>{ try{ const d=JSON.parse(ev.target.result); if(!Array.isArray(d)) throw 0; S.profiles=d; saveData(); showToast('✅ Дані відновлено!'); go('profiles'); }catch{ showToast('⚠️ Невірний файл!'); } }; r.readAsText(file);
+  });
+}
+
+// ── CLICK HANDLER ──
+function handleClick(e){
+  const el=e.target.closest('[data-action]'); if(!el) return;
+  const action=el.dataset.action, id=el.dataset.id, val=el.dataset.val;
+  const actions={
+    selectProfile: ()=>{ S.profileId=id; S.dictSelected.clear(); go('menu'); },
+    deleteProfile: ()=>{ e.stopPropagation(); deleteProfile(id); },
+    newProfile:    ()=> go('newProfile',{avatar:AVATARS[0],color:COLORS[0]}),
+    pickAvatar:    ()=> go('newProfile',{...S.params,avatar:val}),
+    pickColor:     ()=> go('newProfile',{...S.params,color:val}),
+    createProfile: ()=>{
+      const name=document.getElementById('profile-name')?.value?.trim();
+      if(!name){ showToast("⚠️ Введи ім'я профілю!"); return; }
+      createProfile(name,S.params.avatar||AVATARS[0],S.params.color||COLORS[0]);
+      showToast('🎉 Профіль створено!'); go('profiles');
+    },
+    back:          ()=> goBack(),
+    goDictionary:  ()=> go('dictionary'),
+    goStudySetup:  ()=> go('studySetup'),
+    goStats:       ()=> go('stats'),
+    goAchievements:()=> go('achievements'),
+    goSettings:    ()=> go('settings'),
+    addWord:       ()=> go('addWord'),
+    saveGhToken: ()=>{
+      const inp=document.getElementById('gh-token'); const v=inp?inp.value.trim():'';
+      if(!v||v.startsWith('•')){ showToast('⚠️ Введи токен!'); return; }
+      GH.setToken(v); showToast('✅ Токен збережено!'); go('settings');
+    },
+    clearGhToken: ()=>{ GH.clearToken(); showToast('🗑️ Токен видалено'); go('settings'); },
+    manualSync: async()=>{ showToast('🔄 Синхронізація...'); const ok=await GH.push(); showToast(ok?'☁️ Збережено!':'⚠️ Помилка синхронізації'); },
+    exportData: ()=>{
+      const blob=new Blob([JSON.stringify(S.profiles,null,2)],{type:'application/json'});
+      const url=URL.createObjectURL(blob); const a=document.createElement('a');
+      a.href=url; a.download=`wordflash-backup-${today()}.json`; a.click(); URL.revokeObjectURL(url);
+      showToast('📥 Файл завантажується!');
+    },
+    toggleWord:  ()=>{ if(S.dictSelected.has(id)) S.dictSelected.delete(id); else S.dictSelected.add(id); render(); },
+    selectAll:   ()=>{ const p=getProfile(); if(p) p.words.forEach(w=>S.dictSelected.add(w.id)); render(); },
+    deselectAll: ()=>{ S.dictSelected.clear(); render(); },
+    editWord:    ()=>{ e.stopPropagation(); go('editWord',{wordId:id}); },
+    deleteWord:  ()=>{
+      e.stopPropagation(); const w=getWord(id); if(!w) return;
+      if(!confirm(`Видалити слово "${w.english}"?`)) return;
+      const p=getProfile(); if(p){ p.words=p.words.filter(x=>x.id!==id); S.dictSelected.delete(id); saveData(); render(); }
+    },
+    studySelected: ()=>{
+      const p=getProfile(); if(!p) return;
+      const ids=S.dictSelected.size>0?[...S.dictSelected]:p.words.map(w=>w.id);
+      go('studySetup',{wordIds:ids});
+    },
+    saveWord: ()=>{
+      const en=document.getElementById('word-en')?.value?.trim(), ua=document.getElementById('word-ua')?.value?.trim();
+      if(!en||!ua){ showToast('⚠️ Заповни обидва поля!'); return; }
+      const p=getProfile(); if(!p) return;
+      p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0});
+      checkAchievements(p); addXP(p,5); saveData(); showToast('✅ Слово додано! +5 XP'); go('dictionary');
+    },
+    saveBulk: ()=>{
+      const raw=document.getElementById('bulk-input')?.value||''; const p=getProfile(); if(!p) return;
+      let count=0;
+      raw.split('\n').forEach(line=>{ const parts=line.split(/\s*[-–—]\s*/); if(parts.length>=2){const en=parts[0].trim(),ua=parts.slice(1).join('-').trim(); if(en&&ua){p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0});count++;}} });
+      if(count===0){ showToast('⚠️ Не знайдено пар слів!'); return; }
+      checkAchievements(p); addXP(p,count*5); saveData(); showToast(`✅ Додано ${count} слів! +${count*5} XP`); go('dictionary');
+    },
+    updateWord: ()=>{
+      const en=document.getElementById('word-en')?.value?.trim(), ua=document.getElementById('word-ua')?.value?.trim();
+      if(!en||!ua){ showToast('⚠️ Заповни обидва поля!'); return; }
+      const w=getWord(id); if(w){ w.english=en; w.ukrainian=ua; saveData(); showToast('✅ Слово оновлено!'); } go('dictionary');
+    },
+    setDir:       ()=>{ S.params={...S.params,direction:el.dataset.dir}; render(); },
+    startAll:     ()=>{ const p=getProfile(); if(p&&p.words.length>0) startSession(p.words.map(w=>w.id),S.params.direction||'en-ua'); },
+    startSelected:()=>{ const ids=S.dictSelected.size>0?[...S.dictSelected]:(S.params.wordIds||[]); if(!ids.length){ showToast('⚠️ Немає вибраних слів!'); return; } startSession(ids,S.params.direction||'en-ua'); },
+    know:      ()=> actionKnow(),
+    unknown:   ()=> actionUnknown(),
+    flip:      ()=> actionFlip(),
+    quitStudy: ()=>{ if(S.session&&S.session.completed.length>0&&!confirm('Завершити заняття достроково?')) return; S.session=null; go('menu'); },
+    studyAgain:()=> go('studySetup'),
+  };
+  const fn=actions[action]; if(fn) fn();
+}
+
+function handleKey(e){
+  if(e.key==='Enter'&&(S.view==='addWord'||S.view==='editWord')){ const btn=document.querySelector('[data-action="saveWord"],[data-action="updateWord"]'); if(btn) btn.click(); }
+  if(e.key==='ArrowLeft'&&S.view==='study') actionKnow();
+  if(e.key==='ArrowRight'&&S.view==='study') actionUnknown();
+  if(e.key===' '&&S.view==='study'){ e.preventDefault(); actionFlip(); }
+}
+
+// ── TOAST ──
+function showToast(msg,dur=3000){
+  const cont=document.getElementById('toast-container'); if(!cont) return;
+  const el=document.createElement('div'); el.className='toast'; el.textContent=msg;
+  cont.appendChild(el); setTimeout(()=>el.remove(),dur);
+}
+
+// ── CONFETTI ──
+function launchConfetti(intensity=1){
+  const canvas=document.getElementById('confetti-canvas'); if(!canvas) return;
+  canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+  const ctx=canvas.getContext('2d');
+  const colors=['#FF6B6B','#4ECDC4','#FFE66D','#A8E6CF','#FF8B94','#B19CD9','#FECA57','#48DBFB'];
+  const pieces=Array.from({length:Math.round(120*intensity)},()=>({
+    x:Math.random()*canvas.width, y:-20-Math.random()*100,
+    w:Math.random()*12+6, h:Math.random()*8+4,
+    c:colors[Math.floor(Math.random()*colors.length)],
+    vx:(Math.random()-.5)*4, vy:Math.random()*3+2,
+    angle:Math.random()*360, spin:(Math.random()-.5)*6,
+  }));
+  let frame;
+  const draw=()=>{
+    ctx.clearRect(0,0,canvas.width,canvas.height); let any=false;
+    pieces.forEach(p=>{ p.x+=p.vx; p.y+=p.vy; p.angle+=p.spin; p.vy+=.05; if(p.y<canvas.height+20) any=true;
+      ctx.save(); ctx.translate(p.x+p.w/2,p.y+p.h/2); ctx.rotate(p.angle*Math.PI/180); ctx.fillStyle=p.c; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
+    });
+    if(any) frame=requestAnimationFrame(draw); else ctx.clearRect(0,0,canvas.width,canvas.height);
+  };
+  draw();
+  setTimeout(()=>{ cancelAnimationFrame(frame); ctx.clearRect(0,0,canvas.width,canvas.height); },6000);
+}
+
+// ── INIT ──
+document.addEventListener('click', handleClick);
+document.addEventListener('keydown', handleKey);
+render();
+loadData();
+</script>
 </body>
 </html>
