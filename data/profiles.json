@@ -64,9 +64,9 @@
         "english": "bol",
         "ukrainian": "мяч",
         "addedDate": "2026-05-03",
-        "timesStudied": 0,
+        "timesStudied": 1,
         "timesKnown": 0,
-        "timesUnknown": 0
+        "timesUnknown": 1
       }
     ],
     "sessions": [
@@ -87,7 +87,7 @@
       "first_session",
       "perfect"
     ],
-    "xp": 167
+    "xp": 169
   },
   {
     "id": "tshlwmvusmoq86rnz",
