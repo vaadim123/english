@@ -58,6 +58,15 @@
         "timesStudied": 1,
         "timesKnown": 1,
         "timesUnknown": 0
+      },
+      {
+        "id": "6t341enmbmoq8upz2",
+        "english": "bol",
+        "ukrainian": "мяч",
+        "addedDate": "2026-05-03",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0
       }
     ],
     "sessions": [
@@ -78,7 +87,7 @@
       "first_session",
       "perfect"
     ],
-    "xp": 152
+    "xp": 157
   },
   {
     "id": "tshlwmvusmoq86rnz",
