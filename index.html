@@ -454,11 +454,19 @@ const getWord    = id=>{ const p=getProfile(); return p?p.words.find(w=>w.id===i
 const getLevel   = xp=> Math.floor((xp||0)/50)+1;
 const getXpInLevel = xp=> (xp||0)%50;
 const isKid = ()=>{ const p=getProfile(); return !!(p&&p.isChild); };
-const ui = (ua,en)=> isKid() ? en : ua;
+
+const STARTER_WORDS = [
+  {english:'hello',   ukrainian:'привіт'},
+  {english:'apple',   ukrainian:'яблуко'},
+  {english:'cat',     ukrainian:'кіт'},
+  {english:'dog',     ukrainian:'собака'},
+  {english:'school',  ukrainian:'школа'},
+];
 
 // ── PROFILE OPS ──
 function createProfile(name,avatar,color,isChild=false){
-  const p={id:uid(),name,avatar,color,isChild,words:[],sessions:[],streak:0,bestStreak:0,lastStudied:null,achievements:[],xp:0};
+  const words=STARTER_WORDS.map(w=>({id:uid(),english:w.english,ukrainian:w.ukrainian,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0}));
+  const p={id:uid(),name,avatar,color,isChild,words,sessions:[],streak:0,bestStreak:0,lastStudied:null,achievements:[],xp:0};
   S.profiles.push(p); saveData(); return p;
 }
 function deleteProfile(id){
@@ -528,7 +536,7 @@ function actionUnknown(){
 function actionFlip(){
   const s=S.session; s.isFlipped=!s.isFlipped;
   const fc=document.querySelector('.flashcard'); if(fc) fc.classList.toggle('flipped',s.isFlipped);
-  const btn=document.getElementById('flip-btn'); if(btn) btn.textContent=s.isFlipped?ui('🙈 Сховати','🙈 Hide'):`👁️ ${ui('Подивитись переклад','Show translation')}`;
+  const btn=document.getElementById('flip-btn'); if(btn) btn.textContent=s.isFlipped?'🙈 Сховати':'👁️ Подивитись переклад';
 }
 function updateStudyCard(){
   const s=S.session, w=currentCard(); if(!w) return;
@@ -548,7 +556,7 @@ function updateStudyCard(){
     if(ftag) ftag.textContent='🇺🇦 Українська'; if(btag) btag.textContent='🇬🇧 English';
   }
   const fc=document.querySelector('.flashcard'); if(fc) fc.classList.remove('flipped');
-  const btn=document.getElementById('flip-btn'); if(btn) btn.textContent=`👁️ ${ui('Подивитись переклад','Show translation')}`;
+  const btn=document.getElementById('flip-btn'); if(btn) btn.textContent='👁️ Подивитись переклад';
 }
 function finishSession(){
   const s=S.session, p=getProfile(); if(!p) return;
@@ -579,7 +587,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.0</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.1</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -634,43 +642,43 @@ function viewMenu(){
   const p=getProfile(); if(!p){ go('profiles'); return ''; }
   const lvl=getLevel(p.xp), xpPct=Math.round(getXpInLevel(p.xp)/50*100);
   return `
-  <button class="back-btn" data-action="back">${ui('← Профілі','← Profiles')}</button>
+  <button class="back-btn" data-action="back">← Профілі</button>
   <div class="card">
     <div class="profile-header">
       <span class="ph-avatar">${p.avatar}</span>
       <div class="ph-info">
         <div class="ph-name">${esc(p.name)}</div>
-        <div class="ph-level">⭐ ${ui(`Рівень ${lvl}`,`Level ${lvl}`)} · ${p.xp||0} XP</div>
+        <div class="ph-level">⭐ Рівень ${lvl} · ${p.xp||0} XP</div>
         <div class="xp-bar"><div class="xp-bar-fill" style="width:${xpPct}%"></div></div>
       </div>
       <div class="streak-badge">
         <span class="s-icon">🔥</span>
         <span class="s-num">${p.streak||0}</span>
-        <span class="s-label">${ui('днів','days')}</span>
+        <span class="s-label">днів</span>
       </div>
     </div>
     <div class="menu-grid">
       <button class="menu-btn primary-btn" data-action="goStudySetup">
         <span class="mb-icon">🃏</span>
-        <span class="mb-label">${ui('Почати навчання','Start Learning')}</span>
-        <span class="mb-sub">${p.words.length>0?ui(`${p.words.length} слів у словнику`,`${p.words.length} words`):ui('Спочатку додай слова','Add words first')}</span>
+        <span class="mb-label">Почати навчання</span>
+        <span class="mb-sub">${p.words.length>0?`${p.words.length} слів у словнику`:'Спочатку додай слова'}</span>
       </button>
       <button class="menu-btn" data-action="goDictionary">
-        <span class="mb-icon">📚</span><span class="mb-label">${ui('Словник','Dictionary')}</span>
-        <span class="mb-sub">${p.words.length} ${ui('слів','words')}</span>
+        <span class="mb-icon">📚</span><span class="mb-label">Словник</span>
+        <span class="mb-sub">${p.words.length} слів</span>
       </button>
       <button class="menu-btn" data-action="goStats">
-        <span class="mb-icon">📊</span><span class="mb-label">${ui('Статистика','Stats')}</span>
-        <span class="mb-sub">${p.sessions.length} ${ui('занять','sessions')}</span>
+        <span class="mb-icon">📊</span><span class="mb-label">Статистика</span>
+        <span class="mb-sub">${p.sessions.length} занять</span>
       </button>
       <button class="menu-btn" data-action="goAchievements">
-        <span class="mb-icon">🏆</span><span class="mb-label">${ui('Досягнення','Achievements')}</span>
+        <span class="mb-icon">🏆</span><span class="mb-label">Досягнення</span>
         <span class="mb-sub">${p.achievements.length} / ${ACHIEVEMENTS.length}</span>
       </button>
       <button class="menu-btn" data-action="goSettings" style="grid-column:1/-1">
         <span class="mb-icon">⚙️ <span id="sync-badge" style="font-size:18px"></span></span>
-        <span class="mb-label">${ui('Налаштування та синхронізація','Settings & Sync')}</span>
-        <span class="mb-sub">${GH.token()?ui('☁️ GitHub sync увімкнено','☁️ GitHub sync enabled'):ui('💾 Локальне збереження','💾 Local storage')}</span>
+        <span class="mb-label">Налаштування та синхронізація</span>
+        <span class="mb-sub">${GH.token()?'☁️ GitHub sync увімкнено':'💾 Локальне збереження'}</span>
       </button>
     </div>
   </div>`;
@@ -818,11 +826,11 @@ function viewStudy(){
   const fl=s.direction==='en-ua'?'🇬🇧 English':'🇺🇦 Українська', bl=s.direction==='en-ua'?'🇺🇦 Українська':'🇬🇧 English';
   return `
   <div class="study-header">
-    <button class="back-btn" style="margin-bottom:0" data-action="quitStudy">${ui('← Вийти','← Quit')}</button>
-    <div class="study-remaining">🔄 ${ui(`В черзі: ${s.queue.length}`,`Queue: ${s.queue.length}`)}</div>
+    <button class="back-btn" style="margin-bottom:0" data-action="quitStudy">← Вийти</button>
+    <div class="study-remaining">🔄 В черзі: ${s.queue.length}</div>
   </div>
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-    <span class="study-count" style="color:white;font-size:15px;font-weight:800">✅ ${done} / ${total} ${ui('пройдено','done')}</span>
+    <span class="study-count" style="color:white;font-size:15px;font-weight:800">✅ ${done} / ${total} пройдено</span>
     <span class="study-pct" style="color:white;font-size:13px;font-weight:700">${Math.round(done/total*100)}%</span>
   </div>
   <div class="progress-bar"><div class="progress-fill" style="width:${Math.round(done/total*100)}%"></div></div>
@@ -831,22 +839,22 @@ function viewStudy(){
       <div class="fc-face fc-front">
         <div class="fc-lang-tag">${fl}</div>
         <div class="fc-word">${esc(fw)}</div>
-        <div class="fc-tip">👆 ${ui('Натисни або кнопку нижче','Tap or press button')}</div>
+        <div class="fc-tip">👆 Натисни або кнопку нижче</div>
       </div>
       <div class="fc-face fc-back">
         <div class="fc-lang-tag">${bl}</div>
         <div class="fc-word">${esc(bw)}</div>
-        <div class="fc-tip">${ui('Ти знаєш це слово?','Do you know this word?')}</div>
+        <div class="fc-tip">Ти знаєш це слово?</div>
       </div>
     </div>
   </div>
   <div class="study-btns">
     <div class="study-btns-row">
-      <button class="study-btn btn-know" data-action="know">${ui('✅ Знаю!','✅ I know!')}</button>
-      <button class="study-btn btn-unknown" data-action="unknown">${ui("❌ Не знаю","❌ Don't know")}</button>
+      <button class="study-btn btn-know" data-action="know">✅ Знаю!</button>
+      <button class="study-btn btn-unknown" data-action="unknown">❌ Не знаю</button>
     </div>
-    <button class="study-btn btn-flip" id="flip-btn" data-action="flip">👁️ ${ui('Подивитись переклад','Show translation')}</button>
-    <button class="study-btn btn-quit" data-action="quitStudy">⏹ ${ui('Завершити заняття','End session')}</button>
+    <button class="study-btn btn-flip" id="flip-btn" data-action="flip">👁️ Подивитись переклад</button>
+    <button class="study-btn btn-quit" data-action="quitStudy">⏹ Завершити заняття</button>
   </div>`;
 }
 
@@ -855,33 +863,32 @@ function viewComplete(){
   const pct=session.totalWords>0?Math.round(session.knownFirst/session.totalWords*100):0;
   const stars=pct>=90?3:pct>=60?2:pct>=30?1:0;
   const emoji=stars===3?'🏆':stars===2?'🌟':stars===1?'😊':'💪';
-  const enc = isKid() ? CHILD_ENCOURAGEMENTS : ENCOURAGEMENTS;
-  const msg=pick(pct>=80?enc.high:pct>=50?enc.mid:enc.low);
+  const msg=pick(pct>=80?ENCOURAGEMENTS.high:pct>=50?ENCOURAGEMENTS.mid:ENCOURAGEMENTS.low);
   const starsHtml=[1,2,3].map(i=>`<span class="star ${i<=stars?'lit':''}">⭐</span>`).join('');
   const achHtml=newAch&&newAch.length>0
-    ? `<div class="achievements-earned"><h4>🎖️ ${ui('Нові досягнення!','New achievements!')}</h4>${newAch.map(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);return a?`<div class="achievement-badge"><span class="ab-icon">${a.icon}</span><div class="ab-info"><div class="ab-name">${a.name}</div><div class="ab-desc">${a.desc}</div></div></div>`:''}).join('')}</div>` : '';
+    ? `<div class="achievements-earned"><h4>🎖️ Нові досягнення!</h4>${newAch.map(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);return a?`<div class="achievement-badge"><span class="ab-icon">${a.icon}</span><div class="ab-info"><div class="ab-name">${a.name}</div><div class="ab-desc">${a.desc}</div></div></div>`:''}).join('')}</div>` : '';
   return `
   <div class="card">
     <div class="complete-hero">
       <span class="complete-emoji">${emoji}</span>
       <div class="complete-title">${msg}</div>
-      <div class="complete-subtitle">${ui('Заняття завершено','Session complete')} · ${session.direction==='en-ua'?'EN → UA':'UA → EN'}</div>
+      <div class="complete-subtitle">Заняття завершено · ${session.direction==='en-ua'?'EN → UA':'UA → EN'}</div>
     </div>
     <div class="stars">${starsHtml}</div>
     <div class="result-grid">
-      <div class="result-item"><div class="ri-num">${session.totalWords}</div><div class="ri-label">${ui('Карток','Cards')}</div></div>
-      <div class="result-item"><div class="ri-num" style="color:var(--success)">${session.knownFirst}</div><div class="ri-label">${ui('З першого разу','First try')}</div></div>
-      <div class="result-item"><div class="ri-num">${session.totalWords-session.knownFirst}</div><div class="ri-label">${ui('Потребують практики','Need practice')}</div></div>
+      <div class="result-item"><div class="ri-num">${session.totalWords}</div><div class="ri-label">Карток</div></div>
+      <div class="result-item"><div class="ri-num" style="color:var(--success)">${session.knownFirst}</div><div class="ri-label">З першого разу</div></div>
+      <div class="result-item"><div class="ri-num">${session.totalWords-session.knownFirst}</div><div class="ri-label">Потребують практики</div></div>
     </div>
     <div class="result-grid" style="grid-template-columns:1fr 1fr;margin-bottom:16px">
-      <div class="result-item"><div class="ri-num">${pct}%</div><div class="ri-label">${ui('Результат','Score')}</div></div>
-      <div class="result-item"><div class="ri-num">${fmtDur(session.duration)}</div><div class="ri-label">${ui('Час заняття','Time')}</div></div>
+      <div class="result-item"><div class="ri-num">${pct}%</div><div class="ri-label">Результат</div></div>
+      <div class="result-item"><div class="ri-num">${fmtDur(session.duration)}</div><div class="ri-label">Час заняття</div></div>
     </div>
-    <div class="text-center" style="margin-bottom:16px"><span class="xp-gained">⚡ +${50+session.knownFirst*10} XP ${ui('отримано!','earned!')}</span></div>
+    <div class="text-center" style="margin-bottom:16px"><span class="xp-gained">⚡ +${50+session.knownFirst*10} XP отримано!</span></div>
     ${achHtml}
     <div style="display:flex;gap:10px">
-      <button class="btn btn-outline flex-1" data-action="back">${ui('← Меню','← Menu')}</button>
-      <button class="btn btn-primary flex-1" data-action="studyAgain">${ui('🔄 Ще раз','🔄 Play again')}</button>
+      <button class="btn btn-outline flex-1" data-action="back">← Меню</button>
+      <button class="btn btn-primary flex-1" data-action="studyAgain">🔄 Ще раз</button>
     </div>
   </div>`;
 }
