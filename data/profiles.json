@@ -11,8 +11,8 @@
         "english": "hello",
         "ukrainian": "привіт",
         "addedDate": "2026-05-03",
-        "timesStudied": 1,
-        "timesKnown": 0,
+        "timesStudied": 2,
+        "timesKnown": 1,
         "timesUnknown": 1
       },
       {
@@ -52,11 +52,23 @@
         "timesUnknown": 0
       }
     ],
-    "sessions": [],
-    "streak": 0,
-    "bestStreak": 0,
-    "lastStudied": null,
-    "achievements": [],
-    "xp": 42
+    "sessions": [
+      {
+        "id": "l2vropgrmmoq9kmo7",
+        "date": "2026-05-03",
+        "direction": "en-ua",
+        "totalWords": 5,
+        "knownFirst": 4,
+        "duration": 17
+      }
+    ],
+    "streak": 1,
+    "bestStreak": 1,
+    "lastStudied": "2026-05-03",
+    "achievements": [
+      "first_word",
+      "first_session"
+    ],
+    "xp": 102
   }
 ]
