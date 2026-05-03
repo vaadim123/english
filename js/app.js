@@ -61,7 +61,7 @@ const S = {
 // ===== GITHUB STORAGE =====
 
 const GH = {
-  token()    { return localStorage.getItem('wf_gh_token') || ''; },
+  token()    { return localStorage.getItem('wf_gh_token') || (typeof _GH_T !== 'undefined' ? _GH_T.trim() : ''); },
   setToken(t){ localStorage.setItem('wf_gh_token', t.trim()); },
   clearToken(){ localStorage.removeItem('wf_gh_token'); },
 
