@@ -1262,9 +1262,9 @@ function handleClick(e) {
     // Profile screen
     selectProfile: () => { S.profileId = id; S.dictSelected.clear(); go('menu'); },
     deleteProfile: () => { e.stopPropagation(); deleteProfile(id); },
-    newProfile:    () => { S.params = { avatar: AVATARS[0], color: COLORS[0] }; go('newProfile'); },
-    pickAvatar:    () => { S.params = { ...S.params, avatar: val }; go('newProfile'); },
-    pickColor:     () => { S.params = { ...S.params, color: val }; go('newProfile'); },
+    newProfile:    () => go('newProfile', { avatar: AVATARS[0], color: COLORS[0] }),
+    pickAvatar:    () => go('newProfile', { ...S.params, avatar: val }),
+    pickColor:     () => go('newProfile', { ...S.params, color: val }),
     createProfile: () => {
       const name = document.getElementById('profile-name')?.value?.trim();
       if (!name) { showToast('⚠️ Введи ім\'я профілю!'); return; }
