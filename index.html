@@ -247,6 +247,34 @@ body{
   .fc-word{font-size:28px}
   .avatar-grid{grid-template-columns:repeat(5,1fr)}
 }
+/* Child theme (Minecraft) */
+body.child-theme{
+  background:linear-gradient(-45deg,#2d5a27,#4a7c59,#8B6914,#5ba032,#2d5a27);
+  background-size:400% 400%;
+  --primary:#5ba032;
+  --primary-light:#7dc850;
+}
+body.child-theme .app-logo h1{background:linear-gradient(135deg,#7dc850,#FFD700);-webkit-background-clip:text;background-clip:text}
+body.child-theme .card{border-radius:8px;box-shadow:0 6px 0 rgba(0,0,0,.35),var(--shadow-lg)}
+body.child-theme .profile-card,.child-theme .menu-btn,.child-theme .dir-btn,.child-theme .word-item,.child-theme .ach-card,.child-theme .stat-box,.child-theme .result-item{border-radius:8px}
+body.child-theme .btn,.child-theme .study-btn,.child-theme .back-btn,.child-theme .toast{border-radius:6px}
+body.child-theme .btn-primary{background:linear-gradient(180deg,#6fc235,#5ba032);box-shadow:0 4px 0 #2d5a27;border-radius:6px}
+body.child-theme .btn-primary:hover{box-shadow:0 6px 0 #2d5a27;transform:translateY(-2px)}
+body.child-theme .btn-success{background:linear-gradient(180deg,#4caf50,#2e7d32);box-shadow:0 4px 0 #1b5e20}
+body.child-theme .menu-btn.primary-btn{background:linear-gradient(180deg,#6fc235,#5ba032);box-shadow:0 6px 0 #2d5a27;border-color:transparent}
+body.child-theme .menu-btn.primary-btn:hover{box-shadow:0 8px 0 #2d5a27}
+body.child-theme .progress-fill,.child-theme .xp-bar-fill{background:linear-gradient(90deg,#5ba032,#FFD700)}
+body.child-theme .study-btn.btn-flip{background:linear-gradient(180deg,#ffc107,#f57f17);box-shadow:0 4px 0 #bf360c;color:white}
+body.child-theme .study-btn.btn-know{background:linear-gradient(180deg,#4caf50,#2e7d32);box-shadow:0 4px 0 #1b5e20}
+body.child-theme .study-btn.btn-unknown{background:linear-gradient(180deg,#ef5350,#c62828);box-shadow:0 4px 0 #7f0000}
+body.child-theme .fc-front{background:linear-gradient(160deg,#5ba032 0%,#2d5a27 100%)}
+body.child-theme .fc-back{background:linear-gradient(160deg,#8B6914 0%,#5c4000 100%)}
+body.child-theme .streak-badge{background:linear-gradient(135deg,#e53935,#b71c1c)}
+body.child-theme .xp-gained{background:linear-gradient(135deg,#5ba032,#FFD700)}
+body.child-theme .avatar-option.selected{border-color:var(--primary);background:#d4edbc}
+body.child-theme .word-item.selected{border-color:var(--primary);background:#d4edbc}
+body.child-theme .dir-btn.selected{border-color:var(--primary);background:#d4edbc}
+body.child-theme .profile-card-new:hover{border-color:var(--primary);color:var(--primary)}
 </style>
 </head>
 <body>
@@ -264,6 +292,7 @@ const _GH_T = atob(_A.join(''));
 
 // ── CONSTANTS ──
 const AVATARS = ['🦁','🐯','🦊','🐺','🐻','🦅','🐧','🦋','🐉','🦄','⭐','🚀','🎯','🌈','🎸','🏆','👦','👧','🧒','👨','👩','🧑'];
+const CHILD_AVATARS = ['⛏️','🗡️','🛡️','🏹','🧱','💎','🌳','🐑','🐷','🐄','🐓','🐺','🦊','🎮','🕹️','🏆','⭐','🔥','💰','🧪','🎯','🌿','🍎','🐸','🦆','🐉','🦄','🐙','🦋'];
 const COLORS  = ['#FF6B6B','#FF8E53','#FFC107','#4CAF50','#2196F3','#9C27B0','#E91E63','#00BCD4','#FF5722','#607D8B','#8BC34A','#795548'];
 const ACHIEVEMENTS = [
   {id:'first_word',  icon:'📝',name:'Перше слово',   desc:'Додав перше слово'},
@@ -283,6 +312,11 @@ const ENCOURAGEMENTS = {
   high:['🌟 Ти справжня зірка!','🏆 Чудовий результат!','🚀 Ти молодець!','💪 Відмінна робота!'],
   mid: ['👏 Непоганий результат!','📈 Ти прогресуєш!','💡 Ще трошки практики!','😊 Гарна робота!'],
   low: ['💪 Не здавайся!','📚 Практика — шлях до успіху!','🔄 Спробуй ще раз!','⭐ Ти впораєшся!'],
+};
+const CHILD_ENCOURAGEMENTS = {
+  high:['🌟 Amazing job!','🏆 You rock!','🚀 Awesome work!','💪 Brilliant!'],
+  mid: ['👏 Good job!','📈 Keep going!','💡 Almost there!','😊 Nice work!'],
+  low: ['💪 Don\'t give up!','📚 Practice makes perfect!','🔄 Try again!','⭐ You got this!'],
 };
 
 // ── STATE ──
@@ -419,10 +453,12 @@ const getProfile = ()=> S.profiles.find(p=>p.id===S.profileId)||null;
 const getWord    = id=>{ const p=getProfile(); return p?p.words.find(w=>w.id===id):null; };
 const getLevel   = xp=> Math.floor((xp||0)/50)+1;
 const getXpInLevel = xp=> (xp||0)%50;
+const isKid = ()=>{ const p=getProfile(); return !!(p&&p.isChild); };
+const ui = (ua,en)=> isKid() ? en : ua;
 
 // ── PROFILE OPS ──
-function createProfile(name,avatar,color){
-  const p={id:uid(),name,avatar,color,words:[],sessions:[],streak:0,bestStreak:0,lastStudied:null,achievements:[],xp:0};
+function createProfile(name,avatar,color,isChild=false){
+  const p={id:uid(),name,avatar,color,isChild,words:[],sessions:[],streak:0,bestStreak:0,lastStudied:null,achievements:[],xp:0};
   S.profiles.push(p); saveData(); return p;
 }
 function deleteProfile(id){
@@ -492,7 +528,7 @@ function actionUnknown(){
 function actionFlip(){
   const s=S.session; s.isFlipped=!s.isFlipped;
   const fc=document.querySelector('.flashcard'); if(fc) fc.classList.toggle('flipped',s.isFlipped);
-  const btn=document.getElementById('flip-btn'); if(btn) btn.textContent=s.isFlipped?'🙈 Сховати':'👁️ Подивитись переклад';
+  const btn=document.getElementById('flip-btn'); if(btn) btn.textContent=s.isFlipped?ui('🙈 Сховати','🙈 Hide'):`👁️ ${ui('Подивитись переклад','Show translation')}`;
 }
 function updateStudyCard(){
   const s=S.session, w=currentCard(); if(!w) return;
@@ -512,7 +548,7 @@ function updateStudyCard(){
     if(ftag) ftag.textContent='🇺🇦 Українська'; if(btag) btag.textContent='🇬🇧 English';
   }
   const fc=document.querySelector('.flashcard'); if(fc) fc.classList.remove('flipped');
-  const btn=document.getElementById('flip-btn'); if(btn) btn.textContent='👁️ Подивитись переклад';
+  const btn=document.getElementById('flip-btn'); if(btn) btn.textContent=`👁️ ${ui('Подивитись переклад','Show translation')}`;
 }
 function finishSession(){
   const s=S.session, p=getProfile(); if(!p) return;
@@ -534,7 +570,7 @@ function viewProfiles(){
   <div class="profile-card" data-action="selectProfile" data-id="${p.id}" style="border-top:6px solid ${p.color}">
     <button class="profile-delete" data-action="deleteProfile" data-id="${p.id}">✕</button>
     <span class="profile-avatar">${p.avatar}</span>
-    <div class="profile-name">${esc(p.name)}</div>
+    <div class="profile-name">${esc(p.name)}${p.isChild?' 🧒':''}</div>
     <div class="profile-meta">📚 ${p.words.length} слів · 🃏 ${p.sessions.length} занять</div>
     ${p.streak>1?`<div class="profile-meta">🔥 ${p.streak} днів поспіль</div>`:''}
   </div>`).join('');
@@ -543,7 +579,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v2.8</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.0</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -558,26 +594,39 @@ function viewProfiles(){
 }
 
 function viewNewProfile(){
-  const sa=S.params.avatar||AVATARS[0], sc=S.params.color||COLORS[0];
+  const isChild = !!S.params.isChild;
+  const avatarList = isChild ? CHILD_AVATARS : AVATARS;
+  const sa=S.params.avatar||avatarList[0], sc=S.params.color||COLORS[0];
   return `
   <button class="back-btn" data-action="back">← Назад</button>
   <div class="card">
     <div class="section-title">Новий профіль</div>
+    <div class="form-group">
+      <label class="form-label">Тип профілю</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <button class="dir-btn ${!isChild?'selected':''}" data-action="setProfileType" data-val="adult">
+          <div class="dir-icon">👨</div><div class="dir-label">Дорослий</div><div class="dir-sub">Інтерфейс українською</div>
+        </button>
+        <button class="dir-btn ${isChild?'selected':''}" data-action="setProfileType" data-val="child">
+          <div class="dir-icon">🧒</div><div class="dir-label">Дитина</div><div class="dir-sub">English UI · Minecraft</div>
+        </button>
+      </div>
+    </div>
     <div style="text-align:center;font-size:64px;margin-bottom:8px">${sa}</div>
     <div style="width:40px;height:40px;border-radius:50%;background:${sc};margin:0 auto 20px;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,.2)"></div>
     <div class="form-group">
-      <label class="form-label">Ім'я</label>
-      <input class="form-input" id="profile-name" type="text" placeholder="Наприклад: Вадим" maxlength="20">
+      <label class="form-label">Ім'я ${isChild?'/ Name':''}</label>
+      <input class="form-input" id="profile-name" type="text" placeholder="${isChild?'E.g. Alex':'Наприклад: Вадим'}" maxlength="20">
     </div>
     <div class="form-group">
-      <label class="form-label">Аватар</label>
-      <div class="avatar-grid">${AVATARS.map(a=>`<div class="avatar-option ${a===sa?'selected':''}" data-action="pickAvatar" data-val="${a}">${a}</div>`).join('')}</div>
+      <label class="form-label">${isChild?'Avatar':'Аватар'}</label>
+      <div class="avatar-grid">${avatarList.map(a=>`<div class="avatar-option ${a===sa?'selected':''}" data-action="pickAvatar" data-val="${a}">${a}</div>`).join('')}</div>
     </div>
     <div class="form-group">
-      <label class="form-label">Колір</label>
+      <label class="form-label">${isChild?'Color':'Колір'}</label>
       <div class="color-grid">${COLORS.map(c=>`<div class="color-option ${c===sc?'selected':''}" data-action="pickColor" data-val="${c}" style="background:${c}"></div>`).join('')}</div>
     </div>
-    <button class="btn btn-primary btn-block" data-action="createProfile">🚀 Створити профіль</button>
+    <button class="btn btn-primary btn-block" data-action="createProfile">🚀 ${isChild?'Create profile':'Створити профіль'}</button>
   </div>`;
 }
 
@@ -585,43 +634,43 @@ function viewMenu(){
   const p=getProfile(); if(!p){ go('profiles'); return ''; }
   const lvl=getLevel(p.xp), xpPct=Math.round(getXpInLevel(p.xp)/50*100);
   return `
-  <button class="back-btn" data-action="back">← Профілі</button>
+  <button class="back-btn" data-action="back">${ui('← Профілі','← Profiles')}</button>
   <div class="card">
     <div class="profile-header">
       <span class="ph-avatar">${p.avatar}</span>
       <div class="ph-info">
         <div class="ph-name">${esc(p.name)}</div>
-        <div class="ph-level">⭐ Рівень ${lvl} · ${p.xp||0} XP</div>
+        <div class="ph-level">⭐ ${ui(`Рівень ${lvl}`,`Level ${lvl}`)} · ${p.xp||0} XP</div>
         <div class="xp-bar"><div class="xp-bar-fill" style="width:${xpPct}%"></div></div>
       </div>
       <div class="streak-badge">
         <span class="s-icon">🔥</span>
         <span class="s-num">${p.streak||0}</span>
-        <span class="s-label">днів</span>
+        <span class="s-label">${ui('днів','days')}</span>
       </div>
     </div>
     <div class="menu-grid">
       <button class="menu-btn primary-btn" data-action="goStudySetup">
         <span class="mb-icon">🃏</span>
-        <span class="mb-label">Почати навчання</span>
-        <span class="mb-sub">${p.words.length>0?`${p.words.length} слів у словнику`:'Спочатку додай слова'}</span>
+        <span class="mb-label">${ui('Почати навчання','Start Learning')}</span>
+        <span class="mb-sub">${p.words.length>0?ui(`${p.words.length} слів у словнику`,`${p.words.length} words`):ui('Спочатку додай слова','Add words first')}</span>
       </button>
       <button class="menu-btn" data-action="goDictionary">
-        <span class="mb-icon">📚</span><span class="mb-label">Словник</span>
-        <span class="mb-sub">${p.words.length} слів</span>
+        <span class="mb-icon">📚</span><span class="mb-label">${ui('Словник','Dictionary')}</span>
+        <span class="mb-sub">${p.words.length} ${ui('слів','words')}</span>
       </button>
       <button class="menu-btn" data-action="goStats">
-        <span class="mb-icon">📊</span><span class="mb-label">Статистика</span>
-        <span class="mb-sub">${p.sessions.length} занять</span>
+        <span class="mb-icon">📊</span><span class="mb-label">${ui('Статистика','Stats')}</span>
+        <span class="mb-sub">${p.sessions.length} ${ui('занять','sessions')}</span>
       </button>
       <button class="menu-btn" data-action="goAchievements">
-        <span class="mb-icon">🏆</span><span class="mb-label">Досягнення</span>
+        <span class="mb-icon">🏆</span><span class="mb-label">${ui('Досягнення','Achievements')}</span>
         <span class="mb-sub">${p.achievements.length} / ${ACHIEVEMENTS.length}</span>
       </button>
       <button class="menu-btn" data-action="goSettings" style="grid-column:1/-1">
         <span class="mb-icon">⚙️ <span id="sync-badge" style="font-size:18px"></span></span>
-        <span class="mb-label">Налаштування та синхронізація</span>
-        <span class="mb-sub">${GH.token()?'☁️ GitHub sync увімкнено':'💾 Локальне збереження'}</span>
+        <span class="mb-label">${ui('Налаштування та синхронізація','Settings & Sync')}</span>
+        <span class="mb-sub">${GH.token()?ui('☁️ GitHub sync увімкнено','☁️ GitHub sync enabled'):ui('💾 Локальне збереження','💾 Local storage')}</span>
       </button>
     </div>
   </div>`;
@@ -763,17 +812,17 @@ function viewStudySetup(){
 
 function viewStudy(){
   const s=S.session; if(!s){ go('menu'); return ''; }
-  const w=currentCard(); if(!w){ finishSession(); return ''; }
+  const w=currentCard(); if(!w){ setTimeout(finishSession,0); return ''; }
   const done=s.completed.length, total=s.allWords.length;
   const fw=s.direction==='en-ua'?w.english:w.ukrainian, bw=s.direction==='en-ua'?w.ukrainian:w.english;
   const fl=s.direction==='en-ua'?'🇬🇧 English':'🇺🇦 Українська', bl=s.direction==='en-ua'?'🇺🇦 Українська':'🇬🇧 English';
   return `
   <div class="study-header">
-    <button class="back-btn" style="margin-bottom:0" data-action="quitStudy">← Вийти</button>
-    <div class="study-remaining">🔄 В черзі: ${s.queue.length}</div>
+    <button class="back-btn" style="margin-bottom:0" data-action="quitStudy">${ui('← Вийти','← Quit')}</button>
+    <div class="study-remaining">🔄 ${ui(`В черзі: ${s.queue.length}`,`Queue: ${s.queue.length}`)}</div>
   </div>
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-    <span class="study-count" style="color:white;font-size:15px;font-weight:800">✅ ${done} / ${total} пройдено</span>
+    <span class="study-count" style="color:white;font-size:15px;font-weight:800">✅ ${done} / ${total} ${ui('пройдено','done')}</span>
     <span class="study-pct" style="color:white;font-size:13px;font-weight:700">${Math.round(done/total*100)}%</span>
   </div>
   <div class="progress-bar"><div class="progress-fill" style="width:${Math.round(done/total*100)}%"></div></div>
@@ -782,22 +831,22 @@ function viewStudy(){
       <div class="fc-face fc-front">
         <div class="fc-lang-tag">${fl}</div>
         <div class="fc-word">${esc(fw)}</div>
-        <div class="fc-tip">👆 Натисни або кнопку нижче</div>
+        <div class="fc-tip">👆 ${ui('Натисни або кнопку нижче','Tap or press button')}</div>
       </div>
       <div class="fc-face fc-back">
         <div class="fc-lang-tag">${bl}</div>
         <div class="fc-word">${esc(bw)}</div>
-        <div class="fc-tip">Ти знаєш це слово?</div>
+        <div class="fc-tip">${ui('Ти знаєш це слово?','Do you know this word?')}</div>
       </div>
     </div>
   </div>
   <div class="study-btns">
     <div class="study-btns-row">
-      <button class="study-btn btn-know" data-action="know">✅ Знаю!</button>
-      <button class="study-btn btn-unknown" data-action="unknown">❌ Не знаю</button>
+      <button class="study-btn btn-know" data-action="know">${ui('✅ Знаю!','✅ I know!')}</button>
+      <button class="study-btn btn-unknown" data-action="unknown">${ui("❌ Не знаю","❌ Don't know")}</button>
     </div>
-    <button class="study-btn btn-flip" id="flip-btn" data-action="flip">👁️ Подивитись переклад</button>
-    <button class="study-btn btn-quit" data-action="quitStudy">⏹ Завершити заняття</button>
+    <button class="study-btn btn-flip" id="flip-btn" data-action="flip">👁️ ${ui('Подивитись переклад','Show translation')}</button>
+    <button class="study-btn btn-quit" data-action="quitStudy">⏹ ${ui('Завершити заняття','End session')}</button>
   </div>`;
 }
 
@@ -806,32 +855,33 @@ function viewComplete(){
   const pct=session.totalWords>0?Math.round(session.knownFirst/session.totalWords*100):0;
   const stars=pct>=90?3:pct>=60?2:pct>=30?1:0;
   const emoji=stars===3?'🏆':stars===2?'🌟':stars===1?'😊':'💪';
-  const msg=pick(pct>=80?ENCOURAGEMENTS.high:pct>=50?ENCOURAGEMENTS.mid:ENCOURAGEMENTS.low);
+  const enc = isKid() ? CHILD_ENCOURAGEMENTS : ENCOURAGEMENTS;
+  const msg=pick(pct>=80?enc.high:pct>=50?enc.mid:enc.low);
   const starsHtml=[1,2,3].map(i=>`<span class="star ${i<=stars?'lit':''}">⭐</span>`).join('');
   const achHtml=newAch&&newAch.length>0
-    ? `<div class="achievements-earned"><h4>🎖️ Нові досягнення!</h4>${newAch.map(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);return a?`<div class="achievement-badge"><span class="ab-icon">${a.icon}</span><div class="ab-info"><div class="ab-name">${a.name}</div><div class="ab-desc">${a.desc}</div></div></div>`:''}).join('')}</div>` : '';
+    ? `<div class="achievements-earned"><h4>🎖️ ${ui('Нові досягнення!','New achievements!')}</h4>${newAch.map(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);return a?`<div class="achievement-badge"><span class="ab-icon">${a.icon}</span><div class="ab-info"><div class="ab-name">${a.name}</div><div class="ab-desc">${a.desc}</div></div></div>`:''}).join('')}</div>` : '';
   return `
   <div class="card">
     <div class="complete-hero">
       <span class="complete-emoji">${emoji}</span>
       <div class="complete-title">${msg}</div>
-      <div class="complete-subtitle">Заняття завершено · ${session.direction==='en-ua'?'EN → UA':'UA → EN'}</div>
+      <div class="complete-subtitle">${ui('Заняття завершено','Session complete')} · ${session.direction==='en-ua'?'EN → UA':'UA → EN'}</div>
     </div>
     <div class="stars">${starsHtml}</div>
     <div class="result-grid">
-      <div class="result-item"><div class="ri-num">${session.totalWords}</div><div class="ri-label">Карток</div></div>
-      <div class="result-item"><div class="ri-num" style="color:var(--success)">${session.knownFirst}</div><div class="ri-label">З першого разу</div></div>
-      <div class="result-item"><div class="ri-num">${session.totalWords-session.knownFirst}</div><div class="ri-label">Потребують практики</div></div>
+      <div class="result-item"><div class="ri-num">${session.totalWords}</div><div class="ri-label">${ui('Карток','Cards')}</div></div>
+      <div class="result-item"><div class="ri-num" style="color:var(--success)">${session.knownFirst}</div><div class="ri-label">${ui('З першого разу','First try')}</div></div>
+      <div class="result-item"><div class="ri-num">${session.totalWords-session.knownFirst}</div><div class="ri-label">${ui('Потребують практики','Need practice')}</div></div>
     </div>
     <div class="result-grid" style="grid-template-columns:1fr 1fr;margin-bottom:16px">
-      <div class="result-item"><div class="ri-num">${pct}%</div><div class="ri-label">Результат</div></div>
-      <div class="result-item"><div class="ri-num">${fmtDur(session.duration)}</div><div class="ri-label">Час заняття</div></div>
+      <div class="result-item"><div class="ri-num">${pct}%</div><div class="ri-label">${ui('Результат','Score')}</div></div>
+      <div class="result-item"><div class="ri-num">${fmtDur(session.duration)}</div><div class="ri-label">${ui('Час заняття','Time')}</div></div>
     </div>
-    <div class="text-center" style="margin-bottom:16px"><span class="xp-gained">⚡ +${50+session.knownFirst*10} XP отримано!</span></div>
+    <div class="text-center" style="margin-bottom:16px"><span class="xp-gained">⚡ +${50+session.knownFirst*10} XP ${ui('отримано!','earned!')}</span></div>
     ${achHtml}
     <div style="display:flex;gap:10px">
-      <button class="btn btn-outline flex-1" data-action="back">← Меню</button>
-      <button class="btn btn-primary flex-1" data-action="studyAgain">🔄 Ще раз</button>
+      <button class="btn btn-outline flex-1" data-action="back">${ui('← Меню','← Menu')}</button>
+      <button class="btn btn-primary flex-1" data-action="studyAgain">${ui('🔄 Ще раз','🔄 Play again')}</button>
     </div>
   </div>`;
 }
@@ -929,6 +979,7 @@ function viewSettings(){
 // ── RENDER ──
 function render(){
   const el=document.getElementById('app'); if(!el) return;
+  document.body.classList.toggle('child-theme', isKid());
   const views={profiles:viewProfiles,newProfile:viewNewProfile,menu:viewMenu,dictionary:viewDictionary,addWord:viewAddWord,editWord:viewEditWord,studySetup:viewStudySetup,study:viewStudy,complete:viewComplete,stats:viewStats,achievements:viewAchievements,settings:viewSettings};
   el.innerHTML=(views[S.view]||(() =>'<p>404</p>'))();
   attachEvents();
@@ -956,14 +1007,21 @@ function handleClick(e){
   const actions={
     selectProfile: ()=>{ S.profileId=id; S.dictSelected.clear(); go('menu'); },
     deleteProfile: ()=>{ e.stopPropagation(); deleteProfile(id); },
-    newProfile:    ()=> go('newProfile',{avatar:AVATARS[0],color:COLORS[0]}),
+    newProfile:    ()=> go('newProfile',{avatar:AVATARS[0],color:COLORS[0],isChild:false}),
     pickAvatar:    ()=> go('newProfile',{...S.params,avatar:val}),
     pickColor:     ()=> go('newProfile',{...S.params,color:val}),
+    setProfileType:()=>{
+      const isChild = val==='child';
+      const avatarList = isChild ? CHILD_AVATARS : AVATARS;
+      go('newProfile',{...S.params,isChild,avatar:avatarList[0]});
+    },
     createProfile: ()=>{
       const name=document.getElementById('profile-name')?.value?.trim();
-      if(!name){ showToast("⚠️ Введи ім'я профілю!"); return; }
-      createProfile(name,S.params.avatar||AVATARS[0],S.params.color||COLORS[0]);
-      showToast('🎉 Профіль створено!'); go('profiles');
+      const isChild = !!S.params.isChild;
+      if(!name){ showToast(isChild?"⚠️ Enter your name!":"⚠️ Введи ім'я профілю!"); return; }
+      const avatarList = isChild ? CHILD_AVATARS : AVATARS;
+      createProfile(name,S.params.avatar||avatarList[0],S.params.color||COLORS[0],isChild);
+      showToast(isChild?'🎉 Profile created!':'🎉 Профіль створено!'); go('profiles');
     },
     back:          ()=> goBack(),
     goDictionary:  ()=> go('dictionary'),
