@@ -538,6 +538,7 @@ function viewProfiles() {
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v1.3</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -1201,29 +1202,20 @@ function viewSettings() {
 
 // ===== EVENT HANDLING =====
 
-let _evCtrl = null;
+// Permanent document-level listeners — attached once at init, never removed.
+// Input-specific listeners (search, file) re-attached per render (safe since elements are re-created).
 
 function attachEvents() {
-  // Abort previous listeners to avoid duplicates
-  if (_evCtrl) _evCtrl.abort();
-  _evCtrl = new AbortController();
-  const sig = { signal: _evCtrl.signal };
-
-  document.getElementById('app').addEventListener('click', handleClick, sig);
-
-  // Search input
+  // Search input — re-created on each render, so re-attach
   const search = document.getElementById('dict-search');
   if (search) {
     search.addEventListener('input', e => {
       S.dictSearch = e.target.value;
       render();
-    }, sig);
+    });
   }
 
-  // Keyboard shortcuts
-  document.addEventListener('keydown', handleKey, sig);
-
-  // File import
+  // File import — same, element is re-created each render
   const importFile = document.getElementById('import-file');
   if (importFile) {
     importFile.addEventListener('change', e => {
@@ -1241,7 +1233,7 @@ function attachEvents() {
         } catch { showToast('⚠️ Невірний файл!'); }
       };
       reader.readAsText(file);
-    }, sig);
+    });
   }
 }
 
@@ -1520,5 +1512,9 @@ window.addEventListener('beforeunload', () => {
   }
 });
 
-render(); // Show UI immediately from localStorage
-loadData(); // Then pull from GitHub asynchronously (will re-render if newer data found)
+// Permanent listeners — attached once, survive all re-renders
+document.addEventListener('click', handleClick);
+document.addEventListener('keydown', handleKey);
+
+render();   // Show UI immediately from localStorage
+loadData(); // Pull from GitHub asynchronously (re-renders if newer)
