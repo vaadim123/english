@@ -356,6 +356,7 @@ const GH = {
       const errText = await r.text().catch(()=>'');
       console.error('GH push failed:', r.status, errText);
       S.syncStatus = 'error'; updateSyncBadge();
+      S._lastPushError = r.status;
       return false;
     }catch(e){
       console.error('GH push exception:', e);
@@ -370,7 +371,7 @@ function schedulePush(){
   clearTimeout(_syncTimer);
   _syncTimer = setTimeout(async()=>{
     const ok = await GH.push();
-    showToast(ok ? '☁️ Дані збережено!' : '⚠️ Не вдалось синхронізувати');
+    showToast(ok ? '☁️ Дані збережено!' : `⚠️ Помилка синхронізації (${S._lastPushError||'?'})`);
   }, 1500);
 }
 
@@ -538,7 +539,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v2.0</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v2.5</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
