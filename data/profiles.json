@@ -1,30 +1,5 @@
 [
   {
-    "id": "h3g83x11rmoq8c2vq",
-    "name": "ві",
-    "avatar": "🐧",
-    "color": "#8BC34A",
-    "words": [
-      {
-        "id": "3c98n9f6pmoq8jd8e",
-        "english": "i",
-        "ukrainian": "я",
-        "addedDate": "2026-05-03",
-        "timesStudied": 0,
-        "timesKnown": 0,
-        "timesUnknown": 0
-      }
-    ],
-    "sessions": [],
-    "streak": 0,
-    "bestStreak": 0,
-    "lastStudied": null,
-    "achievements": [
-      "first_word"
-    ],
-    "xp": 5
-  },
-  {
     "id": "adp6t690wmoq9cqtx",
     "name": "яяя",
     "avatar": "⛏️",
