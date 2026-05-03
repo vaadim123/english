@@ -10,8 +10,8 @@
         "english": "i",
         "ukrainian": "я",
         "addedDate": "2026-05-03",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0
       },
       {
@@ -28,8 +28,8 @@
         "english": "he",
         "ukrainian": "він",
         "addedDate": "2026-05-03",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0
       },
       {
@@ -37,8 +37,8 @@
         "english": "she",
         "ukrainian": "вона",
         "addedDate": "2026-05-03",
-        "timesStudied": 2,
-        "timesKnown": 1,
+        "timesStudied": 3,
+        "timesKnown": 2,
         "timesUnknown": 1
       },
       {
@@ -46,8 +46,8 @@
         "english": "it",
         "ukrainian": "воно",
         "addedDate": "2026-05-03",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0
       },
       {
@@ -55,9 +55,9 @@
         "english": "dog",
         "ukrainian": "пес",
         "addedDate": "2026-05-03",
-        "timesStudied": 1,
+        "timesStudied": 2,
         "timesKnown": 1,
-        "timesUnknown": 0
+        "timesUnknown": 1
       },
       {
         "id": "6t341enmbmoq8upz2",
@@ -87,7 +87,7 @@
       "first_session",
       "perfect"
     ],
-    "xp": 169
+    "xp": 211
   },
   {
     "id": "tshlwmvusmoq86rnz",
