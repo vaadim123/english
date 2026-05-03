@@ -348,7 +348,7 @@ const DB_KEY = 'wordflash_v2';
 async function loadData(){
   try{ const r=localStorage.getItem(DB_KEY); if(r) S.profiles=JSON.parse(r); }catch{ S.profiles=[]; }
   const gh = await GH.pull();
-  if(gh && Array.isArray(gh)){
+  if(gh && Array.isArray(gh) && (gh.length > 0 || S.profiles.length === 0)){
     S.profiles = gh;
     localStorage.setItem(DB_KEY, JSON.stringify(gh));
     render();
