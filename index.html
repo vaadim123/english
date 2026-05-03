@@ -390,7 +390,11 @@ function updateSyncBadge(){
 // ── STORAGE ──
 const DB_KEY = 'wordflash_v2';
 async function loadData(){
+  // 1. Одразу показуємо що є в localStorage
   try{ const r=localStorage.getItem(DB_KEY); if(r) S.profiles=JSON.parse(r); }catch{ S.profiles=[]; }
+  render(); // показати локальні дані без затримки
+
+  // 2. Тягнемо з GitHub (може бути новіше або з іншого пристрою)
   const gh = await GH.pull();
   if(gh && Array.isArray(gh) && (gh.length > 0 || S.profiles.length === 0)){
     S.profiles = gh;
@@ -539,7 +543,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v2.7</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v2.8</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
