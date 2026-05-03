@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "id": "8vv04m5e7moq9k5qe",
+    "name": "ййй",
+    "avatar": "🗡️",
+    "color": "#9C27B0",
+    "isChild": true,
+    "words": [
+      {
+        "id": "lyhss3oupmoq9k5qe",
+        "english": "hello",
+        "ukrainian": "привіт",
+        "addedDate": "2026-05-03",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0
+      },
+      {
+        "id": "hbzkwjrq1moq9k5qe",
+        "english": "apple",
+        "ukrainian": "яблуко",
+        "addedDate": "2026-05-03",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0
+      },
+      {
+        "id": "aq707zs06moq9k5qe",
+        "english": "cat",
+        "ukrainian": "кіт",
+        "addedDate": "2026-05-03",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0
+      },
+      {
+        "id": "ikt9z6eyrmoq9k5qe",
+        "english": "dog",
+        "ukrainian": "собака",
+        "addedDate": "2026-05-03",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0
+      },
+      {
+        "id": "njbz22znamoq9k5qe",
+        "english": "school",
+        "ukrainian": "школа",
+        "addedDate": "2026-05-03",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0
+      }
+    ],
+    "sessions": [],
+    "streak": 0,
+    "bestStreak": 0,
+    "lastStudied": null,
+    "achievements": [],
+    "xp": 0
+  }
+]
