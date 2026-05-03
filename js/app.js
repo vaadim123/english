@@ -1201,9 +1201,15 @@ function viewSettings() {
 
 // ===== EVENT HANDLING =====
 
+let _evCtrl = null;
+
 function attachEvents() {
-  // Delegated click handler
-  document.getElementById('app').addEventListener('click', handleClick, { once: true });
+  // Abort previous listeners to avoid duplicates
+  if (_evCtrl) _evCtrl.abort();
+  _evCtrl = new AbortController();
+  const sig = { signal: _evCtrl.signal };
+
+  document.getElementById('app').addEventListener('click', handleClick, sig);
 
   // Search input
   const search = document.getElementById('dict-search');
@@ -1211,11 +1217,11 @@ function attachEvents() {
     search.addEventListener('input', e => {
       S.dictSearch = e.target.value;
       render();
-    });
+    }, sig);
   }
 
-  // Enter key on forms
-  document.addEventListener('keydown', handleKey, { once: true });
+  // Keyboard shortcuts
+  document.addEventListener('keydown', handleKey, sig);
 
   // File import
   const importFile = document.getElementById('import-file');
@@ -1235,7 +1241,7 @@ function attachEvents() {
         } catch { showToast('⚠️ Невірний файл!'); }
       };
       reader.readAsText(file);
-    });
+    }, sig);
   }
 }
 
