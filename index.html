@@ -324,11 +324,11 @@ const GH = {
     const json = JSON.stringify(S.profiles, null, 2);
     const bytes = new TextEncoder().encode(json);
     const content = btoa(Array.from(bytes).map(b=>String.fromCharCode(b)).join(''));
-    // Get current SHA (from cache or fresh fetch)
+    // Get current SHA — repo is public, no auth needed for GET
     let sha = this.getSha();
     if(!sha){
       try{
-        const r = await fetch(this.apiUrl(), {headers: this.headers()});
+        const r = await fetch(this.apiUrl());
         if(r.ok){ const d = await r.json(); sha = d.sha; this.setSha(sha); }
       }catch{}
     }
@@ -348,7 +348,7 @@ const GH = {
       if(r.status === 409 || r.status === 422){
         this.setSha(null);
         localStorage.removeItem('wf_gh_sha');
-        const r2 = await fetch(this.apiUrl(), {headers: this.headers()});
+        const r2 = await fetch(this.apiUrl()); // public repo — no auth for GET
         if(r2.ok){ const d2 = await r2.json(); body.sha = d2.sha; this.setSha(d2.sha); }
         const r3 = await fetch(this.apiUrl(), {method:'PUT', headers:{...this.headers(),'Content-Type':'application/json'}, body:JSON.stringify(body)});
         if(r3.ok){ const d3 = await r3.json(); this.setSha(d3.content.sha); S.syncStatus='ok'; updateSyncBadge(); return true; }
@@ -539,7 +539,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v2.5</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v2.6</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
