@@ -346,14 +346,22 @@ body.child-theme .toast{background:#3d1f00;color:#ffe88a;border:2px solid #c8a02
 /* Biome chip */
 .biome-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(0,0,0,.25);border-radius:50px;padding:3px 10px;font-size:12px;font-weight:800;color:white;margin-top:4px}
 /* Mob collection */
-.mob-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
-.mob-card{border-radius:10px;padding:10px 6px;text-align:center;border:2px solid transparent;transition:border-color .2s,transform .15s}
-.mob-card.unlocked{background:#d4edbc;border-color:#5ba032}
-.mob-card.unlocked:hover{transform:scale(1.08)}
-.mob-card.locked{background:#F3F4F6;opacity:.45;filter:grayscale(1)}
-.mob-emoji{font-size:30px;display:block;margin-bottom:3px}
-.mob-name{font-size:11px;font-weight:800;color:var(--text)}
-.mob-req{font-size:10px;color:var(--text-muted);font-weight:600;margin-top:2px}
+.mob-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:16px}
+.mob-card{border-radius:18px;padding:20px 12px;text-align:center;border:3px solid transparent;transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden}
+.mob-card.unlocked{background:white;box-shadow:0 6px 20px rgba(0,0,0,.12)}
+.mob-card.unlocked:hover{transform:translateY(-5px)}
+.mob-card.locked{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);border-color:#2d3561}
+.mob-card.next-mob{border:3px dashed gold;background:linear-gradient(135deg,#1a1a2e,#2d2040);animation:nextMobPulse 2s ease infinite}
+@keyframes nextMobPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,215,0,.4)}50%{box-shadow:0 0 18px 6px rgba(255,215,0,.3)}}
+.mob-emoji{font-size:52px;display:block;margin-bottom:8px;line-height:1}
+.mob-name{font-size:14px;font-weight:900;color:var(--text)}
+.mob-req{font-size:11px;color:var(--text-muted);font-weight:700;margin-top:4px}
+.mob-card.unlocked .mob-name{margin-top:4px}
+.mob-locked-emoji{font-size:44px;display:block;margin-bottom:8px;filter:drop-shadow(0 0 8px rgba(120,80,255,.6))}
+.mob-locked-name{font-size:12px;font-weight:800;color:#8B8FA8;letter-spacing:1px}
+.mob-locked-req{font-size:12px;color:#6366F1;font-weight:800;margin-top:6px;background:rgba(99,102,241,.15);border-radius:8px;padding:4px 8px;display:inline-block}
+.mob-next-label{font-size:11px;font-weight:800;color:gold;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px}
+.mob-badge{position:absolute;top:10px;right:10px;font-size:16px}
 /* Crafting flash */
 @keyframes craftFlash{0%{box-shadow:0 0 0 0 rgba(255,215,0,.8)}70%{box-shadow:0 0 0 16px rgba(255,215,0,0)}100%{box-shadow:0 0 0 0 rgba(255,215,0,0)}}
 .craft-pulse{animation:craftFlash .6s ease}
@@ -477,18 +485,18 @@ const BOSSES = [
   {name:'Ghast',    emoji:'👻', hp:110},
 ];
 const MOBS = [
-  {emoji:'🐷', name:'Pig',      req:10},
-  {emoji:'🐄', name:'Cow',      req:20},
-  {emoji:'🐑', name:'Sheep',    req:30},
-  {emoji:'🐔', name:'Chicken',  req:40},
-  {emoji:'🐺', name:'Wolf',     req:50},
-  {emoji:'🐱', name:'Cat',      req:60},
-  {emoji:'🐴', name:'Horse',    req:70},
-  {emoji:'🦊', name:'Fox',      req:80},
-  {emoji:'🐝', name:'Bee',      req:90},
-  {emoji:'🦎', name:'Axolotl',  req:100},
-  {emoji:'🐼', name:'Panda',    req:120},
-  {emoji:'🐉', name:'Dragon',   req:150},
+  {emoji:'🐲', name:'Дракончик',  req:10,  color:'#22C55E'},
+  {emoji:'🦊', name:'Лисиця',     req:20,  color:'#F97316'},
+  {emoji:'🦁', name:'Лев',        req:30,  color:'#EAB308'},
+  {emoji:'🐯', name:'Тигр',       req:40,  color:'#F97316'},
+  {emoji:'🦄', name:'Єдиноріг',   req:50,  color:'#A855F7'},
+  {emoji:'🦋', name:'Метелик',    req:60,  color:'#06B6D4'},
+  {emoji:'🐺', name:'Вовк',       req:70,  color:'#6366F1'},
+  {emoji:'🦅', name:'Орел',       req:80,  color:'#0EA5E9'},
+  {emoji:'🦖', name:'Динозавр',   req:100, color:'#84CC16'},
+  {emoji:'🐉', name:'Дракон',     req:120, color:'#EF4444'},
+  {emoji:'👾', name:'Ендермен',   req:140, color:'#8B5CF6'},
+  {emoji:'👑', name:'Король',     req:160, color:'#F59E0B'},
 ];
 const BIOMES = [
   {min:1,  max:3,  name:'Plains',  emoji:'🌿'},
@@ -864,7 +872,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.2</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -1288,19 +1296,47 @@ function viewMobs(){
   const p=getProfile(); if(!p){ go('profiles'); return ''; }
   const wc=p.words.length;
   const unlocked=MOBS.filter(m=>wc>=m.req).length;
-  const next=MOBS.find(m=>wc<m.req);
-  const cards=MOBS.map(m=>`
-    <div class="mob-card ${wc>=m.req?'unlocked':'locked'}">
-      <span class="mob-emoji">${m.emoji}</span>
-      <div class="mob-name">${m.name}</div>
-      <div class="mob-req">${wc>=m.req?'✅ Знайдений':`📚 ${m.req} слів`}</div>
-    </div>`).join('');
+  const nextIdx=MOBS.findIndex(m=>wc<m.req);
+  const cards=MOBS.map((m,i)=>{
+    if(wc>=m.req){
+      return `<div class="mob-card unlocked" style="border-color:${m.color};box-shadow:0 6px 24px ${m.color}44">
+        <div class="mob-badge">⭐</div>
+        <span class="mob-emoji">${m.emoji}</span>
+        <div class="mob-name" style="color:${m.color}">${m.name}</div>
+        <div class="mob-req" style="color:${m.color}99">✅ Відкрито!</div>
+      </div>`;
+    } else if(i===nextIdx){
+      return `<div class="mob-card next-mob">
+        <div class="mob-next-label">⬇ Наступний</div>
+        <span class="mob-locked-emoji">🔮</span>
+        <div class="mob-locked-name">??? ${m.name}</div>
+        <div class="mob-locked-req">📚 ще ${m.req-wc} слів</div>
+      </div>`;
+    } else {
+      return `<div class="mob-card locked">
+        <span class="mob-locked-emoji">🔒</span>
+        <div class="mob-locked-name">ТАЄМНИЦЯ</div>
+        <div class="mob-locked-req">📚 ${m.req} слів</div>
+      </div>`;
+    }
+  }).join('');
+  const pct=Math.round(unlocked/MOBS.length*100);
   return `
   <button class="back-btn" data-action="back">← Меню</button>
   <div class="card">
-    <div class="section-title">🐾 Колекція мобів</div>
-    <div style="font-size:15px;font-weight:700;color:var(--text-light);margin-bottom:4px">${unlocked} / ${MOBS.length} мобів знайдено!</div>
-    ${next?`<div style="background:#EFF6FF;border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:700;color:#1D4ED8">📚 Додай ще ${next.req-wc} слів щоб відкрити ${next.emoji} ${next.name}!</div>`:'<div style="background:#DCFCE7;border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:700;color:#15803D">🎉 Всі моби знайдені!</div>'}
+    <div class="section-title">🐾 Колекція істот</div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:800;color:var(--text-light);margin-bottom:6px">Відкрито ${unlocked} з ${MOBS.length} істот (${pct}%)</div>
+        <div style="height:10px;background:#E5E7EB;border-radius:5px;overflow:hidden">
+          <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#7C3AED,#EC4899);border-radius:5px;transition:width .6s ease"></div>
+        </div>
+      </div>
+      <div style="font-size:36px">${unlocked>=MOBS.length?'🏆':MOBS.filter(m=>wc>=m.req).slice(-1)[0]?.emoji||'🔮'}</div>
+    </div>
+    ${unlocked>=MOBS.length
+      ?'<div style="background:linear-gradient(135deg,#DCFCE7,#D1FAE5);border-radius:14px;padding:14px;margin-bottom:16px;font-size:14px;font-weight:800;color:#15803D;text-align:center">🏆 Вітаємо! Всі істоти відкриті!</div>'
+      :''}
     <div class="mob-grid">${cards}</div>
   </div>`;
 }
