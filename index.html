@@ -638,6 +638,7 @@ async function loadData(){
     if(!S.session) render();
   }
 }
+function savePinned(){ const p=getProfile(); if(p){ p.pinnedIds=[...S.dictSelected]; saveData(); schedulePush(); } }
 function saveData(){
   localStorage.setItem(DB_KEY, JSON.stringify(S.profiles));
   schedulePush();
@@ -874,7 +875,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.3</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.4</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -1026,7 +1027,7 @@ function viewDictionary(){
     <div style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
       <button class="btn btn-outline btn-sm" data-action="selectAll">☑ Всі</button>
       <button class="btn btn-outline btn-sm" data-action="deselectAll">☐ Зняти</button>
-      ${selCount>0?`<span style="font-size:13px;font-weight:700;color:var(--primary)">Обрано: ${selCount}</span>`:''}
+      ${selCount>0?`<span style="font-size:13px;font-weight:700;color:#1D4ED8">📌 Тимчасовий: ${selCount} слів</span>`:'<span style="font-size:12px;color:var(--text-muted);font-weight:600">📌 Відміч слова для тимчасового словника</span>'}
     </div>
     <div class="word-list">${rows}</div>
     <div class="dict-footer">
@@ -1080,6 +1081,12 @@ function viewEditWord(){
     <div style="background:#F9FAFB;border-radius:14px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--text-light);font-weight:600">
       📈 Показано ${w.timesStudied||0} разів · ✅ знав ${w.timesKnown||0} · ❌ не знав ${w.timesUnknown||0}
     </div>
+    <div class="form-label" style="margin-bottom:8px">📂 Категорія вручну:</div>
+    <div class="cat-toggle" style="margin-bottom:16px">
+      <button class="cat-btn cat-learning ${getCategory(w)==='learning'?'active':''}" data-action="setWordCat" data-id="${w.id}" data-cat="learning">📖 Вивчаю</button>
+      <button class="cat-btn cat-hard ${getCategory(w)==='hard'?'active':''}" data-action="setWordCat" data-id="${w.id}" data-cat="hard">🔥 Складне</button>
+      <button class="cat-btn cat-easy ${getCategory(w)==='easy'?'active':''}" data-action="setWordCat" data-id="${w.id}" data-cat="easy">😊 Легке</button>
+    </div>
     <div style="display:flex;gap:10px">
       <button class="btn btn-outline flex-1" data-action="back">Скасувати</button>
       <button class="btn btn-primary flex-1" data-action="updateWord" data-id="${w.id}">💾 Зберегти</button>
@@ -1132,11 +1139,21 @@ function viewStudySetup(){
       ? `<div style="background:#FEF9C3;border-radius:14px;padding:14px;margin-bottom:16px;text-align:center;color:#92400E;font-weight:700;font-size:14px">⚠️ Нема слів у вибраних категоріях. Оберіть хоча б одну!</div>`
       : `<div class="word-count-info"><span class="wci-icon">📝</span><div class="wci-text"><div class="wci-num">${studyIds.length} слів</div><div class="wci-label">вибрано для навчання</div></div></div>`
     }
-    <button class="btn btn-primary btn-block" style="margin-bottom:12px" data-action="startByCats" ${studyIds.length===0?'disabled':''}>🚀 Почати! (${studyIds.length} слів)</button>
-    ${selCount>0
-      ? `<button class="btn btn-outline btn-block btn-sm" data-action="startSelected">🎯 Вибрані зі словника (${selCount})</button>`
-      : `<button class="btn btn-outline btn-block btn-sm" data-action="goDictionary">☑ Вибрати конкретні слова</button>`
-    }
+    <button class="btn btn-primary btn-block" style="margin-bottom:16px" data-action="startByCats" ${studyIds.length===0?'disabled':''}>🚀 Почати! (${studyIds.length} слів)</button>
+    <div style="border-top:2px solid #F3F4F6;padding-top:16px">
+      <div class="form-label" style="margin-bottom:10px">📌 Тимчасовий словник:</div>
+      ${selCount>0 ? `
+        <div style="background:#EFF6FF;border-radius:14px;padding:12px 14px;margin-bottom:10px;display:flex;align-items:center;gap:10px">
+          <span style="font-size:20px">📌</span>
+          <div style="flex:1;font-size:13px;font-weight:700;color:#1D4ED8">${selCount} слів відмічено</div>
+          <button class="btn btn-outline btn-sm" style="font-size:12px;padding:4px 10px" data-action="clearPinned">✕ Очистити</button>
+        </div>
+        <button class="btn btn-success btn-block" data-action="startSelected">▶ Вчити тимчасовий словник (${selCount})</button>
+      ` : `
+        <div style="font-size:13px;color:var(--text-muted);font-weight:600;margin-bottom:10px">Відміч слова у словнику — і вчи тільки їх.</div>
+        <button class="btn btn-outline btn-block btn-sm" data-action="goDictionary">☑ Відкрити словник і вибрати слова</button>
+      `}
+    </div>
   </div>`;
 }
 
@@ -1343,6 +1360,10 @@ function viewMobs(){
       ?'<div style="background:linear-gradient(135deg,#FEF9C3,#FDE68A);border-radius:14px;padding:14px;margin-bottom:16px;font-size:14px;font-weight:800;color:#92400E;text-align:center">🏆 Всі бравлери відкриті! Ти крутий!</div>'
       :''}
     <div class="mob-grid">${cards}</div>
+    ${wc<10?`<div style="margin-top:16px;padding-top:14px;border-top:2px solid #F3F4F6;text-align:center">
+      <div style="font-size:13px;color:var(--text-muted);font-weight:600;margin-bottom:8px">Немає слів? Додай тестові щоб побачити картинки</div>
+      <button class="btn btn-outline btn-sm" data-action="addTestWords">🧪 Додати 50 тестових слів</button>
+    </div>`:''}
   </div>`;
 }
 
@@ -1410,7 +1431,7 @@ function handleClick(e){
   const el=e.target.closest('[data-action]'); if(!el) return;
   const action=el.dataset.action, id=el.dataset.id, val=el.dataset.val;
   const actions={
-    selectProfile: ()=>{ S.profileId=id; S.dictSelected.clear(); go('menu'); },
+    selectProfile: ()=>{ S.profileId=id; const p=getProfile(); S.dictSelected=new Set(p?.pinnedIds||[]); go('menu'); },
     deleteProfile: ()=>{ e.stopPropagation(); deleteProfile(id); },
     newProfile:    ()=> go('newProfile',{avatar:AVATARS[0],color:COLORS[0],isChild:false}),
     pickAvatar:    ()=> go('newProfile',{...S.params,avatar:val}),
@@ -1449,9 +1470,10 @@ function handleClick(e){
       a.href=url; a.download=`wordflash-backup-${today()}.json`; a.click(); URL.revokeObjectURL(url);
       showToast('📥 Файл завантажується!');
     },
-    toggleWord:  ()=>{ if(S.dictSelected.has(id)) S.dictSelected.delete(id); else S.dictSelected.add(id); render(); },
-    selectAll:   ()=>{ const p=getProfile(); if(p) p.words.forEach(w=>S.dictSelected.add(w.id)); render(); },
-    deselectAll: ()=>{ S.dictSelected.clear(); render(); },
+    toggleWord:  ()=>{ if(S.dictSelected.has(id)) S.dictSelected.delete(id); else S.dictSelected.add(id); savePinned(); render(); },
+    selectAll:   ()=>{ const p=getProfile(); if(p){ p.words.forEach(w=>S.dictSelected.add(w.id)); savePinned(); } render(); },
+    deselectAll: ()=>{ S.dictSelected.clear(); savePinned(); render(); },
+    clearPinned: ()=>{ S.dictSelected.clear(); savePinned(); showToast('📌 Тимчасовий словник очищено'); render(); },
     editWord:    ()=>{ e.stopPropagation(); go('editWord',{wordId:id}); },
     deleteWord:  ()=>{
       e.stopPropagation(); const w=getWord(id); if(!w) return;
@@ -1481,6 +1503,19 @@ function handleClick(e){
       const en=document.getElementById('word-en')?.value?.trim(), ua=document.getElementById('word-ua')?.value?.trim();
       if(!en||!ua){ showToast('⚠️ Заповни обидва поля!'); return; }
       const w=getWord(id); if(w){ w.english=en; w.ukrainian=ua; saveData(); showToast('✅ Слово оновлено!'); } go('dictionary');
+    },
+    setWordCat: ()=>{
+      const w=getWord(id); if(!w) return;
+      const cat=el.dataset.cat; w.category=cat; w.streak=0;
+      saveData(); showToast(cat==='hard'?'🔥 Позначено як складне!':cat==='easy'?'😊 Позначено як легке!':'📖 Повернуто у вивчення!');
+      render();
+    },
+    addTestWords: ()=>{
+      const p=getProfile(); if(!p) return;
+      const TEST=[['apple','яблуко'],['banana','банан'],['orange','апельсин'],['cat','кіт'],['dog','собака'],['bird','птах'],['house','будинок'],['car','машина'],['book','книга'],['tree','дерево'],['sun','сонце'],['moon','місяць'],['star','зірка'],['water','вода'],['fire','вогонь'],['sky','небо'],['wind','вітер'],['rain','дощ'],['snow','сніг'],['flower','квітка'],['love','любов'],['friend','друг'],['school','школа'],['game','гра'],['music','музика'],['dance','танець'],['fish','риба'],['bread','хліб'],['milk','молоко'],['egg','яйце'],['chair','стілець'],['table','стіл'],['door','двері'],['window','вікно'],['street','вулиця'],['city','місто'],['country','країна'],['river','річка'],['mountain','гора'],['sea','море'],['horse','кінь'],['cow','корова'],['bear','ведмідь'],['wolf','вовк'],['rabbit','кролик'],['butterfly','метелик'],['dragon','дракон'],['castle','замок'],['sword','меч'],['magic','магія']];
+      let added=0;
+      TEST.forEach(([en,ua])=>{ if(!p.words.some(w=>w.english===en)){ p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0}); added++; } });
+      saveData(); showToast(`✅ Додано ${added} тестових слів`); render();
     },
     setDir:       ()=>{ S.params={...S.params,direction:el.dataset.dir}; render(); },
     toggleCat:    ()=>{ const cat=el.dataset.cat; if(S.studyCats.has(cat)) S.studyCats.delete(cat); else S.studyCats.add(cat); render(); },
