@@ -157,7 +157,10 @@ body{
 .fc-back{background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);color:white;transform:rotateY(180deg)}
 .fc-lang-tag{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;opacity:.7;margin-bottom:16px}
 .fc-word{font-size:36px;font-weight:900;line-height:1.2;word-break:break-word}
-.fc-tip{font-size:12px;opacity:.7;margin-top:16px;font-weight:600}
+.fc-tip{font-size:12px;opacity:.7;margin-top:12px;font-weight:600}
+.speak-btn{background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.5);border-radius:50px;font-size:20px;padding:6px 16px;cursor:pointer;margin-top:10px;transition:background .15s,transform .1s;backdrop-filter:blur(4px)}
+.speak-btn:hover{background:rgba(255,255,255,.4);transform:scale(1.1)}
+.speak-btn:active{transform:scale(.95)}
 /* Study buttons */
 .study-btns{display:flex;flex-direction:column;gap:10px}
 .study-btns-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -883,7 +886,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.6</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.7</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -1011,6 +1014,7 @@ function viewDictionary(){
         <div class="word-item-text"><div class="word-en">${esc(w.english)}</div><div class="word-ua">${esc(w.ukrainian)}</div></div>
         ${diffBadge(w)}
         <div class="word-actions">
+          <button class="icon-btn" data-action="dictSpeak" data-en="${esc(w.english)}" title="Послухати">🔊</button>
           <button class="icon-btn" data-action="editWord" data-id="${w.id}">✏️</button>
           <button class="icon-btn" data-action="deleteWord" data-id="${w.id}">🗑️</button>
         </div>
@@ -1197,6 +1201,7 @@ function viewStudy(){
       <div class="fc-face fc-front">
         <div class="fc-lang-tag">${fl}</div>
         <div class="fc-word">${esc(fw)}</div>
+        ${s.direction==='en-ua'?`<button class="speak-btn" data-action="speakWord" title="Послухати вимову">🔊</button>`:''}
         <div class="fc-tip">👆 Натисни або кнопку нижче</div>
       </div>
       <div class="fc-face fc-back">
@@ -1409,6 +1414,21 @@ function viewSettings(){
 }
 
 // ── RENDER ──
+// ── SPEECH ──
+function speak(text, lang='en-US'){
+  if(!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang=lang; u.rate=0.85; u.pitch=1;
+  speechSynthesis.speak(u);
+}
+function autoSpeak(){
+  if(S.view!=='study'||!S.session||S.session.isFlipped) return;
+  const w=currentCard(); if(!w) return;
+  const isEn=S.session.direction==='en-ua';
+  if(isEn) setTimeout(()=>speak(w.english),350);
+}
+
 function render(){
   const el=document.getElementById('app'); if(!el) return;
   document.body.classList.toggle('child-theme', isKid());
@@ -1420,6 +1440,7 @@ function render(){
   const views={profiles:viewProfiles,newProfile:viewNewProfile,menu:viewMenu,dictionary:viewDictionary,addWord:viewAddWord,editWord:viewEditWord,studySetup:viewStudySetup,study:viewStudy,complete:viewComplete,stats:viewStats,achievements:viewAchievements,mobs:viewMobs,settings:viewSettings};
   el.innerHTML=(views[S.view]||(() =>'<p>404</p>'))();
   attachEvents();
+  autoSpeak();
   if(S.view==='complete'&&!S._confettiDone){
     S._confettiDone=true;
     const {session}=S.params||{};
@@ -1529,6 +1550,8 @@ function handleClick(e){
       TEST.forEach(([en,ua])=>{ if(!p.words.some(w=>w.english===en)){ p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0}); added++; } });
       saveData(); showToast(`✅ Додано ${added} тестових слів`); render();
     },
+    speakWord:    ()=>{ e.stopPropagation(); const w=currentCard(); if(w) speak(w.english); },
+    dictSpeak:    ()=>{ e.stopPropagation(); const t=el.dataset.en; if(t) speak(t); },
     setDir:       ()=>{ S.params={...S.params,direction:el.dataset.dir}; render(); },
     toggleCat:    ()=>{ const cat=el.dataset.cat; if(S.studyCats.has(cat)) S.studyCats.delete(cat); else S.studyCats.add(cat); render(); },
     startByCats:  ()=>{ const p=getProfile(); if(!p) return; const ids=p.words.filter(w=>S.studyCats.has(getCategory(w))).map(w=>w.id); if(!ids.length){ showToast('⚠️ Немає слів у вибраних категоріях!'); return; } startSession(ids,S.params.direction||'en-ua'); },
