@@ -140,7 +140,7 @@
         "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "dqvvktvpmmor9l13c",
@@ -151,7 +151,7 @@
         "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "1ox1wbntvmor9l13c",
@@ -162,26 +162,26 @@
         "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "mdt77iqrnmor9l13c",
         "english": "dog",
         "ukrainian": "собака",
         "addedDate": "2026-05-04",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "tse68hr0zmor9l13c",
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-04",
-        "timesStudied": 3,
-        "timesKnown": 1,
+        "timesStudied": 4,
+        "timesKnown": 2,
         "timesUnknown": 2,
         "category": "learning",
         "streak": 0
@@ -195,7 +195,7 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "zwkpk7eyjmordoctf",
@@ -206,7 +206,7 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "0u2yaaefamordoq01",
@@ -217,7 +217,7 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "fr2tllkkwmordozf0",
@@ -228,7 +228,7 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "8hxmu3fwzmordpg30",
@@ -239,7 +239,7 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "waj8p7t46mordpn9f",
@@ -250,7 +250,7 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       }
     ],
     "sessions": [
@@ -261,6 +261,14 @@
         "totalWords": 5,
         "knownFirst": 4,
         "duration": 66
+      },
+      {
+        "id": "vx85e7qhnmordtto9",
+        "date": "2026-05-04",
+        "direction": "en-ua",
+        "totalWords": 11,
+        "knownFirst": 10,
+        "duration": 180
       }
     ],
     "streak": 1,
@@ -271,6 +279,6 @@
       "first_session",
       "words_10"
     ],
-    "xp": 246
+    "xp": 327
   }
 ]
