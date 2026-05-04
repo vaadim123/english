@@ -184,7 +184,7 @@
         "timesKnown": 9,
         "timesUnknown": 8,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "sazdc0x8hmor9ns3k",
@@ -195,7 +195,7 @@
         "timesKnown": 8,
         "timesUnknown": 3,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "zwkpk7eyjmordoctf",
@@ -206,7 +206,7 @@
         "timesKnown": 8,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "0u2yaaefamordoq01",
@@ -216,8 +216,8 @@
         "timesStudied": 7,
         "timesKnown": 7,
         "timesUnknown": 0,
-        "category": "learning",
-        "streak": 6
+        "category": "easy",
+        "streak": 0
       },
       {
         "id": "fr2tllkkwmordozf0",
@@ -227,8 +227,8 @@
         "timesStudied": 8,
         "timesKnown": 8,
         "timesUnknown": 0,
-        "category": "learning",
-        "streak": 6
+        "category": "easy",
+        "streak": 0
       },
       {
         "id": "8hxmu3fwzmordpg30",
@@ -239,7 +239,7 @@
         "timesKnown": 7,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "waj8p7t46mordpn9f",
@@ -250,7 +250,7 @@
         "timesKnown": 8,
         "timesUnknown": 3,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "bgpgmki32more4p68",
@@ -261,7 +261,7 @@
         "timesKnown": 5,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "tudgu3jl0more4p68",
@@ -272,7 +272,7 @@
         "timesKnown": 6,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "njitu5nx5more4p68",
@@ -283,7 +283,7 @@
         "timesKnown": 6,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "hpxbkoz8zmore4p68",
@@ -294,7 +294,7 @@
         "timesKnown": 5,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 4
+        "streak": 5
       },
       {
         "id": "kqbnc2ozimorekaw1",
@@ -316,15 +316,15 @@
         "timesKnown": 4,
         "timesUnknown": 5,
         "category": "hard",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "f7u4jbruamorekaw1",
         "english": "draw",
         "ukrainian": "малювати",
         "addedDate": "2026-05-04",
-        "timesStudied": 7,
-        "timesKnown": 2,
+        "timesStudied": 8,
+        "timesKnown": 3,
         "timesUnknown": 5,
         "category": "hard",
         "streak": 0
@@ -349,7 +349,7 @@
         "timesKnown": 4,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 2
+        "streak": 0
       },
       {
         "id": "71grepbubmorekaw1",
@@ -360,7 +360,7 @@
         "timesKnown": 4,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       }
     ],
     "sessions": [
@@ -419,6 +419,14 @@
         "totalWords": 21,
         "knownFirst": 16,
         "duration": 629
+      },
+      {
+        "id": "qq6zc1huymorjtf26",
+        "date": "2026-05-04",
+        "direction": "ua-en",
+        "totalWords": 17,
+        "knownFirst": 13,
+        "duration": 390
       }
     ],
     "streak": 1,
@@ -430,7 +438,7 @@
       "words_10",
       "sessions_5"
     ],
-    "xp": 2066,
+    "xp": 2126,
     "pinnedIds": []
   }
 ]
