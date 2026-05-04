@@ -251,6 +251,50 @@
         "timesUnknown": 1,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "bgpgmki32more4p68",
+        "english": "chair",
+        "ukrainian": "стул",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "tudgu3jl0more4p68",
+        "english": "table",
+        "ukrainian": "стіл",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "njitu5nx5more4p68",
+        "english": "clock",
+        "ukrainian": "годинник",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "hpxbkoz8zmore4p68",
+        "english": "computer",
+        "ukrainian": "компʼютер",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -287,6 +331,6 @@
       "first_session",
       "words_10"
     ],
-    "xp": 510
+    "xp": 530
   }
 ]
