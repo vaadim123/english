@@ -323,9 +323,9 @@
         "english": "draw",
         "ukrainian": "малювати",
         "addedDate": "2026-05-04",
-        "timesStudied": 6,
+        "timesStudied": 7,
         "timesKnown": 2,
-        "timesUnknown": 4,
+        "timesUnknown": 5,
         "category": "hard",
         "streak": 0
       },
@@ -430,7 +430,7 @@
       "words_10",
       "sessions_5"
     ],
-    "xp": 2054,
+    "xp": 2056,
     "pinnedIds": []
   }
 ]
