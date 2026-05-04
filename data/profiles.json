@@ -213,8 +213,8 @@
         "english": "pencil",
         "ukrainian": "олівець",
         "addedDate": "2026-05-04",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 1
@@ -279,6 +279,6 @@
       "first_session",
       "words_10"
     ],
-    "xp": 373
+    "xp": 383
   }
 ]
