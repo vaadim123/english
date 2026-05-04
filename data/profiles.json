@@ -15,18 +15,18 @@
         "timesKnown": 7,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "hbzkwjrq1moq9k5qe",
         "english": "apple",
         "ukrainian": "яблуко",
         "addedDate": "2026-05-03",
-        "timesStudied": 8,
-        "timesKnown": 6,
+        "timesStudied": 9,
+        "timesKnown": 7,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 2
+        "streak": 0
       },
       {
         "id": "aq707zs06moq9k5qe",
@@ -37,7 +37,7 @@
         "timesKnown": 7,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 3
+        "streak": 4
       },
       {
         "id": "ikt9z6eyrmoq9k5qe",
@@ -50,7 +50,7 @@
         "isHard": true,
         "hardConsecutiveCorrect": 0,
         "category": "hard",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "njbz22znamoq9k5qe",
@@ -61,7 +61,7 @@
         "timesKnown": 7,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 3
+        "streak": 4
       }
     ],
     "sessions": [
@@ -112,6 +112,14 @@
         "totalWords": 5,
         "knownFirst": 4,
         "duration": 15
+      },
+      {
+        "id": "hev9jgunfmor1ow2u",
+        "date": "2026-05-04",
+        "direction": "en-ua",
+        "totalWords": 5,
+        "knownFirst": 4,
+        "duration": 94
       }
     ],
     "streak": 2,
@@ -122,6 +130,6 @@
       "first_session",
       "sessions_5"
     ],
-    "xp": 668
+    "xp": 732
   }
 ]
