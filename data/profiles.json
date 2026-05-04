@@ -180,10 +180,10 @@
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-04",
-        "timesStudied": 5,
+        "timesStudied": 6,
         "timesKnown": 2,
-        "timesUnknown": 3,
-        "category": "learning",
+        "timesUnknown": 4,
+        "category": "hard",
         "streak": 0
       },
       {
@@ -202,8 +202,8 @@
         "english": "ruler",
         "ukrainian": "лінійка",
         "addedDate": "2026-05-04",
-        "timesStudied": 2,
-        "timesKnown": 1,
+        "timesStudied": 3,
+        "timesKnown": 2,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 1
@@ -279,6 +279,6 @@
       "first_session",
       "words_10"
     ],
-    "xp": 412
+    "xp": 424
   }
 ]
