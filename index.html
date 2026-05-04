@@ -304,7 +304,7 @@ body.child-theme .mc-deco{display:block;position:fixed;inset:0;pointer-events:no
 .mc-deco-item{position:absolute;animation:floatBob ease-in-out infinite;font-size:26px;filter:drop-shadow(1px 3px 5px rgba(0,0,0,.4))}
 @keyframes floatBob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-16px) rotate(4deg)}}
 /* Running character */
-.kid-runner{display:none;position:fixed;bottom:14px;left:-90px;z-index:5;pointer-events:none;filter:drop-shadow(2px 6px 10px rgba(0,0,0,.6))}
+.kid-runner{display:none;position:fixed;bottom:14px;left:-90px;z-index:500;pointer-events:none;filter:drop-shadow(2px 6px 10px rgba(0,0,0,.6))}
 body.child-theme .kid-runner{display:block}
 /* SVG leg/arm swing */
 .kid-runner .mc-lleg{transform-origin:6.5px 16px;animation:legSwL .32s ease-in-out infinite alternate}
@@ -384,7 +384,11 @@ body.child-theme .toast{background:#3d1f00;color:#ffe88a;border:2px solid #c8a02
 .float-reaction{position:fixed;pointer-events:none;font-size:38px;z-index:9995;animation:floatUp 1.1s ease forwards}
 @keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-130px) scale(0.5);opacity:0}}
 /* Animal runner */
-.animal-runner{display:none;position:fixed;bottom:55px;left:-60px;font-size:38px;z-index:5;pointer-events:none;filter:drop-shadow(2px 4px 6px rgba(0,0,0,.4))}
+.animal-runner{display:none;position:fixed;bottom:55px;left:-60px;font-size:38px;z-index:500;pointer-events:none;filter:drop-shadow(2px 4px 6px rgba(0,0,0,.4))}
+.animal-runner2{display:none;position:fixed;bottom:120px;left:-70px;font-size:52px;z-index:500;pointer-events:none;filter:drop-shadow(2px 4px 8px rgba(0,0,0,.5))}
+body.child-theme .animal-runner2{display:block}
+.animal-runner3{display:none;position:fixed;top:80px;left:-70px;font-size:30px;z-index:500;pointer-events:none;filter:drop-shadow(2px 4px 6px rgba(0,0,0,.4))}
+body.child-theme .animal-runner3{display:block}
 body.child-theme .animal-runner{display:block}
 </style>
 </head>
@@ -401,6 +405,8 @@ body.child-theme .animal-runner{display:block}
   <span class="mc-deco-item" style="top:75%;left:3%;animation-duration:4.9s;animation-delay:.9s">🍎</span>
 </div>
 <div class="animal-runner" id="animal-runner" aria-hidden="true">🐔</div>
+<div class="animal-runner2" id="animal-runner2" aria-hidden="true">🦊</div>
+<div class="animal-runner3" id="animal-runner3" aria-hidden="true">🦋</div>
 <div class="kid-runner" id="kid-runner" aria-hidden="true">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 26" width="80" height="130" style="image-rendering:pixelated;display:block">
   <!-- Hair -->
@@ -877,7 +883,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.5</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.6</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -1627,23 +1633,24 @@ function showFloatReaction(emoji,x,y){
 }
 
 // ── ANIMAL RUNNER ──
-const ANIMALS=['🐔','🐷','🐄','🐑','🐸','🦆','🐇','🦔'];
+const ANIMALS=['🐔','🐷','🐄','🐑','🐸','🦆','🐇','🦔','🦊','🐺','🐯','🦁','🐘','🦒','🦓','🐊','🦕','🐢','🐍','🦖','🐉','🦋','🐝','🐛','🦗','🦟','🐠','🦀','🦞','🦑'];
 let _animalTimer=null;
 function scheduleAnimal(){
   clearTimeout(_animalTimer);
-  _animalTimer=setTimeout(doAnimalRun,15000+Math.random()*35000);
+  _animalTimer=setTimeout(doAnimalRun,8000+Math.random()*17000);
 }
 function doAnimalRun(){
   if(!isKid()){ scheduleAnimal(); return; }
-  const el=document.getElementById('animal-runner'); if(!el){ scheduleAnimal(); return; }
-  const vw=window.innerWidth, rtl=Math.random()>.5, dur=1800+Math.random()*2000;
+  const trackId=pick(['animal-runner','animal-runner','animal-runner2','animal-runner3']);
+  const el=document.getElementById(trackId); if(!el){ scheduleAnimal(); return; }
+  const vw=window.innerWidth, rtl=Math.random()>.5, dur=1400+Math.random()*2200;
   el.textContent=pick(ANIMALS);
   el.style.transition='none';
-  el.style.left=(rtl?vw+60:-60)+'px';
+  el.style.left=(rtl?vw+80:-80)+'px';
   el.style.transform=rtl?'scaleX(-1)':'scaleX(1)';
   el.getBoundingClientRect();
   el.style.transition=`left ${dur}ms linear`;
-  el.style.left=(rtl?-60:vw+60)+'px';
+  el.style.left=(rtl?-80:vw+80)+'px';
   _animalTimer=setTimeout(()=>{ el.style.transition='none'; scheduleAnimal(); },dur+200);
 }
 
