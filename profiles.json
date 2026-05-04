@@ -213,8 +213,8 @@
         "english": "pencil",
         "ukrainian": "олівець",
         "addedDate": "2026-05-04",
-        "timesStudied": 6,
-        "timesKnown": 6,
+        "timesStudied": 7,
+        "timesKnown": 7,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 6
@@ -430,7 +430,7 @@
       "words_10",
       "sessions_5"
     ],
-    "xp": 2005,
+    "xp": 2015,
     "pinnedIds": []
   }
 ]
