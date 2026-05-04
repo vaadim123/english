@@ -527,11 +527,12 @@
         "english": "walk",
         "ukrainian": "ходити",
         "addedDate": "2026-05-04",
-        "timesStudied": 0,
+        "timesStudied": 1,
         "timesKnown": 0,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
-        "streak": 0
+        "streak": 0,
+        "listed": true
       },
       {
         "id": "9u6su04t2morkbqt3",
@@ -698,7 +699,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2449,
+    "xp": 2451,
     "pinnedIds": []
   }
 ]
