@@ -482,7 +482,8 @@
         "timesKnown": 0,
         "timesUnknown": 2,
         "category": "hard",
-        "streak": 0
+        "streak": 0,
+        "listed": true
       },
       {
         "id": "tsjyv5utemorka3b3",
