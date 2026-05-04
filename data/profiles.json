@@ -140,7 +140,7 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "dqvvktvpmmor9l13c",
@@ -151,7 +151,7 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "1ox1wbntvmor9l13c",
@@ -162,7 +162,7 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "mdt77iqrnmor9l13c",
@@ -173,25 +173,37 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "tse68hr0zmor9l13c",
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-04",
-        "timesStudied": 1,
-        "timesKnown": 0,
+        "timesStudied": 2,
+        "timesKnown": 1,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 0
       }
     ],
-    "sessions": [],
-    "streak": 0,
-    "bestStreak": 0,
-    "lastStudied": null,
-    "achievements": [],
-    "xp": 45
+    "sessions": [
+      {
+        "id": "fm0d52idgmor9mnaz",
+        "date": "2026-05-04",
+        "direction": "en-ua",
+        "totalWords": 5,
+        "knownFirst": 4,
+        "duration": 66
+      }
+    ],
+    "streak": 1,
+    "bestStreak": 1,
+    "lastStudied": "2026-05-04",
+    "achievements": [
+      "first_word",
+      "first_session"
+    ],
+    "xp": 105
   }
 ]
