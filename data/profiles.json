@@ -22,8 +22,8 @@
         "english": "apple",
         "ukrainian": "яблуко",
         "addedDate": "2026-05-03",
-        "timesStudied": 4,
-        "timesKnown": 3,
+        "timesStudied": 5,
+        "timesKnown": 4,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 1
@@ -44,9 +44,9 @@
         "english": "dog",
         "ukrainian": "собака",
         "addedDate": "2026-05-03",
-        "timesStudied": 6,
+        "timesStudied": 7,
         "timesKnown": 3,
-        "timesUnknown": 3,
+        "timesUnknown": 4,
         "isHard": true,
         "hardConsecutiveCorrect": 0,
         "category": "hard",
@@ -97,6 +97,6 @@
       "first_word",
       "first_session"
     ],
-    "xp": 344
+    "xp": 356
   }
 ]
