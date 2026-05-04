@@ -15,7 +15,7 @@
         "timesKnown": 4,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "hbzkwjrq1moq9k5qe",
@@ -26,7 +26,7 @@
         "timesKnown": 4,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 1
+        "streak": 0
       },
       {
         "id": "aq707zs06moq9k5qe",
@@ -37,20 +37,20 @@
         "timesKnown": 4,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "ikt9z6eyrmoq9k5qe",
         "english": "dog",
         "ukrainian": "собака",
         "addedDate": "2026-05-03",
-        "timesStudied": 7,
-        "timesKnown": 3,
+        "timesStudied": 8,
+        "timesKnown": 4,
         "timesUnknown": 4,
         "isHard": true,
         "hardConsecutiveCorrect": 0,
         "category": "hard",
-        "streak": 1
+        "streak": 0
       },
       {
         "id": "njbz22znamoq9k5qe",
@@ -61,7 +61,7 @@
         "timesKnown": 4,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       }
     ],
     "sessions": [
@@ -88,6 +88,14 @@
         "totalWords": 5,
         "knownFirst": 3,
         "duration": 12
+      },
+      {
+        "id": "afmv6ykaemoqs38rw",
+        "date": "2026-05-04",
+        "direction": "en-ua",
+        "totalWords": 5,
+        "knownFirst": 3,
+        "duration": 25
       }
     ],
     "streak": 2,
@@ -97,6 +105,6 @@
       "first_word",
       "first_session"
     ],
-    "xp": 356
+    "xp": 416
   }
 ]
