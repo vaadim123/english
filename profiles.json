@@ -621,8 +621,8 @@
         "english": "picture",
         "ukrainian": "картинка",
         "addedDate": "2026-05-04",
-        "timesStudied": 3,
-        "timesKnown": 0,
+        "timesStudied": 4,
+        "timesKnown": 1,
         "timesUnknown": 3,
         "category": "hard",
         "streak": 0
@@ -704,7 +704,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2653,
+    "xp": 2663,
     "pinnedIds": []
   }
 ]
