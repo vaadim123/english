@@ -754,6 +754,7 @@ function updateStudyCard(){
   const pp=document.querySelector('.study-pct'); if(pp) pp.textContent=pct+'%';
   const pb=document.querySelector('.progress-fill'); if(pb) pb.style.width=pct+'%';
   const pr=document.querySelector('.study-remaining'); if(pr) pr.textContent=`🔄 В черзі: ${s.queue.length}`;
+  const bwl=document.querySelector('.boss-words-left'); if(bwl) bwl.textContent=s.queue.length;
   const front=document.querySelector('.fc-front .fc-word'), back=document.querySelector('.fc-back .fc-word');
   const ftag=document.querySelector('.fc-front .fc-lang-tag'), btag=document.querySelector('.fc-back .fc-lang-tag');
   if(s.direction==='en-ua'){
@@ -1093,7 +1094,8 @@ function viewStudy(){
   <div class="boss-bar">
     <div class="boss-info">
       <span class="boss-emoji">${s.boss.emoji}</span>
-      <div><div class="boss-name">${s.boss.name}</div><div class="boss-tag">⚔️ BOSS FIGHT!</div></div>
+      <div style="flex:1"><div class="boss-name">${s.boss.name}</div><div class="boss-tag">⚔️ BOSS FIGHT!</div></div>
+      <div style="text-align:right"><div class="boss-words-left" style="color:white;font-weight:900;font-size:18px">${s.queue.length}</div><div style="color:#aaa;font-size:10px;font-weight:700">WORDS LEFT</div></div>
     </div>
     <div class="boss-hp-wrap"><div class="boss-hp-fill" style="width:${s.bossHp/s.boss.hp*100}%"></div></div>
     <div class="boss-hp-text">❤️ ${s.bossHp} / ${s.boss.hp}</div>
