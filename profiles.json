@@ -608,9 +608,9 @@
         "english": "word",
         "ukrainian": "слово",
         "addedDate": "2026-05-04",
-        "timesStudied": 3,
+        "timesStudied": 4,
         "timesKnown": 0,
-        "timesUnknown": 3,
+        "timesUnknown": 4,
         "category": "hard",
         "streak": 0,
         "listed": true
@@ -703,7 +703,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2615,
+    "xp": 2617,
     "pinnedIds": []
   }
 ]
