@@ -180,8 +180,8 @@
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-04",
-        "timesStudied": 17,
-        "timesKnown": 9,
+        "timesStudied": 18,
+        "timesKnown": 10,
         "timesUnknown": 8,
         "category": "learning",
         "streak": 1
@@ -693,7 +693,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2227,
+    "xp": 2240,
     "pinnedIds": []
   }
 ]
