@@ -11,8 +11,8 @@
         "english": "hello",
         "ukrainian": "привіт",
         "addedDate": "2026-05-03",
-        "timesStudied": 4,
-        "timesKnown": 3,
+        "timesStudied": 5,
+        "timesKnown": 4,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 1
@@ -97,6 +97,6 @@
       "first_word",
       "first_session"
     ],
-    "xp": 310
+    "xp": 320
   }
 ]
