@@ -290,8 +290,8 @@
         "english": "computer",
         "ukrainian": "компʼютер",
         "addedDate": "2026-05-04",
-        "timesStudied": 3,
-        "timesKnown": 3,
+        "timesStudied": 4,
+        "timesKnown": 4,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 3
@@ -422,7 +422,7 @@
       "words_10",
       "sessions_5"
     ],
-    "xp": 1604,
+    "xp": 1617,
     "pinnedIds": []
   }
 ]
