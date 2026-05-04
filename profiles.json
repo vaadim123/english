@@ -312,10 +312,10 @@
         "english": "write",
         "ukrainian": "писати",
         "addedDate": "2026-05-04",
-        "timesStudied": 4,
+        "timesStudied": 5,
         "timesKnown": 2,
-        "timesUnknown": 2,
-        "category": "learning",
+        "timesUnknown": 3,
+        "category": "hard",
         "streak": 0
       },
       {
@@ -422,7 +422,7 @@
       "words_10",
       "sessions_5"
     ],
-    "xp": 1765,
+    "xp": 1767,
     "pinnedIds": []
   }
 ]
