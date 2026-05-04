@@ -268,8 +268,8 @@
         "english": "table",
         "ukrainian": "стіл",
         "addedDate": "2026-05-04",
-        "timesStudied": 2,
-        "timesKnown": 0,
+        "timesStudied": 3,
+        "timesKnown": 1,
         "timesUnknown": 2,
         "category": "hard",
         "streak": 0
@@ -331,7 +331,7 @@
       "first_session",
       "words_10"
     ],
-    "xp": 667,
+    "xp": 680,
     "pinnedIds": []
   }
 ]
