@@ -180,9 +180,9 @@
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-04",
-        "timesStudied": 0,
+        "timesStudied": 1,
         "timesKnown": 0,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 0
       }
@@ -192,6 +192,6 @@
     "bestStreak": 0,
     "lastStudied": null,
     "achievements": [],
-    "xp": 33
+    "xp": 35
   }
 ]
