@@ -350,7 +350,8 @@
         "timesKnown": 4,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 0
+        "streak": 0,
+        "listed": true
       },
       {
         "id": "71grepbubmorekaw1",
@@ -536,9 +537,9 @@
         "english": "How many?",
         "ukrainian": "скільки",
         "addedDate": "2026-05-04",
-        "timesStudied": 0,
+        "timesStudied": 1,
         "timesKnown": 0,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 0
       },
@@ -696,7 +697,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2400,
+    "xp": 2402,
     "pinnedIds": []
   }
 ]
