@@ -158,9 +158,8 @@ body{
 .fc-lang-tag{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;opacity:.7;margin-bottom:16px}
 .fc-word{font-size:36px;font-weight:900;line-height:1.2;word-break:break-word}
 .fc-tip{font-size:12px;opacity:.7;margin-top:12px;font-weight:600}
-.speak-btn{background:rgba(255,255,255,.25);border:2px solid rgba(255,255,255,.5);border-radius:50px;font-size:20px;padding:6px 16px;cursor:pointer;margin-top:10px;transition:background .15s,transform .1s;backdrop-filter:blur(4px)}
-.speak-btn:hover{background:rgba(255,255,255,.4);transform:scale(1.1)}
-.speak-btn:active{transform:scale(.95)}
+.speak-btn{background:rgba(255,255,255,.3);border:2px solid rgba(255,255,255,.6);border-radius:50px;font-size:17px;font-weight:800;padding:8px 22px;cursor:pointer;margin-top:12px;transition:background .15s,transform .1s;backdrop-filter:blur(4px);color:white;font-family:inherit;letter-spacing:.3px}
+.speak-btn:active{transform:scale(.92);background:rgba(255,255,255,.5)}
 /* Study buttons */
 .study-btns{display:flex;flex-direction:column;gap:10px}
 .study-btns-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -886,7 +885,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.7</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.8</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -1201,7 +1200,7 @@ function viewStudy(){
       <div class="fc-face fc-front">
         <div class="fc-lang-tag">${fl}</div>
         <div class="fc-word">${esc(fw)}</div>
-        ${s.direction==='en-ua'?`<button class="speak-btn" data-action="speakWord" title="Послухати вимову">🔊</button>`:''}
+        ${s.direction==='en-ua'?`<button class="speak-btn" data-action="speakWord">🔊 Послухати</button>`:''}
         <div class="fc-tip">👆 Натисни або кнопку нижче</div>
       </div>
       <div class="fc-face fc-back">
@@ -1415,18 +1414,24 @@ function viewSettings(){
 
 // ── RENDER ──
 // ── SPEECH ──
-function speak(text, lang='en-US'){
+let _voices=[];
+if(window.speechSynthesis){
+  const loadVoices=()=>{ _voices=speechSynthesis.getVoices(); };
+  loadVoices();
+  speechSynthesis.onvoiceschanged=loadVoices;
+}
+function speak(text){
   if(!window.speechSynthesis) return;
   speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
-  u.lang=lang; u.rate=0.85; u.pitch=1;
+  u.lang='en-US'; u.rate=0.82; u.pitch=1;
+  // Вибираємо найкращий голос: спочатку iOS/Mac Siri-голоси, потім будь-який en-US
+  const pref=['Samantha','Karen','Moira','Fiona','Daniel','Alex'];
+  const byName=_voices.find(v=>pref.includes(v.name)&&v.lang.startsWith('en'));
+  const byLocal=_voices.find(v=>v.lang==='en-US'&&v.localService);
+  const byLang=_voices.find(v=>v.lang==='en-US')||_voices.find(v=>v.lang.startsWith('en'));
+  u.voice=byName||byLocal||byLang||null;
   speechSynthesis.speak(u);
-}
-function autoSpeak(){
-  if(S.view!=='study'||!S.session||S.session.isFlipped) return;
-  const w=currentCard(); if(!w) return;
-  const isEn=S.session.direction==='en-ua';
-  if(isEn) setTimeout(()=>speak(w.english),350);
 }
 
 function render(){
@@ -1440,7 +1445,6 @@ function render(){
   const views={profiles:viewProfiles,newProfile:viewNewProfile,menu:viewMenu,dictionary:viewDictionary,addWord:viewAddWord,editWord:viewEditWord,studySetup:viewStudySetup,study:viewStudy,complete:viewComplete,stats:viewStats,achievements:viewAchievements,mobs:viewMobs,settings:viewSettings};
   el.innerHTML=(views[S.view]||(() =>'<p>404</p>'))();
   attachEvents();
-  autoSpeak();
   if(S.view==='complete'&&!S._confettiDone){
     S._confettiDone=true;
     const {session}=S.params||{};
