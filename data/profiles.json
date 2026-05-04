@@ -11,8 +11,8 @@
         "english": "hello",
         "ukrainian": "привіт",
         "addedDate": "2026-05-03",
-        "timesStudied": 2,
-        "timesKnown": 1,
+        "timesStudied": 3,
+        "timesKnown": 2,
         "timesUnknown": 1
       },
       {
@@ -20,8 +20,8 @@
         "english": "apple",
         "ukrainian": "яблуко",
         "addedDate": "2026-05-03",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0
       },
       {
@@ -38,17 +38,19 @@
         "english": "dog",
         "ukrainian": "собака",
         "addedDate": "2026-05-03",
-        "timesStudied": 1,
+        "timesStudied": 3,
         "timesKnown": 1,
-        "timesUnknown": 0
+        "timesUnknown": 2,
+        "isHard": true,
+        "hardConsecutiveCorrect": 0
       },
       {
         "id": "njbz22znamoq9k5qe",
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-03",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0
       }
     ],
@@ -69,6 +71,6 @@
       "first_word",
       "first_session"
     ],
-    "xp": 112
+    "xp": 146
   }
 ]
