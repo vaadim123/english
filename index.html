@@ -809,9 +809,9 @@ function actionUnknown(){
   const insertAt=minPos+Math.floor(Math.random()*(s.queue.length-minPos+1));
   s.queue.splice(insertAt,0,w);
   s.isFlipped=false;
-  const fc=document.querySelector('.flashcard');
-  if(fc){ fc.classList.remove('flipped'); const wrap=document.querySelector('.flashcard-wrap'); if(wrap){wrap.classList.add('card-shake');setTimeout(()=>wrap&&wrap.classList.remove('card-shake'),500);} }
-  setTimeout(updateStudyCard,50);
+  updateStudyCard();
+  const wrap=document.querySelector('.flashcard-wrap');
+  if(wrap){ wrap.classList.add('card-shake'); setTimeout(()=>wrap&&wrap.classList.remove('card-shake'),500); }
 }
 function actionFlip(){
   const s=S.session; s.isFlipped=!s.isFlipped;
@@ -827,6 +827,10 @@ function updateStudyCard(){
   const pb=document.querySelector('.progress-fill'); if(pb) pb.style.width=pct+'%';
   const pr=document.querySelector('.study-remaining'); if(pr) pr.textContent=`🔄 В черзі: ${s.queue.length}`;
   const bwl=document.querySelector('.boss-words-left'); if(bwl) bwl.textContent=s.queue.length;
+  // Миттєво скидаємо картку без анімації (щоб не мелькав попередній текст)
+  const fc=document.querySelector('.flashcard');
+  if(fc){ fc.style.transition='none'; fc.classList.remove('flipped'); fc.getBoundingClientRect(); fc.style.transition=''; }
+  // Оновлюємо текст вже після скидання
   const front=document.querySelector('.fc-front .fc-word'), back=document.querySelector('.fc-back .fc-word');
   const ftag=document.querySelector('.fc-front .fc-lang-tag'), btag=document.querySelector('.fc-back .fc-lang-tag');
   if(s.direction==='en-ua'){
@@ -836,7 +840,6 @@ function updateStudyCard(){
     if(front) front.textContent=w.ukrainian; if(back) back.textContent=w.english;
     if(ftag) ftag.textContent='🇺🇦 Українська'; if(btag) btag.textContent='🇬🇧 English';
   }
-  const fc=document.querySelector('.flashcard'); if(fc) fc.classList.remove('flipped');
   const btn=document.getElementById('flip-btn'); if(btn) btn.textContent='👁️ Подивитись переклад';
 }
 function finishSession(){
@@ -890,7 +893,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.9</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.8.0</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -1211,6 +1214,7 @@ function viewStudy(){
       <div class="fc-face fc-back">
         <div class="fc-lang-tag">${bl}</div>
         <div class="fc-word">${esc(bw)}</div>
+        ${s.direction==='ua-en'?`<button class="speak-btn" data-action="speakWord">🔊 Послухати</button>`:''}
         <div class="fc-tip">Ти знаєш це слово?</div>
       </div>
     </div>
