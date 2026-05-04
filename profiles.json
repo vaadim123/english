@@ -345,8 +345,8 @@
         "english": "do maths",
         "ukrainian": "рахувати",
         "addedDate": "2026-05-04",
-        "timesStudied": 4,
-        "timesKnown": 3,
+        "timesStudied": 5,
+        "timesKnown": 4,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 2
@@ -430,7 +430,7 @@
       "words_10",
       "sessions_5"
     ],
-    "xp": 2038,
+    "xp": 2052,
     "pinnedIds": []
   }
 ]
