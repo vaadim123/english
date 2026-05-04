@@ -33,9 +33,9 @@
         "english": "cat",
         "ukrainian": "кіт",
         "addedDate": "2026-05-03",
-        "timesStudied": 2,
+        "timesStudied": 3,
         "timesKnown": 2,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 0
       },
@@ -89,6 +89,6 @@
       "first_word",
       "first_session"
     ],
-    "xp": 228
+    "xp": 230
   }
 ]
