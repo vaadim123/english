@@ -708,9 +708,9 @@ function actionKnow(){
   w.timesStudied++; w.timesKnown++; s.completed.push(w);
   if(!s.attempts[w.id]) s.knownFirst++;
   if(s.boss){
-    const dmg=Math.ceil(s.boss.hp/s.allWords.length);
-    s.bossHp=Math.max(0,s.bossHp-dmg);
-    const fill=document.querySelector('.boss-hp-fill'); if(fill) fill.style.width=(s.bossHp/s.boss.hp*100)+'%';
+    // HP пропорційно прогресу: після всіх слів → 0
+    s.bossHp=Math.round(s.boss.hp*(1-s.completed.length/s.allWords.length));
+    const fill=document.querySelector('.boss-hp-fill'); if(fill) fill.style.width=Math.max(0,s.bossHp/s.boss.hp*100)+'%';
     const txt=document.querySelector('.boss-hp-text'); if(txt) txt.textContent=`❤️ ${s.bossHp}/${s.boss.hp}`;
     const bar=document.querySelector('.boss-bar'); if(bar){bar.classList.add('boss-hit');setTimeout(()=>bar&&bar.classList.remove('boss-hit'),300);}
   }
@@ -1293,11 +1293,11 @@ function viewSettings(){
 function render(){
   const el=document.getElementById('app'); if(!el) return;
   document.body.classList.toggle('child-theme', isKid());
-  // Захист від пустого екрану: якщо study-вʼю без карток — НЕ оновлювати DOM
   if(S.view==='study'){
     if(!S.session){ S.view='menu'; }
-    else if(!currentCard()){ return; } // finishSession завершить перехід
+    else if(!currentCard()){ finishSession(); return; }
   }
+  if(S.view==='complete'&&!S.params?.session){ S.view='menu'; }
   const views={profiles:viewProfiles,newProfile:viewNewProfile,menu:viewMenu,dictionary:viewDictionary,addWord:viewAddWord,editWord:viewEditWord,studySetup:viewStudySetup,study:viewStudy,complete:viewComplete,stats:viewStats,achievements:viewAchievements,mobs:viewMobs,settings:viewSettings};
   el.innerHTML=(views[S.view]||(() =>'<p>404</p>'))();
   attachEvents();
