@@ -595,7 +595,7 @@ function schedulePush(){
   clearTimeout(_syncTimer);
   _syncTimer = setTimeout(async()=>{
     const ok = await GH.push();
-    showToast(ok ? '☁️ Дані збережено!' : `⚠️ Помилка синхронізації (${S._lastPushError||'?'})`);
+    if(!ok) showToast(`⚠️ Помилка синхронізації (${S._lastPushError||'?'})`);
   }, 1500);
 }
 
