@@ -440,7 +440,8 @@ body.child-theme .animal-runner{display:block}
 const GH_OWNER = 'vaadim123';
 const GH_REPO  = 'english';
 const GH_BRANCH = 'main';
-const GH_DATA_PATH = 'data/profiles.json';
+const GH_DATA_BRANCH = 'data';
+const GH_DATA_PATH = 'profiles.json';
 const _A = ['Z2hwXzJDVEt0WGlJUV','BlUTlENnIyOEZNS2RI','TElWekNTZjI0MWZDTQ=='];
 const _GH_T = atob(_A.join(''));
 
@@ -533,8 +534,9 @@ const GH = {
   clearToken(){ localStorage.removeItem('wf_gh_token'); },
   getSha(){ return localStorage.getItem('wf_gh_sha') || null; },
   setSha(s){ if(s) localStorage.setItem('wf_gh_sha', s); },
-  rawUrl(){ return `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_BRANCH}/${GH_DATA_PATH}?t=${Date.now()}`; },
+  rawUrl(){ return `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/${GH_DATA_BRANCH}/${GH_DATA_PATH}?t=${Date.now()}`; },
   apiUrl(){ return `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_DATA_PATH}`; },
+  apiGetUrl(){ return `https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_DATA_PATH}?ref=${GH_DATA_BRANCH}`; },
   headers(){
     const h = {
       'Accept': 'application/vnd.github.v3+json',
@@ -562,12 +564,12 @@ const GH = {
     let sha = this.getSha();
     if(!sha){
       try{
-        const r = await fetch(this.apiUrl());
+        const r = await fetch(this.apiGetUrl());
         if(r.ok){ const d = await r.json(); sha = d.sha; this.setSha(sha); }
       }catch{}
     }
     try{
-      const body = {message:`WordFlash sync ${new Date().toISOString().slice(0,10)}`, content, branch:GH_BRANCH};
+      const body = {message:`WordFlash sync ${new Date().toISOString().slice(0,10)}`, content, branch:GH_DATA_BRANCH};
       if(sha) body.sha = sha;
       const opts = {method:'PUT', headers:{...this.headers(),'Content-Type':'application/json'}, body:JSON.stringify(body)};
       if(keepalive) opts.keepalive = true;
@@ -582,7 +584,7 @@ const GH = {
       if(r.status === 409 || r.status === 422){
         this.setSha(null);
         localStorage.removeItem('wf_gh_sha');
-        const r2 = await fetch(this.apiUrl()); // public repo — no auth for GET
+        const r2 = await fetch(this.apiGetUrl()); // public repo — no auth for GET
         if(r2.ok){ const d2 = await r2.json(); body.sha = d2.sha; this.setSha(d2.sha); }
         const r3 = await fetch(this.apiUrl(), {method:'PUT', headers:{...this.headers(),'Content-Type':'application/json'}, body:JSON.stringify(body)});
         if(r3.ok){ const d3 = await r3.json(); this.setSha(d3.content.sha); S.syncStatus='ok'; updateSyncBadge(); return true; }
@@ -875,7 +877,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.4</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.5</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -1385,7 +1387,10 @@ function viewSettings(){
       <button class="btn btn-primary flex-1" data-action="saveGhToken">💾 Зберегти токен</button>
       ${hasToken?`<button class="btn btn-danger btn-sm" data-action="clearGhToken">🗑️</button>`:''}
     </div>
-    ${hasToken?`<button class="btn btn-success btn-block" style="margin-bottom:12px" data-action="manualSync">🔄 Синхронізувати зараз</button>`:''}
+    ${hasToken?`
+      <button class="btn btn-success btn-block" style="margin-bottom:8px" data-action="manualSync">🔄 Синхронізувати зараз</button>
+      <button class="btn btn-outline btn-block btn-sm" style="margin-bottom:12px;font-size:12px" data-action="resetSha">⚠️ Скинути SHA (якщо sync не працює)</button>
+    `:''}
     <div style="border-top:2px solid #F3F4F6;padding-top:16px">
       <div class="section-title" style="font-size:16px;margin-bottom:12px">📦 Резервна копія</div>
       <button class="btn btn-outline btn-block" data-action="exportData">📥 Скачати дані (JSON)</button>
@@ -1464,6 +1469,7 @@ function handleClick(e){
     },
     clearGhToken: ()=>{ GH.clearToken(); showToast('🗑️ Токен видалено'); go('settings'); },
     manualSync: async()=>{ showToast('🔄 Синхронізація...'); const ok=await GH.push(); showToast(ok?'☁️ Збережено!':'⚠️ Помилка синхронізації'); },
+    resetSha: async()=>{ GH.setSha(null); localStorage.removeItem('wf_gh_sha'); showToast('🔄 SHA скинуто, повторна синхронізація...'); const ok=await GH.push(); showToast(ok?'☁️ Синхронізовано!':'⚠️ Ще помилка — перевір токен'); },
     exportData: ()=>{
       const blob=new Blob([JSON.stringify(S.profiles,null,2)],{type:'application/json'});
       const url=URL.createObjectURL(blob); const a=document.createElement('a');
