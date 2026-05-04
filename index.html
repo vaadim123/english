@@ -803,7 +803,12 @@ function actionUnknown(){
     showBossSpeech(pick(BOSS_WIN_PHRASES));
   }
   addXP(getProfile(),2); saveData();
-  s.queue.shift(); s.queue.push(w); s.isFlipped=false;
+  s.queue.shift();
+  // Вставляємо у випадкову позицію: мінімум 2 слова вперед, максимум — кінець черги
+  const minPos=Math.min(2, s.queue.length);
+  const insertAt=minPos+Math.floor(Math.random()*(s.queue.length-minPos+1));
+  s.queue.splice(insertAt,0,w);
+  s.isFlipped=false;
   const fc=document.querySelector('.flashcard');
   if(fc){ fc.classList.remove('flipped'); const wrap=document.querySelector('.flashcard-wrap'); if(wrap){wrap.classList.add('card-shake');setTimeout(()=>wrap&&wrap.classList.remove('card-shake'),500);} }
   setTimeout(updateStudyCard,50);
@@ -885,7 +890,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.8</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.7.9</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
