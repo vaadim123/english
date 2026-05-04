@@ -44,8 +44,8 @@
         "english": "dog",
         "ukrainian": "собака",
         "addedDate": "2026-05-03",
-        "timesStudied": 10,
-        "timesKnown": 5,
+        "timesStudied": 11,
+        "timesKnown": 6,
         "timesUnknown": 5,
         "isHard": true,
         "hardConsecutiveCorrect": 0,
@@ -114,6 +114,6 @@
       "first_session",
       "sessions_5"
     ],
-    "xp": 540
+    "xp": 550
   }
 ]
