@@ -359,8 +359,8 @@
         "english": "use computer",
         "ukrainian": "використовувати компʼютер",
         "addedDate": "2026-05-04",
-        "timesStudied": 5,
-        "timesKnown": 4,
+        "timesStudied": 6,
+        "timesKnown": 5,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 1
@@ -701,7 +701,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2552,
+    "xp": 2562,
     "pinnedIds": []
   }
 ]
