@@ -172,6 +172,10 @@ body{
 .btn-unknown:hover{box-shadow:0 8px 24px rgba(239,68,68,.5)}
 .btn-flip{background:linear-gradient(135deg,#F59E0B,#D97706);color:white;box-shadow:0 4px 16px rgba(245,158,11,.4);width:100%}
 .btn-flip:hover{box-shadow:0 8px 24px rgba(245,158,11,.5)}
+.btn-list2{background:linear-gradient(135deg,#6366F1,#4F46E5);color:white;box-shadow:0 4px 16px rgba(99,102,241,.4);width:100%}
+.btn-list2:hover{box-shadow:0 8px 24px rgba(99,102,241,.5)}
+.btn-list2.active{background:linear-gradient(135deg,#10B981,#059669);box-shadow:0 4px 16px rgba(16,185,129,.4)}
+.btn-list2.active:hover{box-shadow:0 8px 24px rgba(16,185,129,.5)}
 .btn-quit{background:none;border:2px solid #E5E7EB;color:var(--text-light);font-size:13px;width:100%;padding:10px}
 .btn-quit:hover{background:#F3F4F6}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
@@ -816,7 +820,7 @@ function actionUnknown(){
 function actionFlip(){
   const s=S.session; s.isFlipped=!s.isFlipped;
   const fc=document.querySelector('.flashcard'); if(fc) fc.classList.toggle('flipped',s.isFlipped);
-  const btn=document.getElementById('flip-btn'); if(btn) btn.textContent=s.isFlipped?'🙈 Сховати':'👁️ Подивитись переклад';
+  // картка гортається лише кліком на неї; окремої кнопки flip немає
 }
 function updateStudyCard(){
   const s=S.session, w=currentCard(); if(!w) return;
@@ -840,7 +844,7 @@ function updateStudyCard(){
     if(front) front.textContent=w.ukrainian; if(back) back.textContent=w.english;
     if(ftag) ftag.textContent='🇺🇦 Українська'; if(btag) btag.textContent='🇬🇧 English';
   }
-  const btn=document.getElementById('flip-btn'); if(btn) btn.textContent='👁️ Подивитись переклад';
+  const l2btn=document.getElementById('list2-btn'); if(l2btn){ l2btn.textContent=w.listed?'✅ В Список 2':'📋 До Списку 2'; l2btn.classList.toggle('active',!!w.listed); }
 }
 function finishSession(){
   const s=S.session, p=getProfile(); if(!s||!p) return;
@@ -893,7 +897,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.8.0</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.8.1</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -1054,6 +1058,10 @@ function viewDictionary(){
         🃏 ${selCount>0?`Вчити обрані (${selCount})`:'Вчити всі слова'}
       </button>
     </div>
+    <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-outline btn-sm" data-action="addColors">🎨 Додати кольори</button>
+      <button class="btn btn-outline btn-sm" data-action="addTestWords">🧪 50 тестових слів</button>
+    </div>
   </div>`;
 }
 
@@ -1128,6 +1136,7 @@ function viewStudySetup(){
   const cLearning=p.words.filter(w=>getCategory(w)==='learning').length;
   const cHard=p.words.filter(w=>getCategory(w)==='hard').length;
   const cEasy=p.words.filter(w=>getCategory(w)==='easy').length;
+  const cList2=p.words.filter(w=>w.listed).length;
   const studyIds=p.words.filter(w=>S.studyCats.has(getCategory(w))).map(w=>w.id);
   return `
   <button class="back-btn" data-action="back">← Меню</button>
@@ -1173,6 +1182,19 @@ function viewStudySetup(){
         <button class="btn btn-outline btn-block btn-sm" data-action="goDictionary">☑ Відкрити словник і вибрати слова</button>
       `}
     </div>
+    <div style="border-top:2px solid #F3F4F6;padding-top:16px;margin-top:4px">
+      <div class="form-label" style="margin-bottom:10px">📋 Список 2:</div>
+      ${cList2>0 ? `
+        <div style="background:#EDE9FE;border-radius:14px;padding:12px 14px;margin-bottom:10px;display:flex;align-items:center;gap:10px">
+          <span style="font-size:20px">📋</span>
+          <div style="flex:1;font-size:13px;font-weight:700;color:#5B21B6">${cList2} слів у Списку 2</div>
+          <button class="btn btn-outline btn-sm" style="font-size:12px;padding:4px 10px" data-action="clearList2">✕ Очистити</button>
+        </div>
+        <button class="btn btn-block" style="background:linear-gradient(135deg,#6366F1,#4F46E5);color:white;font-weight:800;font-family:inherit;padding:14px;border:none;border-radius:var(--radius-sm);cursor:pointer;font-size:15px" data-action="startList2">▶ Вчити Список 2 (${cList2})</button>
+      ` : `
+        <div style="font-size:13px;color:var(--text-muted);font-weight:600">Натискай "📋 До Списку 2" під час навчання — і вчи позначені слова окремо.</div>
+      `}
+    </div>
   </div>`;
 }
 
@@ -1209,7 +1231,7 @@ function viewStudy(){
         <div class="fc-lang-tag">${fl}</div>
         <div class="fc-word">${esc(fw)}</div>
         ${s.direction==='en-ua'?`<button class="speak-btn" data-action="speakWord">🔊 Послухати</button>`:''}
-        <div class="fc-tip">👆 Натисни або кнопку нижче</div>
+        <div class="fc-tip">👆 Натисни щоб перекласти</div>
       </div>
       <div class="fc-face fc-back">
         <div class="fc-lang-tag">${bl}</div>
@@ -1224,7 +1246,7 @@ function viewStudy(){
       <button class="study-btn btn-know" data-action="know">✅ Знаю!</button>
       <button class="study-btn btn-unknown" data-action="unknown">❌ Не знаю</button>
     </div>
-    <button class="study-btn btn-flip" id="flip-btn" data-action="flip">👁️ Подивитись переклад</button>
+    <button class="study-btn btn-list2 ${w.listed?'active':''}" id="list2-btn" data-action="toggleList2">${w.listed?'✅ В Список 2':'📋 До Списку 2'}</button>
     <button class="study-btn btn-quit" data-action="quitStudy">⏹ Завершити заняття</button>
   </div>`;
 }
@@ -1587,6 +1609,24 @@ function handleClick(e){
     know:      ()=> actionKnow(),
     unknown:   ()=> actionUnknown(),
     flip:      ()=> actionFlip(),
+    toggleList2: ()=>{
+      e.stopPropagation();
+      const w=currentCard(); if(!w) return;
+      w.listed=!w.listed;
+      const l2btn=document.getElementById('list2-btn');
+      if(l2btn){ l2btn.textContent=w.listed?'✅ В Список 2':'📋 До Списку 2'; l2btn.classList.toggle('active',!!w.listed); }
+      saveData(); schedulePush();
+      showToast(w.listed?'📋 Додано до Списку 2!':'📋 Видалено зі Списку 2');
+    },
+    startList2: ()=>{ const p=getProfile(); if(!p) return; const ids=p.words.filter(w=>w.listed).map(w=>w.id); if(!ids.length){ showToast('📋 Список 2 порожній!'); return; } startSession(ids,S.params.direction||'en-ua'); },
+    clearList2: ()=>{ const p=getProfile(); if(!p) return; p.words.forEach(w=>{ delete w.listed; }); saveData(); schedulePush(); showToast('📋 Список 2 очищено'); render(); },
+    addColors:  ()=>{
+      const p=getProfile(); if(!p) return;
+      const CW=[['red','червоний'],['blue','синій'],['green','зелений'],['yellow','жовтий'],['orange','помаранчевий'],['purple','фіолетовий'],['pink','рожевий'],['white','білий'],['black','чорний'],['brown','коричневий'],['gray','сірий'],['light blue','блакитний']];
+      let added=0;
+      CW.forEach(([en,ua])=>{ if(!p.words.some(w=>w.english===en)){ p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0}); added++; } });
+      saveData(); showToast(added>0?`🎨 Додано ${added} кольорів`:'🎨 Кольори вже є'); render();
+    },
     quitStudy: ()=>{ if(S.session&&S.session.completed.length>0&&!confirm('Завершити заняття достроково?')) return; S.session=null; go('menu'); },
     studyAgain:()=> go('studySetup'),
   };
