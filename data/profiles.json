@@ -158,8 +158,8 @@
         "english": "cat",
         "ukrainian": "кіт",
         "addedDate": "2026-05-04",
-        "timesStudied": 3,
-        "timesKnown": 3,
+        "timesStudied": 4,
+        "timesKnown": 4,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 3
@@ -279,9 +279,9 @@
         "english": "clock",
         "ukrainian": "годинник",
         "addedDate": "2026-05-04",
-        "timesStudied": 0,
+        "timesStudied": 1,
         "timesKnown": 0,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 0
       },
@@ -331,7 +331,7 @@
       "first_session",
       "words_10"
     ],
-    "xp": 540,
+    "xp": 552,
     "pinnedIds": []
   }
 ]
