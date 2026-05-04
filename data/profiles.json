@@ -246,10 +246,10 @@
         "english": "girl",
         "ukrainian": "дівчинка",
         "addedDate": "2026-05-04",
-        "timesStudied": 4,
+        "timesStudied": 5,
         "timesKnown": 2,
-        "timesUnknown": 2,
-        "category": "learning",
+        "timesUnknown": 3,
+        "category": "hard",
         "streak": 0
       },
       {
@@ -331,7 +331,7 @@
       "first_session",
       "words_10"
     ],
-    "xp": 643,
+    "xp": 645,
     "pinnedIds": []
   }
 ]
