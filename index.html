@@ -324,6 +324,39 @@ body.child-theme .kid-runner{display:block}
 .cat-btn.cat-learning .cat-count{background:#DBEAFE;color:#1D4ED8}
 .cat-btn.cat-hard .cat-count{background:#FEE2E2;color:#B91C1C}
 .cat-btn.cat-easy .cat-count{background:#DCFCE7;color:#15803D}
+/* Boss battle */
+.boss-bar{background:rgba(0,0,0,.75);border:2px solid #c83030;border-radius:8px;padding:10px 14px;margin-bottom:12px;display:flex;flex-direction:column;gap:6px}
+.boss-info{display:flex;align-items:center;gap:10px}
+.boss-emoji{font-size:36px;filter:drop-shadow(0 0 8px rgba(255,60,60,.8))}
+.boss-name{color:white;font-weight:900;font-size:17px;text-shadow:0 2px 4px rgba(0,0,0,.8)}
+.boss-tag{color:#ff8888;font-size:11px;font-weight:800;letter-spacing:1px}
+.boss-hp-wrap{height:16px;background:#3a0000;border-radius:4px;overflow:hidden;border:2px solid #7f0000}
+.boss-hp-fill{height:100%;background:linear-gradient(90deg,#8b0000,#ff4444);border-radius:2px;transition:width .4s ease}
+.boss-hp-text{color:#ff8888;font-size:12px;font-weight:800;text-align:right}
+@keyframes bossHit{0%,100%{transform:translateX(0) scale(1)}25%{transform:translateX(-6px) scale(0.98)}75%{transform:translateX(6px) scale(0.98)}}
+.boss-hit{animation:bossHit .3s ease}
+/* Minecraft toast */
+body.child-theme .toast{background:#3d1f00;color:#ffe88a;border:2px solid #c8a020;border-radius:4px;box-shadow:4px 4px 0 rgba(0,0,0,.7)}
+/* MC Achievement popup */
+.mc-achievement-popup{position:fixed;top:20px;right:16px;z-index:9997;background:#3d1f00;border:3px solid #c8a020;border-radius:4px;padding:10px 14px;display:flex;align-items:center;gap:10px;box-shadow:4px 4px 0 rgba(0,0,0,.7);min-width:220px;max-width:280px;animation:mcAchIn .5s cubic-bezier(.68,-.55,.265,1.55) both}
+.mc-achievement-popup .mc-ach-header{display:block;color:#c8a020;font-size:10px;font-weight:800;letter-spacing:1px;margin-bottom:2px}
+.mc-achievement-popup .mc-ach-icon{font-size:30px;flex-shrink:0}
+.mc-achievement-popup .mc-ach-name{color:#ffe88a;font-weight:800;font-size:14px}
+@keyframes mcAchIn{from{transform:translateX(120px);opacity:0}to{transform:translateX(0);opacity:1}}
+/* Biome chip */
+.biome-chip{display:inline-flex;align-items:center;gap:5px;background:rgba(0,0,0,.25);border-radius:50px;padding:3px 10px;font-size:12px;font-weight:800;color:white;margin-top:4px}
+/* Mob collection */
+.mob-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.mob-card{border-radius:10px;padding:10px 6px;text-align:center;border:2px solid transparent;transition:border-color .2s,transform .15s}
+.mob-card.unlocked{background:#d4edbc;border-color:#5ba032}
+.mob-card.unlocked:hover{transform:scale(1.08)}
+.mob-card.locked{background:#F3F4F6;opacity:.45;filter:grayscale(1)}
+.mob-emoji{font-size:30px;display:block;margin-bottom:3px}
+.mob-name{font-size:11px;font-weight:800;color:var(--text)}
+.mob-req{font-size:10px;color:var(--text-muted);font-weight:600;margin-top:2px}
+/* Crafting flash */
+@keyframes craftFlash{0%{box-shadow:0 0 0 0 rgba(255,215,0,.8)}70%{box-shadow:0 0 0 16px rgba(255,215,0,0)}100%{box-shadow:0 0 0 0 rgba(255,215,0,0)}}
+.craft-pulse{animation:craftFlash .6s ease}
 </style>
 </head>
 <body>
@@ -409,6 +442,47 @@ const CHILD_ENCOURAGEMENTS = {
   mid: ['👏 Good job!','📈 Keep going!','💡 Almost there!','😊 Nice work!'],
   low: ['💪 Don\'t give up!','📚 Practice makes perfect!','🔄 Try again!','⭐ You got this!'],
 };
+const BOSSES = [
+  {name:'Zombie',   emoji:'🧟', hp:100},
+  {name:'Creeper',  emoji:'💥', hp:80},
+  {name:'Skeleton', emoji:'💀', hp:90},
+  {name:'Spider',   emoji:'🕷️', hp:70},
+  {name:'Enderman', emoji:'👾', hp:120},
+  {name:'Witch',    emoji:'🧙', hp:85},
+  {name:'Blaze',    emoji:'🔥', hp:95},
+  {name:'Ghast',    emoji:'👻', hp:110},
+];
+const MOBS = [
+  {emoji:'🐷', name:'Pig',      req:10},
+  {emoji:'🐄', name:'Cow',      req:20},
+  {emoji:'🐑', name:'Sheep',    req:30},
+  {emoji:'🐔', name:'Chicken',  req:40},
+  {emoji:'🐺', name:'Wolf',     req:50},
+  {emoji:'🐱', name:'Cat',      req:60},
+  {emoji:'🐴', name:'Horse',    req:70},
+  {emoji:'🦊', name:'Fox',      req:80},
+  {emoji:'🐝', name:'Bee',      req:90},
+  {emoji:'🦎', name:'Axolotl',  req:100},
+  {emoji:'🐼', name:'Panda',    req:120},
+  {emoji:'🐉', name:'Dragon',   req:150},
+];
+const BIOMES = [
+  {min:1,  max:3,  name:'Plains',  emoji:'🌿'},
+  {min:4,  max:6,  name:'Forest',  emoji:'🌲'},
+  {min:7,  max:10, name:'Desert',  emoji:'🏜️'},
+  {min:11, max:15, name:'Snow',    emoji:'❄️'},
+  {min:16, max:20, name:'Nether',  emoji:'🌋'},
+  {min:21, max:99, name:'The End', emoji:'🌌'},
+];
+function getBiome(lvl){ return BIOMES.find(b=>lvl>=b.min&&lvl<=b.max)||BIOMES[BIOMES.length-1]; }
+function showMcAchievement(icon, name){
+  if(!isKid()) return;
+  const el=document.createElement('div');
+  el.className='mc-achievement-popup';
+  el.innerHTML=`<span class="mc-ach-icon">${icon}</span><div><div class="mc-ach-header">Achievement Get!</div><div class="mc-ach-name">${name}</div></div>`;
+  document.body.appendChild(el);
+  setTimeout(()=>el&&el.remove(),4500);
+}
 
 // ── STATE ──
 const S = {
@@ -623,7 +697,8 @@ function diffBadge(w){
 function startSession(ids,dir){
   const p=getProfile(); if(!p||ids.length===0) return;
   const words=ids.map(id=>p.words.find(w=>w.id===id)).filter(Boolean);
-  S.session={allWords:words,queue:shuffle([...words]),completed:[],direction:dir||'en-ua',isFlipped:false,startTime:Date.now(),knownFirst:0,attempts:{}};
+  const boss=isKid()?pick(BOSSES):null;
+  S.session={allWords:words,queue:shuffle([...words]),completed:[],direction:dir||'en-ua',isFlipped:false,startTime:Date.now(),knownFirst:0,attempts:{},boss,bossHp:boss?boss.hp:0};
   go('study');
 }
 const currentCard = ()=> S.session&&S.session.queue.length>0 ? S.session.queue[0] : null;
@@ -632,6 +707,13 @@ function actionKnow(){
   const s=S.session, w=currentCard(); if(!w) return;
   w.timesStudied++; w.timesKnown++; s.completed.push(w);
   if(!s.attempts[w.id]) s.knownFirst++;
+  if(s.boss){
+    const dmg=Math.ceil(s.boss.hp/s.allWords.length);
+    s.bossHp=Math.max(0,s.bossHp-dmg);
+    const fill=document.querySelector('.boss-hp-fill'); if(fill) fill.style.width=(s.bossHp/s.boss.hp*100)+'%';
+    const txt=document.querySelector('.boss-hp-text'); if(txt) txt.textContent=`❤️ ${s.bossHp}/${s.boss.hp}`;
+    const bar=document.querySelector('.boss-bar'); if(bar){bar.classList.add('boss-hit');setTimeout(()=>bar&&bar.classList.remove('boss-hit'),300);}
+  }
   addXP(getProfile(),10); saveData();
   s.queue.shift(); s.isFlipped=false;
   const wrap=document.querySelector('.flashcard-wrap');
@@ -646,6 +728,12 @@ function actionUnknown(){
   if(attempts===2 && getCategory(w)!=='hard'){
     w.category='hard'; w.streak=0;
     showToast(`🔥 "${w.english}" — переходить до складних!`);
+  }
+  if(s.boss){
+    const regen=Math.ceil(s.boss.hp/s.allWords.length/2);
+    s.bossHp=Math.min(s.boss.hp,s.bossHp+regen);
+    const fill=document.querySelector('.boss-hp-fill'); if(fill) fill.style.width=(s.bossHp/s.boss.hp*100)+'%';
+    const txt=document.querySelector('.boss-hp-text'); if(txt) txt.textContent=`❤️ ${s.bossHp}/${s.boss.hp}`;
   }
   addXP(getProfile(),2); saveData();
   s.queue.shift(); s.queue.push(w); s.isFlipped=false;
@@ -702,13 +790,15 @@ function finishSession(){
     }
   }
   saveData();
-  S.params={session,newAch,graduated}; go('complete');
+  const bossDefeated=!!(s.boss&&s.bossHp===0);
+  if(isKid()){ newAch.forEach((id,i)=>{ const a=ACHIEVEMENTS.find(x=>x.id===id); if(a) setTimeout(()=>showMcAchievement(a.icon,a.name),800+i*1200); }); }
+  S.params={session,newAch,graduated,bossDefeated,boss:s.boss}; go('complete');
 }
 
 // ── NAVIGATION ──
 function go(view,params={}){ S.view=view; S.params=params; window.scrollTo({top:0,behavior:'smooth'}); render(); }
 function goBack(){
-  const m={newProfile:'profiles',menu:'profiles',dictionary:'menu',addWord:'dictionary',editWord:'dictionary',studySetup:'menu',study:'menu',complete:'menu',stats:'menu',achievements:'menu',settings:'menu'};
+  const m={newProfile:'profiles',menu:'profiles',dictionary:'menu',addWord:'dictionary',editWord:'dictionary',studySetup:'menu',study:'menu',complete:'menu',stats:'menu',achievements:'menu',mobs:'menu',settings:'menu'};
   go(m[S.view]||'profiles');
 }
 
@@ -727,7 +817,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.5</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.6</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -781,6 +871,8 @@ function viewNewProfile(){
 function viewMenu(){
   const p=getProfile(); if(!p){ go('profiles'); return ''; }
   const lvl=getLevel(p.xp), xpPct=Math.round(getXpInLevel(p.xp)/50*100);
+  const kid=isKid(), biome=getBiome(lvl);
+  const mobsUnlocked=MOBS.filter(m=>p.words.length>=m.req).length;
   return `
   <button class="back-btn" data-action="back">← Профілі</button>
   <div class="card">
@@ -788,8 +880,11 @@ function viewMenu(){
       <span class="ph-avatar">${p.avatar}</span>
       <div class="ph-info">
         <div class="ph-name">${esc(p.name)}</div>
-        <div class="ph-level">⭐ Рівень ${lvl} · ${p.xp||0} XP</div>
-        <div class="xp-bar"><div class="xp-bar-fill" style="width:${xpPct}%"></div></div>
+        ${kid
+          ? `<div class="ph-level">💎 ${p.xp||0} смарагдів · Lvl ${lvl}</div><div class="biome-chip">${biome.emoji} ${biome.name}</div>`
+          : `<div class="ph-level">⭐ Рівень ${lvl} · ${p.xp||0} XP</div>`
+        }
+        <div class="xp-bar" style="margin-top:6px"><div class="xp-bar-fill" style="width:${xpPct}%"></div></div>
       </div>
       <div class="streak-badge">
         <span class="s-icon">🔥</span>
@@ -800,21 +895,34 @@ function viewMenu(){
     <div class="menu-grid">
       <button class="menu-btn primary-btn" data-action="goStudySetup">
         <span class="mb-icon">🃏</span>
-        <span class="mb-label">Почати навчання</span>
-        <span class="mb-sub">${p.words.length>0?`${p.words.length} слів у словнику`:'Спочатку додай слова'}</span>
+        <span class="mb-label">${kid?'Start Battle!':'Почати навчання'}</span>
+        <span class="mb-sub">${p.words.length>0?`${p.words.length} ${kid?'words':'слів у словнику'}`:(kid?'Add words first!':'Спочатку додай слова')}</span>
       </button>
       <button class="menu-btn" data-action="goDictionary">
-        <span class="mb-icon">📚</span><span class="mb-label">Словник</span>
-        <span class="mb-sub">${p.words.length} слів</span>
+        <span class="mb-icon">📚</span><span class="mb-label">${kid?'Words':'Словник'}</span>
+        <span class="mb-sub">${p.words.length} ${kid?'words':'слів'}</span>
       </button>
-      <button class="menu-btn" data-action="goStats">
-        <span class="mb-icon">📊</span><span class="mb-label">Статистика</span>
-        <span class="mb-sub">${p.sessions.length} занять</span>
-      </button>
+      ${kid
+        ? `<button class="menu-btn" data-action="goMobs">
+            <span class="mb-icon">🐾</span><span class="mb-label">Mob Collection</span>
+            <span class="mb-sub">${mobsUnlocked} / ${MOBS.length} unlocked</span>
+           </button>`
+        : `<button class="menu-btn" data-action="goStats">
+            <span class="mb-icon">📊</span><span class="mb-label">Статистика</span>
+            <span class="mb-sub">${p.sessions.length} занять</span>
+           </button>`
+      }
       <button class="menu-btn" data-action="goAchievements">
-        <span class="mb-icon">🏆</span><span class="mb-label">Досягнення</span>
+        <span class="mb-icon">🏆</span><span class="mb-label">${kid?'Achievements':'Досягнення'}</span>
         <span class="mb-sub">${p.achievements.length} / ${ACHIEVEMENTS.length}</span>
       </button>
+      ${kid
+        ? `<button class="menu-btn" data-action="goStats" style="grid-column:1/-1">
+            <span class="mb-icon">📊</span><span class="mb-label">Stats</span>
+            <span class="mb-sub">${p.sessions.length} sessions played</span>
+           </button>`
+        : ''
+      }
       <button class="menu-btn" data-action="goSettings" style="grid-column:1/-1">
         <span class="mb-icon">⚙️ <span id="sync-badge" style="font-size:18px"></span></span>
         <span class="mb-label">Налаштування та синхронізація</span>
@@ -981,11 +1089,21 @@ function viewStudy(){
   const done=s.completed.length, total=s.allWords.length;
   const fw=s.direction==='en-ua'?w.english:w.ukrainian, bw=s.direction==='en-ua'?w.ukrainian:w.english;
   const fl=s.direction==='en-ua'?'🇬🇧 English':'🇺🇦 Українська', bl=s.direction==='en-ua'?'🇺🇦 Українська':'🇬🇧 English';
+  const bossHtml=s.boss?`
+  <div class="boss-bar">
+    <div class="boss-info">
+      <span class="boss-emoji">${s.boss.emoji}</span>
+      <div><div class="boss-name">${s.boss.name}</div><div class="boss-tag">⚔️ BOSS FIGHT!</div></div>
+    </div>
+    <div class="boss-hp-wrap"><div class="boss-hp-fill" style="width:${s.bossHp/s.boss.hp*100}%"></div></div>
+    <div class="boss-hp-text">❤️ ${s.bossHp} / ${s.boss.hp}</div>
+  </div>`:'';
   return `
   <div class="study-header">
     <button class="back-btn" style="margin-bottom:0" data-action="quitStudy">← Вийти</button>
     <div class="study-remaining">🔄 В черзі: ${s.queue.length}</div>
   </div>
+  ${bossHtml}
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
     <span class="study-count" style="color:white;font-size:15px;font-weight:800">✅ ${done} / ${total} пройдено</span>
     <span class="study-pct" style="color:white;font-size:13px;font-weight:700">${Math.round(done/total*100)}%</span>
@@ -1016,38 +1134,44 @@ function viewStudy(){
 }
 
 function viewComplete(){
-  const {session,newAch,graduated}=S.params; if(!session){ go('menu'); return ''; }
+  const {session,newAch,graduated,bossDefeated,boss}=S.params; if(!session){ go('menu'); return ''; }
+  const kid=isKid();
   const pct=session.totalWords>0?Math.round(session.knownFirst/session.totalWords*100):0;
   const stars=pct>=90?3:pct>=60?2:pct>=30?1:0;
-  const emoji=stars===3?'🏆':stars===2?'🌟':stars===1?'😊':'💪';
-  const msg=pick(pct>=80?ENCOURAGEMENTS.high:pct>=50?ENCOURAGEMENTS.mid:ENCOURAGEMENTS.low);
+  const encs=kid?CHILD_ENCOURAGEMENTS:ENCOURAGEMENTS;
+  const emoji=bossDefeated?(boss?boss.emoji:'🏆'):(stars===3?'🏆':stars===2?'🌟':stars===1?'😊':'💪');
+  const msg=pick(pct>=80?encs.high:pct>=50?encs.mid:encs.low);
   const starsHtml=[1,2,3].map(i=>`<span class="star ${i<=stars?'lit':''}">⭐</span>`).join('');
   const achHtml=newAch&&newAch.length>0
-    ? `<div class="achievements-earned"><h4>🎖️ Нові досягнення!</h4>${newAch.map(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);return a?`<div class="achievement-badge"><span class="ab-icon">${a.icon}</span><div class="ab-info"><div class="ab-name">${a.name}</div><div class="ab-desc">${a.desc}</div></div></div>`:''}).join('')}</div>` : '';
+    ? `<div class="achievements-earned"><h4>🎖️ ${kid?'New Achievements!':'Нові досягнення!'}</h4>${newAch.map(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);return a?`<div class="achievement-badge"><span class="ab-icon">${a.icon}</span><div class="ab-info"><div class="ab-name">${a.name}</div><div class="ab-desc">${a.desc}</div></div></div>`:''}).join('')}</div>` : '';
   const gradHtml=graduated&&graduated.length>0
-    ? `<div style="background:#DCFCE7;border-radius:14px;padding:14px;margin-bottom:16px;border:2px solid #86EFAC"><div style="font-weight:800;font-size:14px;color:#15803D;margin-bottom:8px">🎓 Прогрес слів!</div>${graduated.map(g=>g.to==='easy'?`<div style="font-size:13px;color:#166534;font-weight:700">⭐ "${esc(g.word)}" → Легке!</div>`:`<div style="font-size:13px;color:#1D4ED8;font-weight:700">📖 "${esc(g.word)}" → Вивчаю</div>`).join('')}</div>` : '';
+    ? `<div style="background:#DCFCE7;border-radius:14px;padding:14px;margin-bottom:16px;border:2px solid #86EFAC"><div style="font-weight:800;font-size:14px;color:#15803D;margin-bottom:8px">🎓 ${kid?'Word Progress!':'Прогрес слів!'}</div>${graduated.map(g=>g.to==='easy'?`<div style="font-size:13px;color:#166534;font-weight:700">⭐ "${esc(g.word)}" → ${kid?'Easy!':'Легке!'}</div>`:`<div style="font-size:13px;color:#1D4ED8;font-weight:700">📖 "${esc(g.word)}" → ${kid?'Learning':'Вивчаю'}</div>`).join('')}</div>` : '';
+  const bossHtml=bossDefeated&&boss
+    ? `<div style="background:#3d1f00;border:2px solid #c8a020;border-radius:8px;padding:14px;margin-bottom:16px;text-align:center"><div style="font-size:36px;margin-bottom:4px">${boss.emoji}</div><div style="color:#ffe88a;font-weight:900;font-size:18px">You defeated ${boss.name}!</div><div style="color:#c8a020;font-size:13px;font-weight:700;margin-top:4px">+50 Bonus Emeralds! 💎</div></div>` : '';
+  const xpLabel=kid?`💎 +${50+session.knownFirst*10} смарагдів!`:`⚡ +${50+session.knownFirst*10} XP отримано!`;
   return `
   <div class="card">
     <div class="complete-hero">
       <span class="complete-emoji">${emoji}</span>
       <div class="complete-title">${msg}</div>
-      <div class="complete-subtitle">Заняття завершено · ${session.direction==='en-ua'?'EN → UA':'UA → EN'}</div>
+      <div class="complete-subtitle">${kid?'Battle complete!':'Заняття завершено'} · ${session.direction==='en-ua'?'EN → UA':'UA → EN'}</div>
     </div>
     <div class="stars">${starsHtml}</div>
+    ${bossHtml}
     <div class="result-grid">
-      <div class="result-item"><div class="ri-num">${session.totalWords}</div><div class="ri-label">Карток</div></div>
-      <div class="result-item"><div class="ri-num" style="color:var(--success)">${session.knownFirst}</div><div class="ri-label">З першого разу</div></div>
-      <div class="result-item"><div class="ri-num">${session.totalWords-session.knownFirst}</div><div class="ri-label">Потребують практики</div></div>
+      <div class="result-item"><div class="ri-num">${session.totalWords}</div><div class="ri-label">${kid?'Cards':'Карток'}</div></div>
+      <div class="result-item"><div class="ri-num" style="color:var(--success)">${session.knownFirst}</div><div class="ri-label">${kid?'First try':'З першого разу'}</div></div>
+      <div class="result-item"><div class="ri-num">${session.totalWords-session.knownFirst}</div><div class="ri-label">${kid?'Practice more':'Потребують практики'}</div></div>
     </div>
     <div class="result-grid" style="grid-template-columns:1fr 1fr;margin-bottom:16px">
-      <div class="result-item"><div class="ri-num">${pct}%</div><div class="ri-label">Результат</div></div>
-      <div class="result-item"><div class="ri-num">${fmtDur(session.duration)}</div><div class="ri-label">Час заняття</div></div>
+      <div class="result-item"><div class="ri-num">${pct}%</div><div class="ri-label">${kid?'Score':'Результат'}</div></div>
+      <div class="result-item"><div class="ri-num">${fmtDur(session.duration)}</div><div class="ri-label">${kid?'Time':'Час заняття'}</div></div>
     </div>
-    <div class="text-center" style="margin-bottom:16px"><span class="xp-gained">⚡ +${50+session.knownFirst*10} XP отримано!</span></div>
+    <div class="text-center" style="margin-bottom:16px"><span class="xp-gained">${xpLabel}</span></div>
     ${gradHtml}${achHtml}
     <div style="display:flex;gap:10px">
-      <button class="btn btn-outline flex-1" data-action="back">← Меню</button>
-      <button class="btn btn-primary flex-1" data-action="studyAgain">🔄 Ще раз</button>
+      <button class="btn btn-outline flex-1" data-action="back">← ${kid?'Menu':'Меню'}</button>
+      <button class="btn btn-primary flex-1" data-action="studyAgain">${kid?'⚔️ Play Again':'🔄 Ще раз'}</button>
     </div>
   </div>`;
 }
@@ -1112,6 +1236,27 @@ function viewAchievements(){
   </div>`;
 }
 
+function viewMobs(){
+  const p=getProfile(); if(!p){ go('profiles'); return ''; }
+  const wc=p.words.length;
+  const unlocked=MOBS.filter(m=>wc>=m.req).length;
+  const next=MOBS.find(m=>wc<m.req);
+  const cards=MOBS.map(m=>`
+    <div class="mob-card ${wc>=m.req?'unlocked':'locked'}">
+      <span class="mob-emoji">${m.emoji}</span>
+      <div class="mob-name">${m.name}</div>
+      <div class="mob-req">${wc>=m.req?'✅ Found!':`📚 ${m.req} words`}</div>
+    </div>`).join('');
+  return `
+  <button class="back-btn" data-action="back">← Menu</button>
+  <div class="card">
+    <div class="section-title">🐾 Mob Collection</div>
+    <div style="font-size:15px;font-weight:700;color:var(--text-light);margin-bottom:4px">${unlocked} / ${MOBS.length} mobs found!</div>
+    ${next?`<div style="background:#EFF6FF;border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:700;color:#1D4ED8">📚 Add ${next.req-wc} more words to unlock ${next.emoji} ${next.name}!</div>`:'<div style="background:#DCFCE7;border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:700;color:#15803D">🎉 You found all mobs!</div>'}
+    <div class="mob-grid">${cards}</div>
+  </div>`;
+}
+
 function viewSettings(){
   const hasToken=!!GH.token();
   return `
@@ -1151,7 +1296,7 @@ function render(){
     if(!S.session){ S.view='menu'; }
     else if(!currentCard()){ return; } // finishSession завершить перехід
   }
-  const views={profiles:viewProfiles,newProfile:viewNewProfile,menu:viewMenu,dictionary:viewDictionary,addWord:viewAddWord,editWord:viewEditWord,studySetup:viewStudySetup,study:viewStudy,complete:viewComplete,stats:viewStats,achievements:viewAchievements,settings:viewSettings};
+  const views={profiles:viewProfiles,newProfile:viewNewProfile,menu:viewMenu,dictionary:viewDictionary,addWord:viewAddWord,editWord:viewEditWord,studySetup:viewStudySetup,study:viewStudy,complete:viewComplete,stats:viewStats,achievements:viewAchievements,mobs:viewMobs,settings:viewSettings};
   el.innerHTML=(views[S.view]||(() =>'<p>404</p>'))();
   attachEvents();
   if(S.view==='complete'&&!S._confettiDone){
@@ -1199,6 +1344,7 @@ function handleClick(e){
     goStudySetup:  ()=> go('studySetup'),
     goStats:       ()=> go('stats'),
     goAchievements:()=> go('achievements'),
+    goMobs:        ()=> go('mobs'),
     goSettings:    ()=> go('settings'),
     addWord:       ()=> go('addWord'),
     saveGhToken: ()=>{
@@ -1233,14 +1379,14 @@ function handleClick(e){
       if(!en||!ua){ showToast('⚠️ Заповни обидва поля!'); return; }
       const p=getProfile(); if(!p) return;
       p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0});
-      checkAchievements(p); addXP(p,5); saveData(); showToast('✅ Слово додано! +5 XP'); go('dictionary');
+      checkAchievements(p); addXP(p,5); saveData(); showToast(isKid()?`⚒️ Word crafted! +5 💎`:'✅ Слово додано! +5 XP'); go('dictionary');
     },
     saveBulk: ()=>{
       const raw=document.getElementById('bulk-input')?.value||''; const p=getProfile(); if(!p) return;
       let count=0;
       raw.split('\n').forEach(line=>{ const parts=line.split(/\s*[-–—]\s*/); if(parts.length>=2){const en=parts[0].trim(),ua=parts.slice(1).join('-').trim(); if(en&&ua){p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0});count++;}} });
       if(count===0){ showToast('⚠️ Не знайдено пар слів!'); return; }
-      checkAchievements(p); addXP(p,count*5); saveData(); showToast(`✅ Додано ${count} слів! +${count*5} XP`); go('dictionary');
+      checkAchievements(p); addXP(p,count*5); saveData(); showToast(isKid()?`⚒️ ${count} words crafted! +${count*5} 💎`:`✅ Додано ${count} слів! +${count*5} XP`); go('dictionary');
     },
     updateWord: ()=>{
       const en=document.getElementById('word-en')?.value?.trim(), ua=document.getElementById('word-ua')?.value?.trim();
