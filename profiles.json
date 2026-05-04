@@ -279,8 +279,8 @@
         "english": "clock",
         "ukrainian": "годинник",
         "addedDate": "2026-05-04",
-        "timesStudied": 8,
-        "timesKnown": 6,
+        "timesStudied": 9,
+        "timesKnown": 7,
         "timesUnknown": 2,
         "category": "learning",
         "streak": 1,
@@ -701,7 +701,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2455,
+    "xp": 2465,
     "pinnedIds": []
   }
 ]
