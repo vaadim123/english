@@ -493,6 +493,127 @@
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "cioz5n22omorkbqt3",
+        "english": "bus",
+        "ukrainian": "автобус",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "w9wk49it3morkbqt3",
+        "english": "bicycle",
+        "ukrainian": "велосипед",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "seb2j1nv5morkbqt3",
+        "english": "walk",
+        "ukrainian": "ходити",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "9u6su04t2morkbqt3",
+        "english": "How many?",
+        "ukrainian": "скільки",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "l21nc3gd9morkbqt3",
+        "english": "children",
+        "ukrainian": "діти(дітей)",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "uxeaadt8kmorkbqt3",
+        "english": "you",
+        "ukrainian": "ти",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "ejtenfo8pmorkbqt3",
+        "english": "my",
+        "ukrainian": "моє",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "lh9gd2eppmorkbqt3",
+        "english": "name",
+        "ukrainian": "імʼя",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "2xeouka9dmorkbqt3",
+        "english": "choose",
+        "ukrainian": "вибрати",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "skl2ypd6nmorkbqt3",
+        "english": "word",
+        "ukrainian": "слово",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "kc9hrh7u3morkbqt3",
+        "english": "picture",
+        "ukrainian": "картинка",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -568,9 +689,10 @@
       "first_word",
       "first_session",
       "words_10",
-      "sessions_5"
+      "sessions_5",
+      "words_25"
     ],
-    "xp": 2126,
+    "xp": 2181,
     "pinnedIds": []
   }
 ]
