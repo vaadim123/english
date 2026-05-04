@@ -1555,7 +1555,12 @@ function handleClick(e){
     },
     saveWord: ()=>{
       const en=document.getElementById('word-en')?.value?.trim(), ua=document.getElementById('word-ua')?.value?.trim();
-      if(!en||!ua){ showToast('⚠️ Заповни обидва поля!'); return; }
+      if(!en||!ua){
+        // якщо textarea має вміст — автоматично запускаємо bulk
+        const bulk=document.getElementById('bulk-input')?.value?.trim();
+        if(bulk){ document.querySelector('[data-action="saveBulk"]')?.click(); return; }
+        showToast('⚠️ Заповни обидва поля!'); return;
+      }
       const p=getProfile(); if(!p) return;
       p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0});
       checkAchievements(p); addXP(p,5); saveData(); showToast(isKid()?`⚒️ Word crafted! +5 💎`:'✅ Слово додано! +5 XP'); go('dictionary');
