@@ -140,7 +140,7 @@
         "timesKnown": 6,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 5
+        "streak": 6
       },
       {
         "id": "dqvvktvpmmor9l13c",
@@ -151,7 +151,7 @@
         "timesKnown": 6,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 5
+        "streak": 6
       },
       {
         "id": "1ox1wbntvmor9l13c",
@@ -162,7 +162,7 @@
         "timesKnown": 6,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 5
+        "streak": 6
       },
       {
         "id": "mdt77iqrnmor9l13c",
@@ -173,7 +173,7 @@
         "timesKnown": 6,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 5
+        "streak": 6
       },
       {
         "id": "tse68hr0zmor9l13c",
@@ -184,7 +184,7 @@
         "timesKnown": 6,
         "timesUnknown": 8,
         "category": "hard",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "sazdc0x8hmor9ns3k",
@@ -195,7 +195,7 @@
         "timesKnown": 5,
         "timesUnknown": 3,
         "category": "hard",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "zwkpk7eyjmordoctf",
@@ -206,7 +206,7 @@
         "timesKnown": 5,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "0u2yaaefamordoq01",
@@ -217,7 +217,7 @@
         "timesKnown": 5,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 4
+        "streak": 5
       },
       {
         "id": "fr2tllkkwmordozf0",
@@ -228,7 +228,7 @@
         "timesKnown": 5,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 4
+        "streak": 5
       },
       {
         "id": "8hxmu3fwzmordpg30",
@@ -239,7 +239,7 @@
         "timesKnown": 5,
         "timesUnknown": 2,
         "category": "hard",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "waj8p7t46mordpn9f",
@@ -250,7 +250,7 @@
         "timesKnown": 5,
         "timesUnknown": 3,
         "category": "hard",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "bgpgmki32more4p68",
@@ -261,7 +261,7 @@
         "timesKnown": 3,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 1
+        "streak": 0
       },
       {
         "id": "tudgu3jl0more4p68",
@@ -272,7 +272,7 @@
         "timesKnown": 3,
         "timesUnknown": 2,
         "category": "hard",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "njitu5nx5more4p68",
@@ -283,7 +283,7 @@
         "timesKnown": 3,
         "timesUnknown": 2,
         "category": "hard",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "hpxbkoz8zmore4p68",
@@ -294,7 +294,7 @@
         "timesKnown": 3,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "kqbnc2ozimorekaw1",
@@ -305,7 +305,7 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "ftb0ldb7xmorekaw1",
@@ -334,8 +334,8 @@
         "english": "sing",
         "ukrainian": "співати",
         "addedDate": "2026-05-04",
-        "timesStudied": 2,
-        "timesKnown": 0,
+        "timesStudied": 3,
+        "timesKnown": 1,
         "timesUnknown": 2,
         "category": "hard",
         "streak": 0
@@ -349,7 +349,7 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "71grepbubmorekaw1",
@@ -360,7 +360,7 @@
         "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       }
     ],
     "sessions": [
@@ -403,6 +403,14 @@
         "totalWords": 15,
         "knownFirst": 14,
         "duration": 120
+      },
+      {
+        "id": "o8ti0ep7kmorew1ky",
+        "date": "2026-05-04",
+        "direction": "en-ua",
+        "totalWords": 21,
+        "knownFirst": 17,
+        "duration": 456
       }
     ],
     "streak": 1,
@@ -414,7 +422,7 @@
       "words_10",
       "sessions_5"
     ],
-    "xp": 1319,
+    "xp": 1379,
     "pinnedIds": []
   }
 ]
