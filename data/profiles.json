@@ -185,6 +185,17 @@
         "timesUnknown": 1,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "sazdc0x8hmor9ns3k",
+        "english": "I",
+        "ukrainian": "я",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -204,6 +215,6 @@
       "first_word",
       "first_session"
     ],
-    "xp": 105
+    "xp": 110
   }
 ]
