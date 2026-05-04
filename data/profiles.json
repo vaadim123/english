@@ -57,8 +57,8 @@
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-03",
-        "timesStudied": 7,
-        "timesKnown": 6,
+        "timesStudied": 8,
+        "timesKnown": 7,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 3
@@ -122,6 +122,6 @@
       "first_session",
       "sessions_5"
     ],
-    "xp": 635
+    "xp": 645
   }
 ]
