@@ -202,9 +202,9 @@
         "english": "ruler",
         "ukrainian": "лінійка",
         "addedDate": "2026-05-04",
-        "timesStudied": 4,
+        "timesStudied": 5,
         "timesKnown": 3,
-        "timesUnknown": 1,
+        "timesUnknown": 2,
         "category": "learning",
         "streak": 1
       },
@@ -339,7 +339,7 @@
       "first_session",
       "words_10"
     ],
-    "xp": 853,
+    "xp": 855,
     "pinnedIds": []
   }
 ]
