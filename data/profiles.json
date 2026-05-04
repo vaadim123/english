@@ -11,11 +11,11 @@
         "english": "hello",
         "ukrainian": "привіт",
         "addedDate": "2026-05-03",
-        "timesStudied": 7,
-        "timesKnown": 5,
+        "timesStudied": 8,
+        "timesKnown": 6,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 3
+        "streak": 0
       },
       {
         "id": "hbzkwjrq1moq9k5qe",
@@ -26,7 +26,7 @@
         "timesKnown": 6,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "aq707zs06moq9k5qe",
@@ -37,7 +37,7 @@
         "timesKnown": 6,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "ikt9z6eyrmoq9k5qe",
@@ -50,7 +50,7 @@
         "isHard": true,
         "hardConsecutiveCorrect": 0,
         "category": "hard",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "njbz22znamoq9k5qe",
@@ -61,7 +61,7 @@
         "timesKnown": 6,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       }
     ],
     "sessions": [
@@ -104,6 +104,14 @@
         "totalWords": 5,
         "knownFirst": 4,
         "duration": 14
+      },
+      {
+        "id": "eqkfg5p2pmor0gbct",
+        "date": "2026-05-04",
+        "direction": "en-ua",
+        "totalWords": 5,
+        "knownFirst": 4,
+        "duration": 15
       }
     ],
     "streak": 2,
@@ -114,6 +122,6 @@
       "first_session",
       "sessions_5"
     ],
-    "xp": 560
+    "xp": 623
   }
 ]
