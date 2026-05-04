@@ -38,8 +38,8 @@
         "english": "dog",
         "ukrainian": "собака",
         "addedDate": "2026-05-03",
-        "timesStudied": 3,
-        "timesKnown": 1,
+        "timesStudied": 4,
+        "timesKnown": 2,
         "timesUnknown": 2,
         "isHard": true,
         "hardConsecutiveCorrect": 0
@@ -62,15 +62,23 @@
         "totalWords": 5,
         "knownFirst": 4,
         "duration": 17
+      },
+      {
+        "id": "x2cfi6g9ymoqnwruv",
+        "date": "2026-05-04",
+        "direction": "en-ua",
+        "totalWords": 5,
+        "knownFirst": 4,
+        "duration": 18
       }
     ],
-    "streak": 1,
-    "bestStreak": 1,
-    "lastStudied": "2026-05-03",
+    "streak": 2,
+    "bestStreak": 2,
+    "lastStudied": "2026-05-04",
     "achievements": [
       "first_word",
       "first_session"
     ],
-    "xp": 146
+    "xp": 206
   }
 ]
