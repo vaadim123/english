@@ -229,6 +229,17 @@
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "8hxmu3fwzmordpg30",
+        "english": "boy",
+        "ukrainian": "хлопчик",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -246,8 +257,9 @@
     "lastStudied": "2026-05-04",
     "achievements": [
       "first_word",
-      "first_session"
+      "first_session",
+      "words_10"
     ],
-    "xp": 125
+    "xp": 130
   }
 ]
