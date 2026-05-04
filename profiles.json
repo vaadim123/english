@@ -235,8 +235,8 @@
         "english": "boy",
         "ukrainian": "хлопчик",
         "addedDate": "2026-05-04",
-        "timesStudied": 8,
-        "timesKnown": 6,
+        "timesStudied": 9,
+        "timesKnown": 7,
         "timesUnknown": 2,
         "category": "learning",
         "streak": 0
@@ -430,7 +430,7 @@
       "words_10",
       "sessions_5"
     ],
-    "xp": 1974,
+    "xp": 1988,
     "pinnedIds": []
   }
 ]
