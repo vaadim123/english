@@ -191,9 +191,9 @@
         "english": "I",
         "ukrainian": "я",
         "addedDate": "2026-05-04",
-        "timesStudied": 4,
+        "timesStudied": 5,
         "timesKnown": 2,
-        "timesUnknown": 2,
+        "timesUnknown": 3,
         "category": "hard",
         "streak": 0
       },
@@ -331,7 +331,7 @@
       "first_session",
       "words_10"
     ],
-    "xp": 587,
+    "xp": 589,
     "pinnedIds": []
   }
 ]
