@@ -11,57 +11,57 @@
         "english": "hello",
         "ukrainian": "привіт",
         "addedDate": "2026-05-03",
-        "timesStudied": 9,
-        "timesKnown": 7,
+        "timesStudied": 8,
+        "timesKnown": 6,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 1
+        "streak": 0
       },
       {
         "id": "hbzkwjrq1moq9k5qe",
         "english": "apple",
         "ukrainian": "яблуко",
         "addedDate": "2026-05-03",
-        "timesStudied": 9,
-        "timesKnown": 7,
-        "timesUnknown": 2,
+        "timesStudied": 7,
+        "timesKnown": 6,
+        "timesUnknown": 1,
         "category": "learning",
-        "streak": 0
+        "streak": 2
       },
       {
         "id": "aq707zs06moq9k5qe",
         "english": "cat",
         "ukrainian": "кіт",
         "addedDate": "2026-05-03",
-        "timesStudied": 8,
-        "timesKnown": 7,
+        "timesStudied": 7,
+        "timesKnown": 6,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 4
+        "streak": 3
       },
       {
         "id": "ikt9z6eyrmoq9k5qe",
         "english": "dog",
         "ukrainian": "собака",
         "addedDate": "2026-05-03",
-        "timesStudied": 12,
-        "timesKnown": 7,
+        "timesStudied": 11,
+        "timesKnown": 6,
         "timesUnknown": 5,
         "isHard": true,
         "hardConsecutiveCorrect": 0,
         "category": "hard",
-        "streak": 2
+        "streak": 1
       },
       {
         "id": "njbz22znamoq9k5qe",
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-03",
-        "timesStudied": 8,
-        "timesKnown": 7,
+        "timesStudied": 7,
+        "timesKnown": 6,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 4
+        "streak": 3
       }
     ],
     "sessions": [
@@ -112,14 +112,6 @@
         "totalWords": 5,
         "knownFirst": 4,
         "duration": 15
-      },
-      {
-        "id": "hev9jgunfmor1ow2u",
-        "date": "2026-05-04",
-        "direction": "en-ua",
-        "totalWords": 5,
-        "knownFirst": 4,
-        "duration": 94
       }
     ],
     "streak": 2,
@@ -130,6 +122,6 @@
       "first_session",
       "sessions_5"
     ],
-    "xp": 732
+    "xp": 623
   }
 ]
