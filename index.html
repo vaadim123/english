@@ -650,7 +650,8 @@ function updateStudyCard(){
   const btn=document.getElementById('flip-btn'); if(btn) btn.textContent='👁️ Подивитись переклад';
 }
 function finishSession(){
-  const s=S.session, p=getProfile(); if(!p) return;
+  const s=S.session, p=getProfile(); if(!s||!p) return;
+  S.session=null; // очищаємо одразу щоб запобігти повторному виклику
   const session={id:uid(),date:today(),direction:s.direction,totalWords:s.allWords.length,knownFirst:s.knownFirst,duration:Math.round((Date.now()-s.startTime)/1000)};
   p.sessions.push(session); updateStreak(p); const newAch=checkAchievements(p); addXP(p,50);
   // Прогрес важких слів: 3 заняття підряд з першого разу → знімається мітка
@@ -691,7 +692,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.3</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.4</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -1093,6 +1094,11 @@ function viewSettings(){
 function render(){
   const el=document.getElementById('app'); if(!el) return;
   document.body.classList.toggle('child-theme', isKid());
+  // Захист від пустого екрану: якщо study-вʼю без карток — НЕ оновлювати DOM
+  if(S.view==='study'){
+    if(!S.session){ S.view='menu'; }
+    else if(!currentCard()){ return; } // finishSession завершить перехід
+  }
   const views={profiles:viewProfiles,newProfile:viewNewProfile,menu:viewMenu,dictionary:viewDictionary,addWord:viewAddWord,editWord:viewEditWord,studySetup:viewStudySetup,study:viewStudy,complete:viewComplete,stats:viewStats,achievements:viewAchievements,settings:viewSettings};
   el.innerHTML=(views[S.view]||(() =>'<p>404</p>'))();
   attachEvents();
