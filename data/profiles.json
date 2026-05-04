@@ -22,9 +22,9 @@
         "english": "apple",
         "ukrainian": "яблуко",
         "addedDate": "2026-05-03",
-        "timesStudied": 7,
+        "timesStudied": 8,
         "timesKnown": 6,
-        "timesUnknown": 1,
+        "timesUnknown": 2,
         "category": "learning",
         "streak": 2
       },
@@ -122,6 +122,6 @@
       "first_session",
       "sessions_5"
     ],
-    "xp": 633
+    "xp": 635
   }
 ]
