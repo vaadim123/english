@@ -528,10 +528,10 @@
         "english": "walk",
         "ukrainian": "ходити",
         "addedDate": "2026-05-04",
-        "timesStudied": 1,
+        "timesStudied": 2,
         "timesKnown": 0,
-        "timesUnknown": 1,
-        "category": "learning",
+        "timesUnknown": 2,
+        "category": "hard",
         "streak": 0,
         "listed": true
       },
@@ -701,7 +701,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2550,
+    "xp": 2552,
     "pinnedIds": []
   }
 ]
