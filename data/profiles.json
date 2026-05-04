@@ -147,8 +147,8 @@
         "english": "apple",
         "ukrainian": "яблуко",
         "addedDate": "2026-05-04",
-        "timesStudied": 2,
-        "timesKnown": 2,
+        "timesStudied": 3,
+        "timesKnown": 3,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 2
@@ -180,9 +180,9 @@
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-04",
-        "timesStudied": 4,
+        "timesStudied": 5,
         "timesKnown": 2,
-        "timesUnknown": 2,
+        "timesUnknown": 3,
         "category": "learning",
         "streak": 0
       },
@@ -279,6 +279,6 @@
       "first_session",
       "words_10"
     ],
-    "xp": 337
+    "xp": 349
   }
 ]
