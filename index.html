@@ -896,17 +896,17 @@ function viewMenu(){
     <div class="menu-grid">
       <button class="menu-btn primary-btn" data-action="goStudySetup">
         <span class="mb-icon">🃏</span>
-        <span class="mb-label">${kid?'Start Battle!':'Почати навчання'}</span>
-        <span class="mb-sub">${p.words.length>0?`${p.words.length} ${kid?'words':'слів у словнику'}`:(kid?'Add words first!':'Спочатку додай слова')}</span>
+        <span class="mb-label">⚔️ Почати битву!</span>
+        <span class="mb-sub">${p.words.length>0?`${p.words.length} слів у словнику`:'Спочатку додай слова'}</span>
       </button>
       <button class="menu-btn" data-action="goDictionary">
-        <span class="mb-icon">📚</span><span class="mb-label">${kid?'Words':'Словник'}</span>
-        <span class="mb-sub">${p.words.length} ${kid?'words':'слів'}</span>
+        <span class="mb-icon">📚</span><span class="mb-label">Словник</span>
+        <span class="mb-sub">${p.words.length} слів</span>
       </button>
       ${kid
         ? `<button class="menu-btn" data-action="goMobs">
-            <span class="mb-icon">🐾</span><span class="mb-label">Mob Collection</span>
-            <span class="mb-sub">${mobsUnlocked} / ${MOBS.length} unlocked</span>
+            <span class="mb-icon">🐾</span><span class="mb-label">Колекція мобів</span>
+            <span class="mb-sub">${mobsUnlocked} / ${MOBS.length} знайдено</span>
            </button>`
         : `<button class="menu-btn" data-action="goStats">
             <span class="mb-icon">📊</span><span class="mb-label">Статистика</span>
@@ -914,13 +914,13 @@ function viewMenu(){
            </button>`
       }
       <button class="menu-btn" data-action="goAchievements">
-        <span class="mb-icon">🏆</span><span class="mb-label">${kid?'Achievements':'Досягнення'}</span>
+        <span class="mb-icon">🏆</span><span class="mb-label">Досягнення</span>
         <span class="mb-sub">${p.achievements.length} / ${ACHIEVEMENTS.length}</span>
       </button>
       ${kid
         ? `<button class="menu-btn" data-action="goStats" style="grid-column:1/-1">
-            <span class="mb-icon">📊</span><span class="mb-label">Stats</span>
-            <span class="mb-sub">${p.sessions.length} sessions played</span>
+            <span class="mb-icon">📊</span><span class="mb-label">Статистика</span>
+            <span class="mb-sub">${p.sessions.length} занять пройдено</span>
            </button>`
         : ''
       }
@@ -1145,35 +1145,35 @@ function viewComplete(){
   const msg=pick(pct>=80?encs.high:pct>=50?encs.mid:encs.low);
   const starsHtml=[1,2,3].map(i=>`<span class="star ${i<=stars?'lit':''}">⭐</span>`).join('');
   const achHtml=newAch&&newAch.length>0
-    ? `<div class="achievements-earned"><h4>🎖️ ${kid?'New Achievements!':'Нові досягнення!'}</h4>${newAch.map(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);return a?`<div class="achievement-badge"><span class="ab-icon">${a.icon}</span><div class="ab-info"><div class="ab-name">${a.name}</div><div class="ab-desc">${a.desc}</div></div></div>`:''}).join('')}</div>` : '';
+    ? `<div class="achievements-earned"><h4>🎖️ Нові досягнення!</h4>${newAch.map(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);return a?`<div class="achievement-badge"><span class="ab-icon">${a.icon}</span><div class="ab-info"><div class="ab-name">${a.name}</div><div class="ab-desc">${a.desc}</div></div></div>`:''}).join('')}</div>` : '';
   const gradHtml=graduated&&graduated.length>0
-    ? `<div style="background:#DCFCE7;border-radius:14px;padding:14px;margin-bottom:16px;border:2px solid #86EFAC"><div style="font-weight:800;font-size:14px;color:#15803D;margin-bottom:8px">🎓 ${kid?'Word Progress!':'Прогрес слів!'}</div>${graduated.map(g=>g.to==='easy'?`<div style="font-size:13px;color:#166534;font-weight:700">⭐ "${esc(g.word)}" → ${kid?'Easy!':'Легке!'}</div>`:`<div style="font-size:13px;color:#1D4ED8;font-weight:700">📖 "${esc(g.word)}" → ${kid?'Learning':'Вивчаю'}</div>`).join('')}</div>` : '';
+    ? `<div style="background:#DCFCE7;border-radius:14px;padding:14px;margin-bottom:16px;border:2px solid #86EFAC"><div style="font-weight:800;font-size:14px;color:#15803D;margin-bottom:8px">🎓 Прогрес слів!</div>${graduated.map(g=>g.to==='easy'?`<div style="font-size:13px;color:#166534;font-weight:700">⭐ "${esc(g.word)}" → Легке!</div>`:`<div style="font-size:13px;color:#1D4ED8;font-weight:700">📖 "${esc(g.word)}" → Вивчаю</div>`).join('')}</div>` : '';
   const bossHtml=bossDefeated&&boss
-    ? `<div style="background:#3d1f00;border:2px solid #c8a020;border-radius:8px;padding:14px;margin-bottom:16px;text-align:center"><div style="font-size:36px;margin-bottom:4px">${boss.emoji}</div><div style="color:#ffe88a;font-weight:900;font-size:18px">You defeated ${boss.name}!</div><div style="color:#c8a020;font-size:13px;font-weight:700;margin-top:4px">+50 Bonus Emeralds! 💎</div></div>` : '';
+    ? `<div style="background:#3d1f00;border:2px solid #c8a020;border-radius:8px;padding:14px;margin-bottom:16px;text-align:center"><div style="font-size:36px;margin-bottom:4px">${boss.emoji}</div><div style="color:#ffe88a;font-weight:900;font-size:18px">${boss.name} переможений!</div><div style="color:#c8a020;font-size:13px;font-weight:700;margin-top:4px">+50 бонусних смарагдів! 💎</div></div>` : '';
   const xpLabel=kid?`💎 +${50+session.knownFirst*10} смарагдів!`:`⚡ +${50+session.knownFirst*10} XP отримано!`;
   return `
   <div class="card">
     <div class="complete-hero">
       <span class="complete-emoji">${emoji}</span>
       <div class="complete-title">${msg}</div>
-      <div class="complete-subtitle">${kid?'Battle complete!':'Заняття завершено'} · ${session.direction==='en-ua'?'EN → UA':'UA → EN'}</div>
+      <div class="complete-subtitle">Заняття завершено · ${session.direction==='en-ua'?'EN → UA':'UA → EN'}</div>
     </div>
     <div class="stars">${starsHtml}</div>
     ${bossHtml}
     <div class="result-grid">
-      <div class="result-item"><div class="ri-num">${session.totalWords}</div><div class="ri-label">${kid?'Cards':'Карток'}</div></div>
-      <div class="result-item"><div class="ri-num" style="color:var(--success)">${session.knownFirst}</div><div class="ri-label">${kid?'First try':'З першого разу'}</div></div>
-      <div class="result-item"><div class="ri-num">${session.totalWords-session.knownFirst}</div><div class="ri-label">${kid?'Practice more':'Потребують практики'}</div></div>
+      <div class="result-item"><div class="ri-num">${session.totalWords}</div><div class="ri-label">Карток</div></div>
+      <div class="result-item"><div class="ri-num" style="color:var(--success)">${session.knownFirst}</div><div class="ri-label">З першого разу</div></div>
+      <div class="result-item"><div class="ri-num">${session.totalWords-session.knownFirst}</div><div class="ri-label">Ще потренувати</div></div>
     </div>
     <div class="result-grid" style="grid-template-columns:1fr 1fr;margin-bottom:16px">
-      <div class="result-item"><div class="ri-num">${pct}%</div><div class="ri-label">${kid?'Score':'Результат'}</div></div>
-      <div class="result-item"><div class="ri-num">${fmtDur(session.duration)}</div><div class="ri-label">${kid?'Time':'Час заняття'}</div></div>
+      <div class="result-item"><div class="ri-num">${pct}%</div><div class="ri-label">Результат</div></div>
+      <div class="result-item"><div class="ri-num">${fmtDur(session.duration)}</div><div class="ri-label">Час заняття</div></div>
     </div>
     <div class="text-center" style="margin-bottom:16px"><span class="xp-gained">${xpLabel}</span></div>
     ${gradHtml}${achHtml}
     <div style="display:flex;gap:10px">
-      <button class="btn btn-outline flex-1" data-action="back">← ${kid?'Menu':'Меню'}</button>
-      <button class="btn btn-primary flex-1" data-action="studyAgain">${kid?'⚔️ Play Again':'🔄 Ще раз'}</button>
+      <button class="btn btn-outline flex-1" data-action="back">← Меню</button>
+      <button class="btn btn-primary flex-1" data-action="studyAgain">${kid?'⚔️ Ще раз!':'🔄 Ще раз'}</button>
     </div>
   </div>`;
 }
@@ -1247,14 +1247,14 @@ function viewMobs(){
     <div class="mob-card ${wc>=m.req?'unlocked':'locked'}">
       <span class="mob-emoji">${m.emoji}</span>
       <div class="mob-name">${m.name}</div>
-      <div class="mob-req">${wc>=m.req?'✅ Found!':`📚 ${m.req} words`}</div>
+      <div class="mob-req">${wc>=m.req?'✅ Знайдений':`📚 ${m.req} слів`}</div>
     </div>`).join('');
   return `
-  <button class="back-btn" data-action="back">← Menu</button>
+  <button class="back-btn" data-action="back">← Меню</button>
   <div class="card">
-    <div class="section-title">🐾 Mob Collection</div>
-    <div style="font-size:15px;font-weight:700;color:var(--text-light);margin-bottom:4px">${unlocked} / ${MOBS.length} mobs found!</div>
-    ${next?`<div style="background:#EFF6FF;border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:700;color:#1D4ED8">📚 Add ${next.req-wc} more words to unlock ${next.emoji} ${next.name}!</div>`:'<div style="background:#DCFCE7;border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:700;color:#15803D">🎉 You found all mobs!</div>'}
+    <div class="section-title">🐾 Колекція мобів</div>
+    <div style="font-size:15px;font-weight:700;color:var(--text-light);margin-bottom:4px">${unlocked} / ${MOBS.length} мобів знайдено!</div>
+    ${next?`<div style="background:#EFF6FF;border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:700;color:#1D4ED8">📚 Додай ще ${next.req-wc} слів щоб відкрити ${next.emoji} ${next.name}!</div>`:'<div style="background:#DCFCE7;border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:13px;font-weight:700;color:#15803D">🎉 Всі моби знайдені!</div>'}
     <div class="mob-grid">${cards}</div>
   </div>`;
 }
