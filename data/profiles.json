@@ -29,8 +29,8 @@
         "english": "cat",
         "ukrainian": "кіт",
         "addedDate": "2026-05-03",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0
       },
       {
@@ -69,6 +69,6 @@
       "first_word",
       "first_session"
     ],
-    "xp": 102
+    "xp": 112
   }
 ]
