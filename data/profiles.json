@@ -196,6 +196,17 @@
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "zwkpk7eyjmordoctf",
+        "english": "ruler",
+        "ukrainian": "лінійка",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -215,6 +226,6 @@
       "first_word",
       "first_session"
     ],
-    "xp": 110
+    "xp": 115
   }
 ]
