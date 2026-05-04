@@ -140,7 +140,7 @@
         "timesKnown": 3,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "dqvvktvpmmor9l13c",
@@ -151,7 +151,7 @@
         "timesKnown": 3,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "1ox1wbntvmor9l13c",
@@ -162,7 +162,7 @@
         "timesKnown": 3,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "mdt77iqrnmor9l13c",
@@ -173,15 +173,15 @@
         "timesKnown": 3,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "tse68hr0zmor9l13c",
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-04",
-        "timesStudied": 8,
-        "timesKnown": 2,
+        "timesStudied": 9,
+        "timesKnown": 3,
         "timesUnknown": 6,
         "category": "hard",
         "streak": 0
@@ -206,7 +206,7 @@
         "timesKnown": 2,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 1
+        "streak": 0
       },
       {
         "id": "0u2yaaefamordoq01",
@@ -217,7 +217,7 @@
         "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "fr2tllkkwmordozf0",
@@ -228,7 +228,7 @@
         "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "8hxmu3fwzmordpg30",
@@ -239,7 +239,7 @@
         "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "waj8p7t46mordpn9f",
@@ -250,7 +250,7 @@
         "timesKnown": 2,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 1
+        "streak": 0
       }
     ],
     "sessions": [
@@ -269,6 +269,14 @@
         "totalWords": 11,
         "knownFirst": 10,
         "duration": 180
+      },
+      {
+        "id": "sweifzqnsmore0c1c",
+        "date": "2026-05-04",
+        "direction": "ua-en",
+        "totalWords": 11,
+        "knownFirst": 7,
+        "duration": 174
       }
     ],
     "streak": 1,
@@ -279,6 +287,6 @@
       "first_session",
       "words_10"
     ],
-    "xp": 450
+    "xp": 510
   }
 ]
