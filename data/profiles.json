@@ -191,11 +191,11 @@
         "english": "I",
         "ukrainian": "я",
         "addedDate": "2026-05-04",
-        "timesStudied": 2,
+        "timesStudied": 3,
         "timesKnown": 1,
-        "timesUnknown": 1,
-        "category": "learning",
-        "streak": 1
+        "timesUnknown": 2,
+        "category": "hard",
+        "streak": 0
       },
       {
         "id": "zwkpk7eyjmordoctf",
@@ -279,6 +279,6 @@
       "first_session",
       "words_10"
     ],
-    "xp": 424
+    "xp": 426
   }
 ]
