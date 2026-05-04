@@ -224,8 +224,8 @@
         "english": "book",
         "ukrainian": "книга",
         "addedDate": "2026-05-04",
-        "timesStudied": 0,
-        "timesKnown": 0,
+        "timesStudied": 1,
+        "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
@@ -271,6 +271,6 @@
       "first_session",
       "words_10"
     ],
-    "xp": 219
+    "xp": 232
   }
 ]
