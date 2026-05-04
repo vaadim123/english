@@ -301,11 +301,12 @@
         "english": "read",
         "ukrainian": "читати",
         "addedDate": "2026-05-04",
-        "timesStudied": 8,
+        "timesStudied": 9,
         "timesKnown": 3,
-        "timesUnknown": 5,
+        "timesUnknown": 6,
         "category": "hard",
-        "streak": 0
+        "streak": 0,
+        "listed": true
       },
       {
         "id": "ftb0ldb7xmorekaw1",
@@ -692,7 +693,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2203,
+    "xp": 2205,
     "pinnedIds": []
   }
 ]
