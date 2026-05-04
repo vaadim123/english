@@ -44,8 +44,8 @@
         "english": "dog",
         "ukrainian": "собака",
         "addedDate": "2026-05-03",
-        "timesStudied": 4,
-        "timesKnown": 2,
+        "timesStudied": 5,
+        "timesKnown": 3,
         "timesUnknown": 2,
         "isHard": true,
         "hardConsecutiveCorrect": 0,
@@ -57,9 +57,9 @@
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-03",
-        "timesStudied": 2,
+        "timesStudied": 3,
         "timesKnown": 2,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 0
       }
@@ -89,6 +89,6 @@
       "first_word",
       "first_session"
     ],
-    "xp": 216
+    "xp": 228
   }
 ]
