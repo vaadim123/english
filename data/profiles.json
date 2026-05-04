@@ -169,8 +169,8 @@
         "english": "dog",
         "ukrainian": "собака",
         "addedDate": "2026-05-04",
-        "timesStudied": 4,
-        "timesKnown": 4,
+        "timesStudied": 5,
+        "timesKnown": 5,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 4
@@ -339,7 +339,7 @@
       "first_session",
       "words_10"
     ],
-    "xp": 785,
+    "xp": 795,
     "pinnedIds": []
   }
 ]
