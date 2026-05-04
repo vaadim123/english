@@ -240,6 +240,17 @@
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "waj8p7t46mordpn9f",
+        "english": "girl",
+        "ukrainian": "дівчинка",
+        "addedDate": "2026-05-04",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -260,6 +271,6 @@
       "first_session",
       "words_10"
     ],
-    "xp": 130
+    "xp": 135
   }
 ]
