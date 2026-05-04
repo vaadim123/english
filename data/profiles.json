@@ -11,11 +11,11 @@
         "english": "hello",
         "ukrainian": "привіт",
         "addedDate": "2026-05-03",
-        "timesStudied": 5,
-        "timesKnown": 4,
+        "timesStudied": 6,
+        "timesKnown": 5,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "hbzkwjrq1moq9k5qe",
@@ -26,7 +26,7 @@
         "timesKnown": 5,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "aq707zs06moq9k5qe",
@@ -37,15 +37,15 @@
         "timesKnown": 5,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 1
+        "streak": 2
       },
       {
         "id": "ikt9z6eyrmoq9k5qe",
         "english": "dog",
         "ukrainian": "собака",
         "addedDate": "2026-05-03",
-        "timesStudied": 9,
-        "timesKnown": 4,
+        "timesStudied": 10,
+        "timesKnown": 5,
         "timesUnknown": 5,
         "isHard": true,
         "hardConsecutiveCorrect": 0,
@@ -61,7 +61,7 @@
         "timesKnown": 5,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 1
+        "streak": 2
       }
     ],
     "sessions": [
@@ -96,6 +96,14 @@
         "totalWords": 5,
         "knownFirst": 3,
         "duration": 25
+      },
+      {
+        "id": "n50r9vub9moqvogd8",
+        "date": "2026-05-04",
+        "direction": "en-ua",
+        "totalWords": 5,
+        "knownFirst": 4,
+        "duration": 14
       }
     ],
     "streak": 2,
@@ -103,8 +111,9 @@
     "lastStudied": "2026-05-04",
     "achievements": [
       "first_word",
-      "first_session"
+      "first_session",
+      "sessions_5"
     ],
-    "xp": 448
+    "xp": 518
   }
 ]
