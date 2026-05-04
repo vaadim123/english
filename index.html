@@ -313,6 +313,17 @@ body.child-theme .kid-runner{display:block}
 .kid-runner .mc-rarm{transform-origin:12px 8px;animation:legSwL .32s ease-in-out infinite alternate}
 @keyframes legSwL{from{transform:rotate(-22deg)}to{transform:rotate(22deg)}}
 @keyframes legSwR{from{transform:rotate(22deg)}to{transform:rotate(-22deg)}}
+/* Category toggles */
+.cat-toggle{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.cat-btn{padding:10px 16px;border:3px solid #E5E7EB;border-radius:10px;background:white;cursor:pointer;font-family:inherit;font-size:13px;font-weight:800;transition:border-color .2s,background .2s,color .2s;display:flex;align-items:center;gap:8px}
+.cat-btn:hover{border-color:var(--primary-light)}
+.cat-count{border-radius:50px;padding:2px 8px;font-size:12px;font-weight:800}
+.cat-btn.cat-learning.active{border-color:#3B82F6;background:#EFF6FF;color:#1D4ED8}
+.cat-btn.cat-hard.active{border-color:#EF4444;background:#FEF2F2;color:#B91C1C}
+.cat-btn.cat-easy.active{border-color:#10B981;background:#ECFDF5;color:#065F46}
+.cat-btn.cat-learning .cat-count{background:#DBEAFE;color:#1D4ED8}
+.cat-btn.cat-hard .cat-count{background:#FEE2E2;color:#B91C1C}
+.cat-btn.cat-easy .cat-count{background:#DCFCE7;color:#15803D}
 </style>
 </head>
 <body>
@@ -404,6 +415,7 @@ const S = {
   profiles:[], profileId:null, view:'profiles', params:{},
   session:null, dictSearch:'', dictSelected:new Set(),
   syncStatus:'idle', _confettiDone:false,
+  studyCats:new Set(['learning','hard']),
 };
 
 // ── GITHUB STORAGE ──
@@ -506,14 +518,16 @@ const DB_KEY = 'wordflash_v2';
 async function loadData(){
   // 1. Одразу показуємо що є в localStorage
   try{ const r=localStorage.getItem(DB_KEY); if(r) S.profiles=JSON.parse(r); }catch{ S.profiles=[]; }
-  render(); // показати локальні дані без затримки
+  S.profiles.forEach(p=>migrateWordCategories(p.words||[]));
+  render();
 
   // 2. Тягнемо з GitHub (може бути новіше або з іншого пристрою)
   const gh = await GH.pull();
   if(gh && Array.isArray(gh) && (gh.length > 0 || S.profiles.length === 0)){
     S.profiles = gh;
+    S.profiles.forEach(p=>migrateWordCategories(p.words||[]));
     localStorage.setItem(DB_KEY, JSON.stringify(gh));
-    if(!S.session) render(); // не переривати активну сесію
+    if(!S.session) render();
   }
 }
 function saveData(){
@@ -545,7 +559,7 @@ const STARTER_WORDS = [
 
 // ── PROFILE OPS ──
 function createProfile(name,avatar,color,isChild=false){
-  const words=STARTER_WORDS.map(w=>({id:uid(),english:w.english,ukrainian:w.ukrainian,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0}));
+  const words=STARTER_WORDS.map(w=>({id:uid(),english:w.english,ukrainian:w.ukrainian,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0}));
   const p={id:uid(),name,avatar,color,isChild,words,sessions:[],streak:0,bestStreak:0,lastStudied:null,achievements:[],xp:0};
   S.profiles.push(p); saveData(); return p;
 }
@@ -576,18 +590,33 @@ function checkAchievements(p){
 }
 
 // ── WORD OPS ──
+function getCategory(w){
+  if(!w.category){
+    if(w.isHard) return 'hard';
+    const t=(w.timesKnown||0)+(w.timesUnknown||0);
+    return (t>=5&&(w.timesKnown||0)/t>=0.8)?'easy':'learning';
+  }
+  return w.category;
+}
+function migrateWordCategories(words){
+  (words||[]).forEach(w=>{
+    if(!w.category){
+      if(w.isHard){ w.category='hard'; w.streak=w.hardConsecutiveCorrect||0; }
+      else{ const t=(w.timesKnown||0)+(w.timesUnknown||0); w.category=(t>=5&&(w.timesKnown||0)/t>=0.8)?'easy':'learning'; w.streak=0; }
+    }
+    if(w.streak===undefined) w.streak=0;
+  });
+}
 function getDifficulty(w){
-  if(w.isHard) return 'hard';
-  const t=w.timesKnown+w.timesUnknown; if(t===0) return 'new';
+  const cat=getCategory(w); if(cat==='hard') return 'hard'; if(cat==='easy') return 'easy';
+  const t=(w.timesKnown||0)+(w.timesUnknown||0); if(t===0) return 'new';
   const r=w.timesKnown/t; return r>=.8?'easy':r>=.5?'medium':'hard';
 }
 function diffBadge(w){
-  if(w.isHard){
-    const streak=w.hardConsecutiveCorrect||0;
-    return `<span class="word-difficulty diff-hard">🔥 ${streak}/3</span>`;
-  }
-  const m={new:['diff-new','🆕'],easy:['diff-easy','😊'],medium:['diff-medium','🤔'],hard:['diff-hard','😅']};
-  const [c,i]=m[getDifficulty(w)]; return `<span class="word-difficulty ${c}">${i}</span>`;
+  const cat=getCategory(w), streak=w.streak||0;
+  if(cat==='hard') return `<span class="word-difficulty diff-hard">🔥 ${streak}/3</span>`;
+  if(cat==='easy') return `<span class="word-difficulty diff-easy">😊 Легке</span>`;
+  return `<span class="word-difficulty diff-new">📖 ${streak}/7</span>`;
 }
 
 // ── SESSION ──
@@ -613,10 +642,10 @@ function actionUnknown(){
   const s=S.session, w=currentCard(); if(!w) return;
   w.timesStudied++; w.timesUnknown++;
   const attempts=(s.attempts[w.id]=(s.attempts[w.id]||0)+1);
-  // Позначити як важке після 2 помилок у занятті
-  if(attempts===2 && !w.isHard){
-    w.isHard=true; w.hardConsecutiveCorrect=0;
-    showToast(`🔥 "${w.english}" — додано до важких слів!`);
+  // 2 помилки в занятті → переводимо в Складні
+  if(attempts===2 && getCategory(w)!=='hard'){
+    w.category='hard'; w.streak=0;
+    showToast(`🔥 "${w.english}" — переходить до складних!`);
   }
   addXP(getProfile(),2); saveData();
   s.queue.shift(); s.queue.push(w); s.isFlipped=false;
@@ -651,18 +680,24 @@ function updateStudyCard(){
 }
 function finishSession(){
   const s=S.session, p=getProfile(); if(!s||!p) return;
-  S.session=null; // очищаємо одразу щоб запобігти повторному виклику
+  S.session=null;
   const session={id:uid(),date:today(),direction:s.direction,totalWords:s.allWords.length,knownFirst:s.knownFirst,duration:Math.round((Date.now()-s.startTime)/1000)};
   p.sessions.push(session); updateStreak(p); const newAch=checkAchievements(p); addXP(p,50);
-  // Прогрес важких слів: 3 заняття підряд з першого разу → знімається мітка
   const graduated=[];
   for(const w of s.allWords){
-    if(w.isHard){
-      if(!s.attempts[w.id]){ // відповів з першого разу
-        w.hardConsecutiveCorrect=(w.hardConsecutiveCorrect||0)+1;
-        if(w.hardConsecutiveCorrect>=3){ w.isHard=false; w.hardConsecutiveCorrect=0; graduated.push(w.english); }
-      } else {
-        w.hardConsecutiveCorrect=0; // скидаємо серію
+    const cat=getCategory(w);
+    if(s.attempts[w.id]){
+      // Була хоча б одна помилка — скидаємо серію
+      w.streak=0;
+    } else {
+      // Відповів з першого разу — збільшуємо серію
+      w.streak=(w.streak||0)+1;
+      if(cat==='hard' && w.streak>=3){
+        w.category='learning'; w.streak=0;
+        graduated.push({word:w.english,to:'learning'});
+      } else if(cat==='learning' && w.streak>=7){
+        w.category='easy'; w.streak=0;
+        graduated.push({word:w.english,to:'easy'});
       }
     }
   }
@@ -692,7 +727,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.4</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.5</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -806,16 +841,18 @@ function viewDictionary(){
           <button class="icon-btn" data-action="deleteWord" data-id="${w.id}">🗑️</button>
         </div>
       </div>`).join('');
-  const hard=p.words.filter(w=>getDifficulty(w)==='hard').length;
-  const easy=p.words.filter(w=>getDifficulty(w)==='easy').length;
+  const cLearning=p.words.filter(w=>getCategory(w)==='learning').length;
+  const cHard=p.words.filter(w=>getCategory(w)==='hard').length;
+  const cEasy=p.words.filter(w=>getCategory(w)==='easy').length;
   return `
   <button class="back-btn" data-action="back">← Меню</button>
   <div class="card">
     <div class="section-title">📚 Словник</div>
     <div class="dict-stats">
       <div class="dict-stat">📝 Всього: <strong>${p.words.length}</strong></div>
-      <div class="dict-stat">😊 Легких: <strong>${easy}</strong></div>
-      <div class="dict-stat">😅 Важких: <strong>${hard}</strong></div>
+      <div class="dict-stat">📖 Вивчаю: <strong>${cLearning}</strong></div>
+      <div class="dict-stat">🔥 Складні: <strong>${cHard}</strong></div>
+      <div class="dict-stat">😊 Легкі: <strong>${cEasy}</strong></div>
     </div>
     <div class="dict-toolbar">
       <input class="search-input flex-1" type="search" id="dict-search" placeholder="🔍 Пошук..." value="${esc(S.dictSearch)}">
@@ -887,8 +924,6 @@ function viewEditWord(){
 
 function viewStudySetup(){
   const p=getProfile(); if(!p){ go('profiles'); return ''; }
-  const selCount=S.dictSelected.size, wordCount=selCount>0?selCount:p.words.length;
-  const dir=S.params.direction||'en-ua';
   if(p.words.length===0) return `
     <button class="back-btn" data-action="back">← Меню</button>
     <div class="card text-center">
@@ -897,6 +932,12 @@ function viewStudySetup(){
       <p style="color:var(--text-light);font-weight:600;margin-bottom:20px">Спочатку додай слова!</p>
       <button class="btn btn-primary btn-block" data-action="goDictionary">📚 Відкрити словник</button>
     </div>`;
+  const dir=S.params.direction||'en-ua';
+  const selCount=S.dictSelected.size;
+  const cLearning=p.words.filter(w=>getCategory(w)==='learning').length;
+  const cHard=p.words.filter(w=>getCategory(w)==='hard').length;
+  const cEasy=p.words.filter(w=>getCategory(w)==='easy').length;
+  const studyIds=p.words.filter(w=>S.studyCats.has(getCategory(w))).map(w=>w.id);
   return `
   <button class="back-btn" data-action="back">← Меню</button>
   <div class="card">
@@ -910,16 +951,27 @@ function viewStudySetup(){
         <div class="dir-icon">🇺🇦➡️🇬🇧</div><div class="dir-label">Українська → English</div><div class="dir-sub">Бачиш українське слово</div>
       </button>
     </div>
-    <div class="word-count-info">
-      <span class="wci-icon">📝</span>
-      <div class="wci-text">
-        <div class="wci-num">${wordCount} слів</div>
-        <div class="wci-label">${selCount>0?'вибрані в словнику':'всього в словнику'}</div>
-      </div>
+    <div class="form-label" style="margin-bottom:10px">Категорії слів для навчання:</div>
+    <div class="cat-toggle">
+      <button class="cat-btn cat-learning ${S.studyCats.has('learning')?'active':''}" data-action="toggleCat" data-cat="learning">
+        📖 Вивчаю <span class="cat-count">${cLearning}</span>
+      </button>
+      <button class="cat-btn cat-hard ${S.studyCats.has('hard')?'active':''}" data-action="toggleCat" data-cat="hard">
+        🔥 Складні <span class="cat-count">${cHard}</span>
+      </button>
+      <button class="cat-btn cat-easy ${S.studyCats.has('easy')?'active':''}" data-action="toggleCat" data-cat="easy">
+        😊 Легкі <span class="cat-count">${cEasy}</span>
+      </button>
     </div>
+    ${studyIds.length===0
+      ? `<div style="background:#FEF9C3;border-radius:14px;padding:14px;margin-bottom:16px;text-align:center;color:#92400E;font-weight:700;font-size:14px">⚠️ Нема слів у вибраних категоріях. Оберіть хоча б одну!</div>`
+      : `<div class="word-count-info"><span class="wci-icon">📝</span><div class="wci-text"><div class="wci-num">${studyIds.length} слів</div><div class="wci-label">вибрано для навчання</div></div></div>`
+    }
+    <button class="btn btn-primary btn-block" style="margin-bottom:12px" data-action="startByCats" ${studyIds.length===0?'disabled':''}>🚀 Почати! (${studyIds.length} слів)</button>
     ${selCount>0
-      ? `<div style="display:flex;gap:10px;margin-bottom:16px"><button class="btn btn-success flex-1" data-action="startSelected">🎯 Вчити обрані (${selCount})</button><button class="btn btn-outline" data-action="startAll">Всі ${p.words.length}</button></div>`
-      : `<button class="btn btn-primary btn-block" style="margin-bottom:12px" data-action="startAll">🚀 Почати! (${p.words.length} слів)</button><button class="btn btn-outline btn-block btn-sm" data-action="goDictionary">☑ Вибрати конкретні слова</button>`}
+      ? `<button class="btn btn-outline btn-block btn-sm" data-action="startSelected">🎯 Вибрані зі словника (${selCount})</button>`
+      : `<button class="btn btn-outline btn-block btn-sm" data-action="goDictionary">☑ Вибрати конкретні слова</button>`
+    }
   </div>`;
 }
 
@@ -973,7 +1025,7 @@ function viewComplete(){
   const achHtml=newAch&&newAch.length>0
     ? `<div class="achievements-earned"><h4>🎖️ Нові досягнення!</h4>${newAch.map(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);return a?`<div class="achievement-badge"><span class="ab-icon">${a.icon}</span><div class="ab-info"><div class="ab-name">${a.name}</div><div class="ab-desc">${a.desc}</div></div></div>`:''}).join('')}</div>` : '';
   const gradHtml=graduated&&graduated.length>0
-    ? `<div style="background:#DCFCE7;border-radius:14px;padding:14px;margin-bottom:16px;border:2px solid #86EFAC"><div style="font-weight:800;font-size:14px;color:#15803D;margin-bottom:8px">🎓 Вивчено! Більше не важкі:</div>${graduated.map(w=>`<div style="font-size:13px;color:#166534;font-weight:700">✅ ${esc(w)}</div>`).join('')}</div>` : '';
+    ? `<div style="background:#DCFCE7;border-radius:14px;padding:14px;margin-bottom:16px;border:2px solid #86EFAC"><div style="font-weight:800;font-size:14px;color:#15803D;margin-bottom:8px">🎓 Прогрес слів!</div>${graduated.map(g=>g.to==='easy'?`<div style="font-size:13px;color:#166534;font-weight:700">⭐ "${esc(g.word)}" → Легке!</div>`:`<div style="font-size:13px;color:#1D4ED8;font-weight:700">📖 "${esc(g.word)}" → Вивчаю</div>`).join('')}</div>` : '';
   return `
   <div class="card">
     <div class="complete-hero">
@@ -1180,13 +1232,13 @@ function handleClick(e){
       const en=document.getElementById('word-en')?.value?.trim(), ua=document.getElementById('word-ua')?.value?.trim();
       if(!en||!ua){ showToast('⚠️ Заповни обидва поля!'); return; }
       const p=getProfile(); if(!p) return;
-      p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0});
+      p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0});
       checkAchievements(p); addXP(p,5); saveData(); showToast('✅ Слово додано! +5 XP'); go('dictionary');
     },
     saveBulk: ()=>{
       const raw=document.getElementById('bulk-input')?.value||''; const p=getProfile(); if(!p) return;
       let count=0;
-      raw.split('\n').forEach(line=>{ const parts=line.split(/\s*[-–—]\s*/); if(parts.length>=2){const en=parts[0].trim(),ua=parts.slice(1).join('-').trim(); if(en&&ua){p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0});count++;}} });
+      raw.split('\n').forEach(line=>{ const parts=line.split(/\s*[-–—]\s*/); if(parts.length>=2){const en=parts[0].trim(),ua=parts.slice(1).join('-').trim(); if(en&&ua){p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0});count++;}} });
       if(count===0){ showToast('⚠️ Не знайдено пар слів!'); return; }
       checkAchievements(p); addXP(p,count*5); saveData(); showToast(`✅ Додано ${count} слів! +${count*5} XP`); go('dictionary');
     },
@@ -1196,6 +1248,8 @@ function handleClick(e){
       const w=getWord(id); if(w){ w.english=en; w.ukrainian=ua; saveData(); showToast('✅ Слово оновлено!'); } go('dictionary');
     },
     setDir:       ()=>{ S.params={...S.params,direction:el.dataset.dir}; render(); },
+    toggleCat:    ()=>{ const cat=el.dataset.cat; if(S.studyCats.has(cat)) S.studyCats.delete(cat); else S.studyCats.add(cat); render(); },
+    startByCats:  ()=>{ const p=getProfile(); if(!p) return; const ids=p.words.filter(w=>S.studyCats.has(getCategory(w))).map(w=>w.id); if(!ids.length){ showToast('⚠️ Немає слів у вибраних категоріях!'); return; } startSession(ids,S.params.direction||'en-ua'); },
     startAll:     ()=>{ const p=getProfile(); if(p&&p.words.length>0) startSession(p.words.map(w=>w.id),S.params.direction||'en-ua'); },
     startSelected:()=>{ const ids=S.dictSelected.size>0?[...S.dictSelected]:(S.params.wordIds||[]); if(!ids.length){ showToast('⚠️ Немає вибраних слів!'); return; } startSession(ids,S.params.direction||'en-ua'); },
     know:      ()=> actionKnow(),
