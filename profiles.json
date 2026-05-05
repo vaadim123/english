@@ -450,11 +450,11 @@
         "english": "my",
         "ukrainian": "моє",
         "addedDate": "2026-05-04",
-        "timesStudied": 2,
+        "timesStudied": 3,
         "timesKnown": 1,
-        "timesUnknown": 1,
-        "category": "learning",
-        "streak": 1
+        "timesUnknown": 2,
+        "category": "hard",
+        "streak": 0
       },
       {
         "id": "lh9gd2eppmorkbqt3",
@@ -587,7 +587,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2789,
+    "xp": 2790,
     "pinnedIds": []
   }
 ]
