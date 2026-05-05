@@ -433,7 +433,8 @@
         "timesKnown": 1,
         "timesUnknown": 4,
         "category": "hard",
-        "streak": 0
+        "streak": 0,
+        "listed": true
       },
       {
         "id": "uxeaadt8kmorkbqt3",
