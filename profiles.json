@@ -302,9 +302,9 @@
         "english": "purple",
         "ukrainian": "фіолетовий",
         "addedDate": "2026-05-04",
-        "timesStudied": 2,
+        "timesStudied": 3,
         "timesKnown": 1,
-        "timesUnknown": 1,
+        "timesUnknown": 2,
         "category": "learning",
         "streak": 0,
         "listed": true
@@ -588,7 +588,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2855,
+    "xp": 2856,
     "pinnedIds": []
   }
 ]
