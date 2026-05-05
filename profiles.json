@@ -358,9 +358,9 @@
         "english": "gray",
         "ukrainian": "сірий",
         "addedDate": "2026-05-04",
-        "timesStudied": 7,
+        "timesStudied": 8,
         "timesKnown": 1,
-        "timesUnknown": 6,
+        "timesUnknown": 7,
         "category": "hard",
         "streak": 0,
         "listed": true
@@ -588,7 +588,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2969,
+    "xp": 2970,
     "pinnedIds": []
   }
 ]
