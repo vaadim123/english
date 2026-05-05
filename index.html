@@ -556,6 +556,7 @@ const S = {
   session:null, dictSearch:'', dictSelected:new Set(),
   syncStatus:'idle', _confettiDone:false,
   studyCats:new Set(['learning','hard']),
+  speechMode:false,
 };
 
 // ── GITHUB STORAGE ──
@@ -706,10 +707,13 @@ const STARTER_WORDS = [
 
 // ── PROFILE OPS ──
 function createProfile(name,avatar,color,isChild=false){
+  const language=S.params.language||'en';
   const words=STARTER_WORDS.map(w=>({id:uid(),english:w.english,ukrainian:w.ukrainian,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0}));
-  const p={id:uid(),name,avatar,color,isChild,words,sessions:[],streak:0,bestStreak:0,lastStudied:null,achievements:[],xp:0};
+  const p={id:uid(),name,avatar,color,isChild,language,words,sessions:[],streak:0,bestStreak:0,lastStudied:null,achievements:[],xp:0};
   S.profiles.push(p); saveData(); return p;
 }
+function profileLang(){ return getProfile()?.language||'en'; }
+function isPl(){ return profileLang()==='pl'; }
 function deleteProfile(id){
   if(!confirm('Видалити профіль? Всі слова та статистика будуть втрачені.')) return;
   S.profiles=S.profiles.filter(p=>p.id!==id); saveData(); render();
@@ -873,10 +877,12 @@ function updateStudyCard(){
   const ftag=document.querySelector('.fc-front .fc-lang-tag'), btag=document.querySelector('.fc-back .fc-lang-tag');
   if(s.direction==='en-ua'){
     if(front) front.textContent=w.english; if(back) back.textContent=w.ukrainian;
-    if(ftag) ftag.textContent='🇬🇧 English'; if(btag) btag.textContent='🇺🇦 Українська';
+    const fLbl2=isPl()?'🇵🇱 Polski':'🇬🇧 English';
+    if(ftag) ftag.textContent=fLbl2; if(btag) btag.textContent='🇺🇦 Українська';
   } else {
     if(front) front.textContent=w.ukrainian; if(back) back.textContent=w.english;
-    if(ftag) ftag.textContent='🇺🇦 Українська'; if(btag) btag.textContent='🇬🇧 English';
+    const fLbl3=isPl()?'🇵🇱 Polski':'🇬🇧 English';
+    if(ftag) ftag.textContent='🇺🇦 Українська'; if(btag) btag.textContent=fLbl3;
   }
   const l2btn=document.getElementById('list2-btn'); if(l2btn){ l2btn.textContent=w.listed?'✅ В Список 2':'📋 До Списку 2'; l2btn.classList.toggle('active',!!w.listed); }
 }
@@ -923,7 +929,7 @@ function viewProfiles(){
     <button class="profile-delete" data-action="deleteProfile" data-id="${p.id}">✕</button>
     <span class="profile-avatar">${p.avatar}</span>
     <div class="profile-name">${esc(p.name)}${p.isChild?' 🧒':''}</div>
-    <div class="profile-meta">📚 ${p.words.length} слів · 🃏 ${p.sessions.length} занять</div>
+    <div class="profile-meta">${p.language==='pl'?'🇵🇱':'🇬🇧'} · 📚 ${p.words.length} слів · 🃏 ${p.sessions.length} занять</div>
     ${p.streak>1?`<div class="profile-meta">🔥 ${p.streak} днів поспіль</div>`:''}
   </div>`).join('');
   return `
@@ -931,7 +937,7 @@ function viewProfiles(){
     <span class="logo-icon">🌟</span>
     <h1>WordFlash</h1>
     <p>Вивчай англійську легко та весело!</p>
-    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.8.1</p>
+    <p style="font-size:11px;color:#9CA3AF;margin-top:4px;font-weight:600">v3.9.0</p>
   </div>
   <div class="card">
     <div class="section-title">Оберіть профіль</div>
@@ -947,6 +953,7 @@ function viewProfiles(){
 
 function viewNewProfile(){
   const isChild = !!S.params.isChild;
+  const lang = S.params.language||'en';
   const avatarList = isChild ? CHILD_AVATARS : AVATARS;
   const sa=S.params.avatar||avatarList[0], sc=S.params.color||COLORS[0];
   return `
@@ -961,6 +968,17 @@ function viewNewProfile(){
         </button>
         <button class="dir-btn ${isChild?'selected':''}" data-action="setProfileType" data-val="child">
           <div class="dir-icon">🧒</div><div class="dir-label">Дитина</div><div class="dir-sub">English UI · Minecraft</div>
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">🌍 Мова навчання</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <button class="dir-btn ${lang==='en'?'selected':''}" data-action="setLang" data-val="en">
+          <div class="dir-icon">🇬🇧</div><div class="dir-label">English</div><div class="dir-sub">Англійська мова</div>
+        </button>
+        <button class="dir-btn ${lang==='pl'?'selected':''}" data-action="setLang" data-val="pl">
+          <div class="dir-icon">🇵🇱</div><div class="dir-label">Polski</div><div class="dir-sub">Польська мова</div>
         </button>
       </div>
     </div>
@@ -1225,6 +1243,7 @@ function viewStudySetup(){
   const cEasy=p.words.filter(w=>getCategory(w)==='easy').length;
   const cList2=p.words.filter(w=>w.listed).length;
   const studyIds=p.words.filter(w=>S.studyCats.has(getCategory(w))).map(w=>w.id);
+  const pl=isPl(), fFlag=pl?'🇵🇱':'🇬🇧', fName=pl?'Polski':'English', fSub=pl?'польське слово':'англійське слово';
   return `
   <button class="back-btn" data-action="back">← Меню</button>
   <div class="card">
@@ -1232,10 +1251,10 @@ function viewStudySetup(){
     <div class="form-label" style="margin-bottom:10px">Напрямок перекладу:</div>
     <div class="direction-choice">
       <button class="dir-btn ${dir==='en-ua'?'selected':''}" data-action="setDir" data-dir="en-ua">
-        <div class="dir-icon">🇬🇧➡️🇺🇦</div><div class="dir-label">English → Українська</div><div class="dir-sub">Бачиш англійське слово</div>
+        <div class="dir-icon">${fFlag}➡️🇺🇦</div><div class="dir-label">${fName} → Українська</div><div class="dir-sub">Бачиш ${fSub}</div>
       </button>
       <button class="dir-btn ${dir==='ua-en'?'selected':''}" data-action="setDir" data-dir="ua-en">
-        <div class="dir-icon">🇺🇦➡️🇬🇧</div><div class="dir-label">Українська → English</div><div class="dir-sub">Бачиш українське слово</div>
+        <div class="dir-icon">🇺🇦➡️${fFlag}</div><div class="dir-label">Українська → ${fName}</div><div class="dir-sub">Бачиш українське слово</div>
       </button>
     </div>
     <div class="form-label" style="margin-bottom:10px">Категорії слів для навчання:</div>
@@ -1282,6 +1301,15 @@ function viewStudySetup(){
         <div style="font-size:13px;color:var(--text-muted);font-weight:600">Натискай "📋 До Списку 2" під час навчання — і вчи позначені слова окремо.</div>
       `}
     </div>
+    <div style="border-top:2px solid #F3F4F6;padding-top:16px;margin-top:4px">
+      <div class="form-label" style="margin-bottom:8px">🎤 Голосова перевірка:</div>
+      <button class="btn ${S.speechMode?'btn-primary':'btn-outline'} btn-block" data-action="toggleSpeechMode">
+        ${S.speechMode?'🎤 Голосова перевірка: УВІМКНЕНО ✅':'🎤 Говори відповідь вголос (вимкнено)'}
+      </button>
+      <div style="font-size:12px;color:${hasSpeechRec?'var(--text-muted)':'var(--danger)'};font-weight:600;margin-top:6px;text-align:center">
+        ${hasSpeechRec?'Натискай 🎤 → кажи переклад → комп\'ютер перевіряє!':'⚠️ Твій браузер не підтримує розпізнавання голосу (потрібен Chrome)'}
+      </div>
+    </div>
   </div>`;
 }
 
@@ -1290,7 +1318,8 @@ function viewStudy(){
   const w=currentCard(); if(!w){ setTimeout(finishSession,0); return ''; }
   const done=s.completed.length, total=s.allWords.length;
   const fw=s.direction==='en-ua'?w.english:w.ukrainian, bw=s.direction==='en-ua'?w.ukrainian:w.english;
-  const fl=s.direction==='en-ua'?'🇬🇧 English':'🇺🇦 Українська', bl=s.direction==='en-ua'?'🇺🇦 Українська':'🇬🇧 English';
+  const fLbl=isPl()?'🇵🇱 Polski':'🇬🇧 English';
+  const fl=s.direction==='en-ua'?fLbl:'🇺🇦 Українська', bl=s.direction==='en-ua'?'🇺🇦 Українська':fLbl;
   const bossHtml=s.boss?`
   <div class="boss-bar">
     <div class="boss-info">
@@ -1329,10 +1358,18 @@ function viewStudy(){
     </div>
   </div>
   <div class="study-btns">
-    <div class="study-btns-row">
-      <button class="study-btn btn-know" data-action="know">✅ Знаю!</button>
+    ${S.speechMode&&hasSpeechRec ? `
+      <button class="study-btn" id="rec-btn" data-action="startRecognition" style="background:linear-gradient(135deg,#DC2626,#991B1B);color:white;font-size:17px;padding:20px;width:100%">
+        🎤 Натисни і скажи переклад
+      </button>
+      <div style="text-align:center;color:rgba(255,255,255,.6);font-size:12px;font-weight:700;margin:-4px 0">— або —</div>
       <button class="study-btn btn-unknown" data-action="unknown">❌ Не знаю</button>
-    </div>
+    ` : `
+      <div class="study-btns-row">
+        <button class="study-btn btn-know" data-action="know">✅ Знаю!</button>
+        <button class="study-btn btn-unknown" data-action="unknown">❌ Не знаю</button>
+      </div>
+    `}
     <button class="study-btn btn-list2 ${w.listed?'active':''}" id="list2-btn" data-action="toggleList2">${w.listed?'✅ В Список 2':'📋 До Списку 2'}</button>
     <button class="study-btn btn-quit" data-action="quitStudy">⏹ Завершити заняття</button>
   </div>`;
@@ -1568,14 +1605,33 @@ function speak(text){
   if(!window.speechSynthesis) return;
   speechSynthesis.cancel();
   const u=new SpeechSynthesisUtterance(text);
-  u.lang='en-US'; u.rate=0.82; u.pitch=1;
-  // Вибираємо найкращий голос: спочатку iOS/Mac Siri-голоси, потім будь-який en-US
-  const pref=['Samantha','Karen','Moira','Fiona','Daniel','Alex'];
-  const byName=_voices.find(v=>pref.includes(v.name)&&v.lang.startsWith('en'));
-  const byLocal=_voices.find(v=>v.lang==='en-US'&&v.localService);
-  const byLang=_voices.find(v=>v.lang==='en-US')||_voices.find(v=>v.lang.startsWith('en'));
-  u.voice=byName||byLocal||byLang||null;
+  u.rate=0.82; u.pitch=1;
+  if(isPl()){
+    u.lang='pl-PL';
+    const prefPl=['Zosia','Krzysztof','Microsoft Paulina Online','Microsoft Paulina'];
+    const byName=_voices.find(v=>prefPl.includes(v.name));
+    const byLang=_voices.find(v=>v.lang==='pl-PL')||_voices.find(v=>v.lang.startsWith('pl'));
+    u.voice=byName||byLang||null;
+  } else {
+    u.lang='en-US';
+    const pref=['Samantha','Karen','Moira','Fiona','Daniel','Alex'];
+    const byName=_voices.find(v=>pref.includes(v.name)&&v.lang.startsWith('en'));
+    const byLocal=_voices.find(v=>v.lang==='en-US'&&v.localService);
+    const byLang=_voices.find(v=>v.lang==='en-US')||_voices.find(v=>v.lang.startsWith('en'));
+    u.voice=byName||byLocal||byLang||null;
+  }
   speechSynthesis.speak(u);
+}
+const hasSpeechRec = !!(window.SpeechRecognition||window.webkitSpeechRecognition);
+function wordsMatch(said,expected){
+  const norm=s=>s.toLowerCase().replace(/[.,!?;:'"()-]/g,'').replace(/\b(the|a|an)\b/gi,'').replace(/\s+/g,' ').trim();
+  const s=norm(said),e=norm(expected);
+  if(!s||!e) return false;
+  if(s===e||s.includes(e)||e.includes(s)) return true;
+  return s.split(' ')[0]===e.split(' ')[0] && Math.abs(s.split(' ').length-e.split(' ').length)<=1;
+}
+function recLangCode(dir){
+  return dir==='ua-en' ? (isPl()?'pl-PL':'en-US') : 'uk-UA';
 }
 
 function render(){
@@ -1616,6 +1672,7 @@ function handleClick(e){
     newProfile:    ()=> go('newProfile',{avatar:AVATARS[0],color:COLORS[0],isChild:false}),
     pickAvatar:    ()=> go('newProfile',{...S.params,avatar:val}),
     pickColor:     ()=> go('newProfile',{...S.params,color:val}),
+    setLang: ()=>{ S.params={...S.params,language:val}; render(); },
     setProfileType:()=>{
       const isChild = val==='child';
       const avatarList = isChild ? CHILD_AVATARS : AVATARS;
@@ -1727,6 +1784,32 @@ function handleClick(e){
     know:      ()=> actionKnow(),
     unknown:   ()=> actionUnknown(),
     flip:      ()=> actionFlip(),
+    toggleSpeechMode: ()=>{ S.speechMode=!S.speechMode; render(); },
+    startRecognition: ()=>{
+      const SRec=window.SpeechRecognition||window.webkitSpeechRecognition;
+      if(!SRec){ showToast('⚠️ Потрібен Chrome для голосової перевірки'); return; }
+      const s=S.session, w=currentCard(); if(!w||!s) return;
+      const expected=s.direction==='en-ua'?w.ukrainian:w.english;
+      const btn=document.getElementById('rec-btn');
+      if(btn){ btn.textContent='🔴 Слухаю...'; btn.style.background='linear-gradient(135deg,#7C3AED,#5B21B6)'; btn.disabled=true; }
+      const rec=new SRec();
+      rec.lang=recLangCode(s.direction); rec.interimResults=false; rec.maxAlternatives=5;
+      rec.onresult=ev=>{
+        const alts=[...ev.results[0]].map(r=>r.transcript.trim());
+        const correct=alts.some(t=>wordsMatch(t,expected));
+        const heard=alts[0];
+        if(correct){
+          showToast(`✅ Правильно! Почув: "${heard}"`,2500);
+          setTimeout(()=>actionKnow(),400);
+        } else {
+          showToast(`❌ Почув: "${heard}" · Правильна відповідь: "${expected}"`,3500);
+          setTimeout(()=>actionUnknown(),400);
+        }
+      };
+      rec.onerror=()=>{ showToast('⚠️ Не розібрав. Спробуй ще раз!'); if(btn){btn.textContent='🎤 Натисни і скажи переклад';btn.style.background='linear-gradient(135deg,#DC2626,#991B1B)';btn.disabled=false;} };
+      rec.onend=()=>{ if(btn&&btn.disabled){btn.textContent='🎤 Натисни і скажи переклад';btn.style.background='linear-gradient(135deg,#DC2626,#991B1B)';btn.disabled=false;} };
+      try{ rec.start(); }catch(e){ showToast('⚠️ Помилка мікрофону. Дозволь доступ до мікрофону!'); }
+    },
     toggleList2: ()=>{
       e.stopPropagation();
       const w=currentCard(); if(!w) return;
