@@ -519,8 +519,8 @@
         "english": "it",
         "ukrainian": "воно",
         "addedDate": "2026-05-05",
-        "timesStudied": 2,
-        "timesKnown": 0,
+        "timesStudied": 3,
+        "timesKnown": 1,
         "timesUnknown": 2,
         "category": "hard",
         "streak": 0
@@ -620,7 +620,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3376,
+    "xp": 3385,
     "pinnedIds": []
   }
 ]
