@@ -143,8 +143,8 @@
         "english": "table",
         "ukrainian": "стіл",
         "addedDate": "2026-05-04",
-        "timesStudied": 10,
-        "timesKnown": 8,
+        "timesStudied": 11,
+        "timesKnown": 9,
         "timesUnknown": 2,
         "category": "learning",
         "streak": 3
@@ -620,7 +620,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3385,
+    "xp": 3395,
     "pinnedIds": []
   }
 ]
