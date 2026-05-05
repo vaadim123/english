@@ -121,11 +121,11 @@
         "english": "girl",
         "ukrainian": "дівчинка",
         "addedDate": "2026-05-04",
-        "timesStudied": 13,
+        "timesStudied": 14,
         "timesKnown": 9,
-        "timesUnknown": 4,
-        "category": "learning",
-        "streak": 2
+        "timesUnknown": 5,
+        "category": "hard",
+        "streak": 0
       },
       {
         "id": "bgpgmki32more4p68",
@@ -588,7 +588,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2993,
+    "xp": 2994,
     "pinnedIds": []
   }
 ]
