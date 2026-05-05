@@ -393,9 +393,9 @@
         "english": "bicycle",
         "ukrainian": "велосипед",
         "addedDate": "2026-05-04",
-        "timesStudied": 1,
+        "timesStudied": 2,
         "timesKnown": 1,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 1,
         "listed": true
@@ -588,7 +588,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2925,
+    "xp": 2926,
     "pinnedIds": []
   }
 ]
