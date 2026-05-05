@@ -681,6 +681,26 @@ function saveData(){
   localStorage.setItem(DB_KEY, JSON.stringify(S.profiles));
   schedulePush();
 }
+// ── SESSION PERSISTENCE ──
+const SESSION_KEY='wf_sess';
+function saveSession(){
+  const s=S.session; if(!s||!S.profileId) return;
+  try{ localStorage.setItem(SESSION_KEY,JSON.stringify({pid:S.profileId,dir:s.direction,qIds:s.queue.map(w=>w.id),cIds:s.completed.map(w=>w.id),aIds:s.allWords.map(w=>w.id),att:s.attempts,kf:s.knownFirst,t:s.startTime,combo:s.combo||0,boss:s.boss,bossHp:s.bossHp||0})); }catch(e){}
+}
+function clearSavedSession(){ localStorage.removeItem(SESSION_KEY); }
+function getSavedSession(){ try{ const r=localStorage.getItem(SESSION_KEY); return r?JSON.parse(r):null; }catch{ return null; } }
+function resumeSavedSession(){
+  const d=getSavedSession();
+  if(!d||d.pid!==S.profileId) return false;
+  const p=getProfile(); if(!p) return false;
+  const lk=new Map(p.words.map(w=>[w.id,w]));
+  const allWords=(d.aIds||[]).map(id=>lk.get(id)).filter(Boolean);
+  const queue=(d.qIds||[]).map(id=>lk.get(id)).filter(Boolean);
+  const completed=(d.cIds||[]).map(id=>lk.get(id)).filter(Boolean);
+  if(!allWords.length||!queue.length) return false;
+  S.session={allWords,queue,completed,direction:d.dir||'en-ua',isFlipped:false,startTime:d.t||Date.now(),knownFirst:d.kf||0,attempts:d.att||{},combo:d.combo||0,boss:d.boss||null,bossHp:d.bossHp||0};
+  return true;
+}
 
 // ── HELPERS ──
 const uid = ()=> Math.random().toString(36).substr(2,9)+Date.now().toString(36);
@@ -819,7 +839,7 @@ function actionKnow(){
     const wrap=document.querySelector('.flashcard-wrap');
     if(wrap){ const r=wrap.getBoundingClientRect(); showSparkles(r.left+r.width/2,r.top+r.height/2); }
   }
-  addXP(getProfile(),5); saveData();
+  addXP(getProfile(),5); saveData(); saveSession();
   s.queue.shift(); s.isFlipped=false;
   const wrap=document.querySelector('.flashcard-wrap');
   if(wrap){ wrap.classList.add('card-success'); setTimeout(()=>wrap&&wrap.classList.remove('card-success'),300); }
@@ -848,7 +868,7 @@ function actionUnknown(){
     const bar=document.querySelector('.boss-bar'); if(bar) bar.classList.remove('boss-shaking');
     showBossSpeech(pick(BOSS_WIN_PHRASES));
   }
-  addXP(getProfile(),1); saveData();
+  addXP(getProfile(),1); saveData(); saveSession();
   s.queue.shift();
   // Вставляємо у випадкову позицію: мінімум 2 слова вперед, максимум — кінець черги
   const minPos=Math.min(2, s.queue.length);
@@ -901,6 +921,7 @@ function updateStudyCard(){
 }
 function finishSession(){
   const s=S.session, p=getProfile(); if(!s||!p) return;
+  clearSavedSession();
   S.session=null;
   const session={id:uid(),date:today(),direction:s.direction,totalWords:s.allWords.length,knownFirst:s.knownFirst,duration:Math.round((Date.now()-s.startTime)/1000)};
   p.sessions.push(session); updateStreak(p); const newAch=checkAchievements(p); addXP(p,25);
@@ -1045,8 +1066,21 @@ function viewMenu(){
   const tierBrd={1:'#FDE68A',2:'#C4B5FD',3:'#FCA5A5',4:'#86EFAC',5:'#FDE68A'};
   const tierBar={1:'#F59E0B',2:'#7C3AED',3:'#EF4444',4:'#10B981',5:'#F59E0B'};
   const nextMob=MOBS.find(m=>p.words.length<m.req);
+  const saved=getSavedSession();
+  const hasSaved=saved&&saved.pid===S.profileId&&(saved.qIds||[]).length>0;
   return `
   <button class="back-btn" data-action="back">← Профілі</button>
+  ${hasSaved?`<div style="background:linear-gradient(135deg,#6366F1,#4F46E5);border-radius:var(--radius);padding:16px;margin-bottom:12px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-lg)">
+    <span style="font-size:36px">📖</span>
+    <div style="flex:1;color:white">
+      <div style="font-weight:900;font-size:16px">Незакінчений урок!</div>
+      <div style="font-size:12px;opacity:.85;margin-top:2px">Залишилось слів: ${(saved.qIds||[]).length}</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <button class="btn" style="background:white;color:#6366F1;border:none;border-radius:10px;padding:8px 14px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit" data-action="resumeSession">▶ Продовжити</button>
+      <button class="btn" style="background:rgba(255,255,255,.2);color:white;border:none;border-radius:10px;padding:6px 14px;font-weight:700;font-size:12px;cursor:pointer;font-family:inherit" data-action="discardSession">✕ Скинути</button>
+    </div>
+  </div>`:''}
   <div class="card">
     <div class="profile-header">
       <span class="ph-avatar">${p.avatar}</span>
@@ -1640,6 +1674,7 @@ function speak(text){
   speechSynthesis.speak(u);
 }
 const hasSpeechRec = !!(window.SpeechRecognition||window.webkitSpeechRecognition);
+let _activeRec = null;
 function levenshtein(a,b){
   const m=a.length,n=b.length,dp=[];
   for(let i=0;i<=m;i++){dp[i]=[i];for(let j=1;j<=n;j++)dp[i][j]=i?0:j;}
@@ -1837,13 +1872,16 @@ function handleClick(e){
       const btn=document.getElementById('rec-btn');
       const lang=recLangCode(s.direction);
       const langLabel=recLangLabel(s.direction);
-      const resetBtn=()=>{ if(btn){ btn.innerHTML='🎤 Натисни і скажи переклад'; btn.style.background='linear-gradient(135deg,#6366F1,#4F46E5)'; btn.disabled=false; } };
-      if(btn){ btn.innerHTML=`🔴 Слухаю ${langLabel}...`; btn.style.background='linear-gradient(135deg,#7C3AED,#5B21B6)'; btn.disabled=true; }
+      const resetBtn=()=>{ _activeRec=null; if(btn){ btn.innerHTML='🎤 Натисни і скажи переклад'; btn.style.background='linear-gradient(135deg,#6366F1,#4F46E5)'; btn.disabled=false; } };
+      // Push-to-talk: якщо вже пишемо — зупиняємо
+      if(_activeRec){ _activeRec.stop(); return; }
+      if(btn){ btn.innerHTML=`🔴 Говорю ${langLabel}... (натисни ще раз щоб зупинити)`; btn.style.background='linear-gradient(135deg,#DC2626,#991B1B)'; btn.disabled=false; }
       const rec=new SRec();
+      _activeRec=rec;
       rec.lang=lang; rec.interimResults=false; rec.maxAlternatives=5;
       let gotResult=false;
       rec.onresult=ev=>{
-        gotResult=true;
+        gotResult=true; _activeRec=null;
         const alts=[...ev.results[0]].map(r=>r.transcript.trim());
         const matchIdx=alts.findIndex(t=>wordsMatch(t,expected));
         const heard=alts[0];
@@ -1863,7 +1901,7 @@ function handleClick(e){
         showToast(msgs[ev.error]||`⚠️ Помилка: ${ev.error||'невідома'}`,3500);
         resetBtn();
       };
-      rec.onend=()=>{ if(!gotResult){ showToast('🔇 Нічого не почув. Натисни і говори чіткіше!',2500); } resetBtn(); };
+      rec.onend=()=>{ if(!gotResult){ showToast('🔇 Нічого не почув. Спробуй ще раз!',2500); } resetBtn(); };
       try{ rec.start(); }catch(e){ showToast('⚠️ Помилка мікрофону. Дозволь доступ!'); resetBtn(); }
     },
     toggleList2: ()=>{
@@ -1884,7 +1922,9 @@ function handleClick(e){
       CW.forEach(([en,ua])=>{ if(!p.words.some(w=>w.english===en)){ p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0}); added++; } });
       saveData(); showToast(added>0?`🎨 Додано ${added} кольорів`:'🎨 Кольори вже є'); render();
     },
-    quitStudy: ()=>{ if(S.session&&S.session.completed.length>0&&!confirm('Завершити заняття достроково?')) return; S.session=null; go('menu'); },
+    resumeSession: ()=>{ if(resumeSavedSession()) go('study'); else { clearSavedSession(); render(); } },
+    discardSession: ()=>{ clearSavedSession(); render(); },
+    quitStudy: ()=>{ if(S.session&&S.session.completed.length>0&&!confirm('Завершити заняття достроково?')) return; clearSavedSession(); S.session=null; go('menu'); },
     studyAgain:()=> go('studySetup'),
   };
   const fn=actions[action]; if(fn) fn();
