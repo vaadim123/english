@@ -11,8 +11,8 @@
         "english": "hello",
         "ukrainian": "привіт",
         "addedDate": "2026-05-04",
-        "timesStudied": 8,
-        "timesKnown": 8,
+        "timesStudied": 9,
+        "timesKnown": 9,
         "timesUnknown": 0,
         "category": "easy",
         "streak": 0
@@ -587,7 +587,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2795,
+    "xp": 2800,
     "pinnedIds": []
   }
 ]
