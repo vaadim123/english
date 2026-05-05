@@ -163,6 +163,10 @@ body{
 /* Study buttons */
 .study-btns{display:flex;flex-direction:column;gap:10px}
 .study-btns-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mode-selector{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.mode-btn{background:rgba(255,255,255,.6);border:2px solid #E5E7EB;border-radius:var(--radius-sm);padding:14px 10px;font-family:inherit;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s;text-align:center;line-height:1.3}
+.mode-btn.active{background:linear-gradient(135deg,#7C3AED,#4F46E5);color:white;border-color:transparent;box-shadow:0 4px 12px rgba(124,58,237,.4)}
+.mode-btn small{display:block;font-size:11px;font-weight:600;opacity:.8;margin-top:3px}
 .study-btn{padding:16px;border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:16px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s;display:flex;align-items:center;justify-content:center;gap:8px}
 .study-btn:hover{transform:translateY(-2px)}
 .study-btn:active{transform:translateY(0)}
@@ -1302,13 +1306,18 @@ function viewStudySetup(){
       `}
     </div>
     <div style="border-top:2px solid #F3F4F6;padding-top:16px;margin-top:4px">
-      <div class="form-label" style="margin-bottom:8px">🎤 Голосова перевірка:</div>
-      <button class="btn ${S.speechMode?'btn-primary':'btn-outline'} btn-block" data-action="toggleSpeechMode">
-        ${S.speechMode?'🎤 Голосова перевірка: УВІМКНЕНО ✅':'🎤 Говори відповідь вголос (вимкнено)'}
-      </button>
-      <div style="font-size:12px;color:${hasSpeechRec?'var(--text-muted)':'var(--danger)'};font-weight:600;margin-top:6px;text-align:center">
-        ${hasSpeechRec?'Натискай 🎤 → кажи переклад → комп\'ютер перевіряє!':'⚠️ Твій браузер не підтримує розпізнавання голосу (потрібен Chrome)'}
+      <div class="form-label" style="margin-bottom:8px">🎯 Режим перевірки:</div>
+      <div class="mode-selector">
+        <button class="mode-btn ${!S.speechMode?'active':''}" data-action="setManualMode">
+          🖐️ Ручний
+          <small>Натискаю кнопки</small>
+        </button>
+        <button class="mode-btn ${S.speechMode?'active':''}" data-action="setVoiceMode">
+          🎤 Голосовий
+          <small>Говорю відповідь</small>
+        </button>
       </div>
+      ${S.speechMode&&!hasSpeechRec?`<div style="font-size:12px;color:var(--danger);font-weight:600;margin-top:6px;text-align:center">⚠️ Потрібен Chrome для голосової перевірки</div>`:''}
     </div>
   </div>`;
 }
@@ -1358,13 +1367,20 @@ function viewStudy(){
     </div>
   </div>
   <div class="study-btns">
+    ${S.speechMode?`
+    <button class="study-btn" id="rec-btn" data-action="startRecognition" style="background:linear-gradient(135deg,#6366F1,#4F46E5);color:white;box-shadow:0 4px 16px rgba(99,102,241,.4);width:100%;font-size:18px;padding:18px 14px">
+      🎤 Натисни і скажи переклад
+    </button>
+    <div class="study-btns-row">
+      <button class="study-btn btn-know" data-action="know" style="font-size:13px;padding:10px">✅ Знаю</button>
+      <button class="study-btn btn-unknown" data-action="unknown" style="font-size:13px;padding:10px">❌ Не знаю</button>
+    </div>
+    `:`
     <div class="study-btns-row">
       <button class="study-btn btn-know" data-action="know">✅ Знаю!</button>
       <button class="study-btn btn-unknown" data-action="unknown">❌ Не знаю</button>
     </div>
-    <button class="study-btn" id="rec-btn" data-action="startRecognition" style="background:linear-gradient(135deg,#6366F1,#4F46E5);color:white;box-shadow:0 4px 16px rgba(99,102,241,.4);width:100%">
-      🎤 Сказати відповідь вголос
-    </button>
+    `}
     <button class="study-btn btn-list2 ${w.listed?'active':''}" id="list2-btn" data-action="toggleList2">${w.listed?'✅ В Список 2':'📋 До Списку 2'}</button>
     <button class="study-btn btn-quit" data-action="quitStudy">⏹ Завершити заняття</button>
   </div>`;
@@ -1618,12 +1634,23 @@ function speak(text){
   speechSynthesis.speak(u);
 }
 const hasSpeechRec = !!(window.SpeechRecognition||window.webkitSpeechRecognition);
+function levenshtein(a,b){
+  const m=a.length,n=b.length,dp=[];
+  for(let i=0;i<=m;i++){dp[i]=[i];for(let j=1;j<=n;j++)dp[i][j]=i?0:j;}
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++)
+    dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[m][n];
+}
 function wordsMatch(said,expected){
   const norm=s=>s.toLowerCase().replace(/[.,!?;:'"()-]/g,'').replace(/\b(the|a|an)\b/gi,'').replace(/\s+/g,' ').trim();
   const s=norm(said),e=norm(expected);
   if(!s||!e) return false;
-  if(s===e||s.includes(e)||e.includes(s)) return true;
-  return s.split(' ')[0]===e.split(' ')[0] && Math.abs(s.split(' ').length-e.split(' ').length)<=1;
+  if(s===e) return true;
+  const maxDist=l=>l>=9?2:l>=5?1:0;
+  const sw=s.split(' '),ew=e.split(' ');
+  if(sw.length===ew.length)
+    return sw.every((w,i)=>levenshtein(w,ew[i])<=maxDist(Math.max(w.length,ew[i].length)));
+  return levenshtein(s,e)<=maxDist(Math.max(s.length,e.length));
 }
 function recLangCode(dir){
   return dir==='ua-en' ? (isPl()?'pl-PL':'en-US') : 'uk-UA';
@@ -1779,7 +1806,8 @@ function handleClick(e){
     know:      ()=> actionKnow(),
     unknown:   ()=> actionUnknown(),
     flip:      ()=> actionFlip(),
-    toggleSpeechMode: ()=>{ S.speechMode=!S.speechMode; render(); },
+    setManualMode: ()=>{ S.speechMode=false; render(); },
+    setVoiceMode:  ()=>{ S.speechMode=true; render(); },
     startRecognition: ()=>{
       const SRec=window.SpeechRecognition||window.webkitSpeechRecognition;
       if(!SRec){ showToast('⚠️ Потрібен Chrome для голосової перевірки'); return; }
