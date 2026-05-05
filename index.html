@@ -1371,10 +1371,7 @@ function viewStudy(){
     <button class="study-btn" id="rec-btn" data-action="startRecognition" style="background:linear-gradient(135deg,#6366F1,#4F46E5);color:white;box-shadow:0 4px 16px rgba(99,102,241,.4);width:100%;font-size:18px;padding:18px 14px">
       🎤 Натисни і скажи переклад
     </button>
-    <div class="study-btns-row">
-      <button class="study-btn btn-know" data-action="know" style="font-size:13px;padding:10px">✅ Знаю</button>
-      <button class="study-btn btn-unknown" data-action="unknown" style="font-size:13px;padding:10px">❌ Не знаю</button>
-    </div>
+    <button class="study-btn btn-unknown" data-action="unknown" style="font-size:13px;padding:10px;opacity:.65">⏭ Пропустити</button>
     `:`
     <div class="study-btns-row">
       <button class="study-btn btn-know" data-action="know">✅ Знаю!</button>
@@ -1814,24 +1811,32 @@ function handleClick(e){
       const s=S.session, w=currentCard(); if(!w||!s) return;
       const expected=s.direction==='en-ua'?w.ukrainian:w.english;
       const btn=document.getElementById('rec-btn');
-      if(btn){ btn.textContent='🔴 Слухаю...'; btn.style.background='linear-gradient(135deg,#7C3AED,#5B21B6)'; btn.disabled=true; }
+      const resetBtn=()=>{ if(btn){ btn.innerHTML='🎤 Натисни і скажи переклад'; btn.style.background='linear-gradient(135deg,#6366F1,#4F46E5)'; btn.disabled=false; } };
+      if(btn){ btn.innerHTML='🔴 Слухаю...'; btn.style.background='linear-gradient(135deg,#7C3AED,#5B21B6)'; btn.disabled=true; }
       const rec=new SRec();
-      rec.lang=recLangCode(s.direction); rec.interimResults=false; rec.maxAlternatives=5;
+      rec.lang=recLangCode(s.direction); rec.interimResults=false; rec.maxAlternatives=3;
+      let gotResult=false;
       rec.onresult=ev=>{
+        gotResult=true;
         const alts=[...ev.results[0]].map(r=>r.transcript.trim());
         const correct=alts.some(t=>wordsMatch(t,expected));
         const heard=alts[0];
         if(correct){
           showToast(`✅ Правильно! Почув: "${heard}"`,2500);
-          setTimeout(()=>actionKnow(),400);
+          setTimeout(()=>actionKnow(),500);
         } else {
-          showToast(`❌ Почув: "${heard}" · Правильна відповідь: "${expected}"`,3500);
-          setTimeout(()=>actionUnknown(),400);
+          showToast(`❌ Почув: "${heard}" · Правильно: "${expected}"`,4000);
+          resetBtn();
         }
       };
-      rec.onerror=()=>{ showToast('⚠️ Не розібрав. Спробуй ще раз!'); if(btn){btn.textContent='🎤 Натисни і скажи переклад';btn.style.background='linear-gradient(135deg,#DC2626,#991B1B)';btn.disabled=false;} };
-      rec.onend=()=>{ if(btn&&btn.disabled){btn.textContent='🎤 Натисни і скажи переклад';btn.style.background='linear-gradient(135deg,#DC2626,#991B1B)';btn.disabled=false;} };
-      try{ rec.start(); }catch(e){ showToast('⚠️ Помилка мікрофону. Дозволь доступ до мікрофону!'); }
+      rec.onerror=ev=>{
+        gotResult=true;
+        const msgs={'not-allowed':'🚫 Дозволь доступ до мікрофону!','no-speech':'🔇 Нічого не почув, говори голосніше!','audio-capture':'🎤 Мікрофон не знайдено','network':'🌐 Помилка мережі'};
+        showToast(msgs[ev.error]||'⚠️ Не розібрав. Спробуй ще раз!',3000);
+        resetBtn();
+      };
+      rec.onend=()=>{ if(!gotResult){ showToast('🔇 Нічого не почув. Натисни і говори чіткіше!',2500); } resetBtn(); };
+      try{ rec.start(); }catch(e){ showToast('⚠️ Помилка мікрофону. Дозволь доступ!'); resetBtn(); }
     },
     toggleList2: ()=>{
       e.stopPropagation();
