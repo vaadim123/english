@@ -121,8 +121,8 @@
         "english": "girl",
         "ukrainian": "дівчинка",
         "addedDate": "2026-05-04",
-        "timesStudied": 15,
-        "timesKnown": 9,
+        "timesStudied": 16,
+        "timesKnown": 10,
         "timesUnknown": 6,
         "category": "hard",
         "streak": 0
@@ -589,7 +589,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 3037,
+    "xp": 3042,
     "pinnedIds": []
   }
 ]
