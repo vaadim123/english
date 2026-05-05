@@ -212,8 +212,8 @@
         "english": "sing",
         "ukrainian": "співати",
         "addedDate": "2026-05-04",
-        "timesStudied": 11,
-        "timesKnown": 5,
+        "timesStudied": 12,
+        "timesKnown": 6,
         "timesUnknown": 6,
         "category": "hard",
         "streak": 0
@@ -620,7 +620,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3312,
+    "xp": 3318,
     "pinnedIds": []
   }
 ]
