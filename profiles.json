@@ -246,12 +246,12 @@
         "english": "red",
         "ukrainian": "червоний",
         "addedDate": "2026-05-04",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 1,
-        "listed": true
+        "listed": false
       },
       {
         "id": "r2jvfm4e5morka3b3",
@@ -588,7 +588,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2895,
+    "xp": 2900,
     "pinnedIds": []
   }
 ]
