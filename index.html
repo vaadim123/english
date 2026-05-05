@@ -1650,7 +1650,10 @@ function wordsMatch(said,expected){
   return levenshtein(s,e)<=maxDist(Math.max(s.length,e.length));
 }
 function recLangCode(dir){
-  return dir==='ua-en' ? (isPl()?'pl-PL':'en-US') : 'uk-UA';
+  return dir==='ua-en' ? (isPl()?'pl-PL':'en-US') : 'uk';
+}
+function recLangLabel(dir){
+  return dir==='ua-en' ? (isPl()?'польською 🇵🇱':'англійською 🇬🇧') : 'українською 🇺🇦';
 }
 
 function render(){
@@ -1811,18 +1814,22 @@ function handleClick(e){
       const s=S.session, w=currentCard(); if(!w||!s) return;
       const expected=s.direction==='en-ua'?w.ukrainian:w.english;
       const btn=document.getElementById('rec-btn');
+      const lang=recLangCode(s.direction);
+      const langLabel=recLangLabel(s.direction);
       const resetBtn=()=>{ if(btn){ btn.innerHTML='🎤 Натисни і скажи переклад'; btn.style.background='linear-gradient(135deg,#6366F1,#4F46E5)'; btn.disabled=false; } };
-      if(btn){ btn.innerHTML='🔴 Слухаю...'; btn.style.background='linear-gradient(135deg,#7C3AED,#5B21B6)'; btn.disabled=true; }
+      if(btn){ btn.innerHTML=`🔴 Слухаю ${langLabel}...`; btn.style.background='linear-gradient(135deg,#7C3AED,#5B21B6)'; btn.disabled=true; }
       const rec=new SRec();
-      rec.lang=recLangCode(s.direction); rec.interimResults=false; rec.maxAlternatives=3;
+      rec.lang=lang; rec.interimResults=false; rec.maxAlternatives=5;
       let gotResult=false;
       rec.onresult=ev=>{
         gotResult=true;
         const alts=[...ev.results[0]].map(r=>r.transcript.trim());
-        const correct=alts.some(t=>wordsMatch(t,expected));
+        const matchIdx=alts.findIndex(t=>wordsMatch(t,expected));
         const heard=alts[0];
-        if(correct){
-          showToast(`✅ Правильно! Почув: "${heard}"`,2500);
+        if(matchIdx>=0){
+          const matched=alts[matchIdx];
+          const heardTxt=matchIdx===0?`"${heard}"`:`"${heard}" (зрозумів: "${matched}")`;
+          showToast(`✅ Правильно! Почув: ${heardTxt}`,2500);
           setTimeout(()=>actionKnow(),500);
         } else {
           showToast(`❌ Почув: "${heard}" · Правильно: "${expected}"`,4000);
@@ -1831,8 +1838,8 @@ function handleClick(e){
       };
       rec.onerror=ev=>{
         gotResult=true;
-        const msgs={'not-allowed':'🚫 Дозволь доступ до мікрофону!','no-speech':'🔇 Нічого не почув, говори голосніше!','audio-capture':'🎤 Мікрофон не знайдено','network':'🌐 Помилка мережі'};
-        showToast(msgs[ev.error]||'⚠️ Не розібрав. Спробуй ще раз!',3000);
+        const msgs={'not-allowed':'🚫 Дозволь доступ до мікрофону!','no-speech':'🔇 Нічого не почув, говори голосніше!','audio-capture':'🎤 Мікрофон не знайдено','network':'🌐 Помилка мережі','language-not-supported':`⚠️ Мова "${lang}" не підтримується цим браузером`};
+        showToast(msgs[ev.error]||`⚠️ Помилка: ${ev.error||'невідома'}`,3500);
         resetBtn();
       };
       rec.onend=()=>{ if(!gotResult){ showToast('🔇 Нічого не почув. Натисни і говори чіткіше!',2500); } resetBtn(); };
