@@ -417,10 +417,10 @@
         "english": "How many?",
         "ukrainian": "скільки",
         "addedDate": "2026-05-04",
-        "timesStudied": 3,
+        "timesStudied": 4,
         "timesKnown": 1,
-        "timesUnknown": 2,
-        "category": "learning",
+        "timesUnknown": 3,
+        "category": "hard",
         "streak": 0,
         "listed": true
       },
@@ -588,7 +588,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2864,
+    "xp": 2865,
     "pinnedIds": []
   }
 ]
