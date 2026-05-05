@@ -55,11 +55,11 @@
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-04",
-        "timesStudied": 19,
+        "timesStudied": 20,
         "timesKnown": 10,
-        "timesUnknown": 9,
-        "category": "learning",
-        "streak": 2
+        "timesUnknown": 10,
+        "category": "hard",
+        "streak": 0
       },
       {
         "id": "sazdc0x8hmor9ns3k",
@@ -588,7 +588,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2938,
+    "xp": 2939,
     "pinnedIds": []
   }
 ]
