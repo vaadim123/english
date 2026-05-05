@@ -462,8 +462,8 @@
         "english": "choose",
         "ukrainian": "вибрати",
         "addedDate": "2026-05-04",
-        "timesStudied": 4,
-        "timesKnown": 2,
+        "timesStudied": 5,
+        "timesKnown": 3,
         "timesUnknown": 2,
         "category": "hard",
         "streak": 1,
@@ -620,7 +620,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3089,
+    "xp": 3094,
     "pinnedIds": []
   }
 ]
