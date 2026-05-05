@@ -223,8 +223,8 @@
         "english": "use computer",
         "ukrainian": "використовувати компʼютер",
         "addedDate": "2026-05-04",
-        "timesStudied": 9,
-        "timesKnown": 6,
+        "timesStudied": 10,
+        "timesKnown": 7,
         "timesUnknown": 3,
         "category": "hard",
         "streak": 0
@@ -620,7 +620,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3213,
+    "xp": 3219,
     "pinnedIds": []
   }
 ]
