@@ -132,8 +132,8 @@
         "english": "chair",
         "ukrainian": "стул",
         "addedDate": "2026-05-04",
-        "timesStudied": 9,
-        "timesKnown": 7,
+        "timesStudied": 10,
+        "timesKnown": 8,
         "timesUnknown": 2,
         "category": "learning",
         "streak": 4
@@ -620,7 +620,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3282,
+    "xp": 3296,
     "pinnedIds": []
   }
 ]
