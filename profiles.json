@@ -258,8 +258,8 @@
         "english": "blue",
         "ukrainian": "синій",
         "addedDate": "2026-05-04",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 1
@@ -587,7 +587,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2747,
+    "xp": 2752,
     "pinnedIds": []
   }
 ]
