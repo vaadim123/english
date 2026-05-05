@@ -177,9 +177,9 @@
         "english": "read",
         "ukrainian": "читати",
         "addedDate": "2026-05-04",
-        "timesStudied": 16,
+        "timesStudied": 17,
         "timesKnown": 4,
-        "timesUnknown": 12,
+        "timesUnknown": 13,
         "category": "hard",
         "streak": 0,
         "listed": true
@@ -417,8 +417,8 @@
         "english": "How many?",
         "ukrainian": "скільки",
         "addedDate": "2026-05-04",
-        "timesStudied": 8,
-        "timesKnown": 1,
+        "timesStudied": 9,
+        "timesKnown": 2,
         "timesUnknown": 7,
         "category": "hard",
         "streak": 0,
@@ -589,7 +589,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 3008,
+    "xp": 3014,
     "pinnedIds": []
   }
 ]
