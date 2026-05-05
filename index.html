@@ -223,13 +223,14 @@ body{
 .session-meta{font-size:12px;color:var(--text-muted);font-weight:600}
 .session-score{font-size:14px;font-weight:900;color:var(--primary)}
 /* Achievements */
-.achievements-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ach-card{background:#F9FAFB;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px;border:2px solid transparent}
-.ach-card.earned{background:#FFFBEB;border-color:#FDE68A}
-.ach-card.locked{opacity:.45;filter:grayscale(1)}
-.ach-icon{font-size:28px}
-.ach-name{font-size:13px;font-weight:800;color:var(--text)}
-.ach-desc{font-size:11px;color:var(--text-muted);font-weight:600}
+.achievements-grid{display:flex;flex-direction:column;gap:10px}
+.ach-card{background:#F9FAFB;border-radius:14px;padding:14px;display:flex;align-items:center;gap:14px;border:2px solid transparent;transition:transform .15s}
+.ach-card.earned{background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-color:#FDE68A;box-shadow:0 4px 16px rgba(245,158,11,.15)}
+.ach-card.locked{opacity:.5;filter:grayscale(.7)}
+.ach-icon{font-size:36px;flex-shrink:0;width:48px;text-align:center}
+.ach-name{font-size:14px;font-weight:800;color:var(--text)}
+.ach-desc{font-size:12px;color:var(--text-muted);font-weight:600}
+.ach-reward{display:inline-block;background:linear-gradient(135deg,#DCFCE7,#BBF7D0);border-radius:8px;padding:5px 10px;font-size:13px;font-weight:800;color:#15803D;margin-top:5px}
 /* Buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border:none;border-radius:50px;font-family:inherit;font-size:15px;font-weight:800;cursor:pointer;transition:transform .15s,box-shadow .15s,opacity .2s;text-decoration:none}
 .btn:hover{transform:translateY(-2px)}
@@ -462,18 +463,27 @@ const AVATARS = ['🦁','🐯','🦊','🐺','🐻','🦅','🐧','🦋','🐉',
 const CHILD_AVATARS = ['⛏️','🗡️','🛡️','🏹','🧱','💎','🌳','🐑','🐷','🐄','🐓','🐺','🦊','🎮','🕹️','🏆','⭐','🔥','💰','🧪','🎯','🌿','🍎','🐸','🦆','🐉','🦄','🐙','🦋'];
 const COLORS  = ['#FF6B6B','#FF8E53','#FFC107','#4CAF50','#2196F3','#9C27B0','#E91E63','#00BCD4','#FF5722','#607D8B','#8BC34A','#795548'];
 const ACHIEVEMENTS = [
-  {id:'first_word',  icon:'📝',name:'Перше слово',   desc:'Додав перше слово'},
-  {id:'words_10',    icon:'📚',name:'Початківець',   desc:'10 слів у словнику'},
-  {id:'words_25',    icon:'🎓',name:'Учень',          desc:'25 слів у словнику'},
-  {id:'words_50',    icon:'🏆',name:'Знавець',        desc:'50 слів у словнику'},
-  {id:'words_100',   icon:'👑',name:'Ерудит',         desc:'100 слів у словнику'},
-  {id:'first_session',icon:'🃏',name:'Перший урок',  desc:'Завершив перше заняття'},
-  {id:'sessions_5',  icon:'🌟',name:'Старанний',      desc:'5 занять завершено'},
-  {id:'sessions_20', icon:'💎',name:'Посидючий',      desc:'20 занять завершено'},
-  {id:'perfect',     icon:'🔥',name:'Відмінник',      desc:'Всі слова з першого разу!'},
-  {id:'streak_3',    icon:'🎯',name:'3 дні поспіль', desc:'Займався 3 дні поспіль'},
-  {id:'streak_7',    icon:'🌈',name:'Тиждень',        desc:'7 днів поспіль'},
-  {id:'streak_30',   icon:'🎖️',name:'Місяць',        desc:'30 днів поспіль'},
+  // 🍬 Рівень 1 — Смаколики
+  {id:'first_word',    icon:'📝', name:'Перший крок!',       reward:'🍭 Цукерка на вибір',          hint:'Додай 1-е слово у словник',       tier:1},
+  {id:'first_session', icon:'🃏', name:'Перший урок!',       reward:'🍫 Шоколадка на вибір',         hint:'Заверши 1-е заняття',             tier:1},
+  {id:'sessions_3',    icon:'⭐', name:'3 уроки!',            reward:'🥐 Смачний сніданок',           hint:'Заверши 3 заняття',               tier:1},
+  {id:'words_10',      icon:'📚', name:'10 слів!',            reward:'🍪 Пачка улюблених печивок',    hint:'Додай 10 слів у словник',         tier:1},
+  // 🎮 Рівень 2 — Ігровий час
+  {id:'sessions_5',    icon:'🎮', name:'5 уроків!',           reward:'🎮 30 хв PlayStation',          hint:'Заверши 5 занять',                tier:2},
+  {id:'perfect',       icon:'🔥', name:'Ідеальний урок!',    reward:'📱 30 хв YouTube / телефону',   hint:'Всі слова з 1-го разу (мін. 5)',  tier:2},
+  {id:'streak_3',      icon:'📅', name:'3 дні поспіль!',     reward:'🕹️ 1 год гри на вибір',        hint:'Займайся 3 дні підряд',           tier:2},
+  {id:'words_25',      icon:'📖', name:'25 слів!',            reward:'🎯 Похід у ігровий магазин',    hint:'Додай 25 слів у словник',         tier:2},
+  // 🍔 Рівень 3 — Похід у кафе
+  {id:'sessions_10',   icon:'🍔', name:'10 уроків!',          reward:'🍔 Похід у McDonald\'s!',       hint:'Заверши 10 занять',               tier:3},
+  {id:'streak_7',      icon:'🌈', name:'Тиждень поспіль!',   reward:'🍦 Морозиво в кафе на вибір',   hint:'Займайся 7 днів підряд',          tier:3},
+  {id:'words_50',      icon:'🎓', name:'50 слів!',            reward:'🍕 Піца на вечерю!',            hint:'Додай 50 слів у словник',         tier:3},
+  {id:'perfect_3',     icon:'💡', name:'3 ідеальних уроки!', reward:'🎬 Похід у кіно разом!',        hint:'Отримай 3 ідеальних уроки',       tier:3},
+  // 🎉 Рівень 4 — Велике свято
+  {id:'sessions_20',   icon:'🏅', name:'20 уроків!',          reward:'🎂 Торт Наполеон!',             hint:'Заверши 20 занять',               tier:4},
+  {id:'words_100',     icon:'👑', name:'100 слів!',           reward:'🎁 Іграшка / гра на вибір!',    hint:'Додай 100 слів у словник',        tier:4},
+  {id:'sessions_30',   icon:'🚀', name:'30 уроків!',          reward:'🎡 Розважальний центр!',        hint:'Заверши 30 занять',               tier:4},
+  // 🏆 Рівень 5 — Легендарні нагороди
+  {id:'streak_30',     icon:'💎', name:'Місяць поспіль!',    reward:'🏆 ВЕЛИКИЙ ПОДАРУНОК на вибір!', hint:'Займайся 30 днів підряд',        tier:5},
 ];
 const ENCOURAGEMENTS = {
   high:['🌟 Ти справжня зірка!','🏆 Чудовий результат!','🚀 Ти молодець!','💪 Відмінна робота!'],
@@ -723,11 +733,15 @@ function updateStreak(p){
 function checkAchievements(p){
   const earned=[]; const give=id=>{ if(!p.achievements.includes(id)){p.achievements.push(id);earned.push(id);} };
   const wc=p.words.length, sc=p.sessions.length;
-  if(wc>=1) give('first_word'); if(wc>=10) give('words_10'); if(wc>=25) give('words_25');
-  if(wc>=50) give('words_50'); if(wc>=100) give('words_100');
-  if(sc>=1) give('first_session'); if(sc>=5) give('sessions_5'); if(sc>=20) give('sessions_20');
-  if(p.streak>=3) give('streak_3'); if(p.streak>=7) give('streak_7'); if(p.streak>=30) give('streak_30');
-  if(sc>0){const l=p.sessions[sc-1]; if(l&&l.knownFirst===l.totalWords&&l.totalWords>0) give('perfect');}
+  const perfects=p.sessions.filter(s=>s.knownFirst===s.totalWords&&s.totalWords>=5).length;
+  if(wc>=1)   give('first_word');
+  if(wc>=10)  give('words_10');  if(wc>=25)  give('words_25');
+  if(wc>=50)  give('words_50');  if(wc>=100) give('words_100');
+  if(sc>=1)   give('first_session'); if(sc>=3)  give('sessions_3');
+  if(sc>=5)   give('sessions_5');    if(sc>=10) give('sessions_10');
+  if(sc>=20)  give('sessions_20');   if(sc>=30) give('sessions_30');
+  if(p.streak>=3)  give('streak_3'); if(p.streak>=7)  give('streak_7'); if(p.streak>=30) give('streak_30');
+  if(perfects>=1)  give('perfect');  if(perfects>=3)  give('perfect_3');
   return earned;
 }
 
@@ -1280,7 +1294,7 @@ function viewComplete(){
   const msg=pick(pct>=80?encs.high:pct>=50?encs.mid:encs.low);
   const starsHtml=[1,2,3].map(i=>`<span class="star ${i<=stars?'lit':''}">⭐</span>`).join('');
   const achHtml=newAch&&newAch.length>0
-    ? `<div class="achievements-earned"><h4>🎖️ Нові досягнення!</h4>${newAch.map(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);return a?`<div class="achievement-badge"><span class="ab-icon">${a.icon}</span><div class="ab-info"><div class="ab-name">${a.name}</div><div class="ab-desc">${a.desc}</div></div></div>`:''}).join('')}</div>` : '';
+    ? `<div class="achievements-earned"><h4>🎖️ Нові нагороди!</h4>${newAch.map(id=>{const a=ACHIEVEMENTS.find(x=>x.id===id);return a?`<div class="achievement-badge"><span class="ab-icon">${a.icon}</span><div class="ab-info"><div class="ab-name">${a.name}</div><div class="ab-desc" style="color:#15803D;font-weight:800">🎁 ${a.reward}</div></div></div>`:''}).join('')}</div>` : '';
   const gradHtml=graduated&&graduated.length>0
     ? `<div style="background:#DCFCE7;border-radius:14px;padding:14px;margin-bottom:16px;border:2px solid #86EFAC"><div style="font-weight:800;font-size:14px;color:#15803D;margin-bottom:8px">🎓 Прогрес слів!</div>${graduated.map(g=>g.to==='easy'?`<div style="font-size:13px;color:#166534;font-weight:700">⭐ "${esc(g.word)}" → Легке!</div>`:`<div style="font-size:13px;color:#1D4ED8;font-weight:700">📖 "${esc(g.word)}" → Вивчаю</div>`).join('')}</div>` : '';
   const bossHtml=bossDefeated&&boss
@@ -1357,19 +1371,43 @@ function viewStats(){
 
 function viewAchievements(){
   const p=getProfile(); if(!p){ go('profiles'); return ''; }
+  const earned=p.achievements.length;
+  const tierNames={1:'🍬 Смаколики',2:'🎮 Ігровий час',3:'🍔 Похід у кафе',4:'🎉 Велике свято',5:'🏆 Легендарні нагороди'};
+  const tierColors={1:'#FEF3C7',2:'#EDE9FE',3:'#FEE2E2',4:'#DCFCE7',5:'#FEF9C3'};
+  const tierBorder={1:'#FDE68A',2:'#C4B5FD',3:'#FCA5A5',4:'#86EFAC',5:'#FDE68A'};
+  let html='';
+  [1,2,3,4,5].forEach(tier=>{
+    const group=ACHIEVEMENTS.filter(a=>a.tier===tier);
+    html+=`<div style="margin-bottom:6px">
+      <div style="font-size:12px;font-weight:800;color:var(--text-muted);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase">${tierNames[tier]}</div>
+      ${group.map(a=>{
+        const ok=p.achievements.includes(a.id);
+        return `<div class="ach-card ${ok?'earned':'locked'}" style="margin-bottom:8px;${ok?`background:linear-gradient(135deg,${tierColors[tier]},white);border-color:${tierBorder[tier]};`:''}">
+          <div class="ach-icon">${ok?a.icon:'🔒'}</div>
+          <div style="flex:1">
+            <div class="ach-name">${a.name}</div>
+            ${ok
+              ? `<div class="ach-reward">🎁 Приз: ${a.reward}</div>`
+              : `<div class="ach-desc">📌 ${a.hint}</div>`
+            }
+          </div>
+          ${ok?'<div style="font-size:20px">✅</div>':''}
+        </div>`;
+      }).join('')}
+    </div>`;
+  });
   return `
   <button class="back-btn" data-action="back">← Меню</button>
   <div class="card">
-    <div class="section-title">🏆 Досягнення</div>
-    <div style="font-size:15px;font-weight:700;color:var(--text-light);margin-bottom:16px">${p.achievements.length} / ${ACHIEVEMENTS.length} отримано</div>
-    <div class="achievements-grid">${ACHIEVEMENTS.map(a=>`
-      <div class="ach-card ${p.achievements.includes(a.id)?'earned':'locked'}">
-        <span class="ach-icon">${a.icon}</span>
-        <div class="ach-name">${a.name}</div>
-        <div class="ach-desc">${a.desc}</div>
-        ${p.achievements.includes(a.id)?'<div style="font-size:11px;color:#92400E;font-weight:700;margin-top:4px">✅ Отримано!</div>':''}
-      </div>`).join('')}
+    <div class="section-title">🏆 Нагороди</div>
+    <div style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);border-radius:14px;padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;gap:12px">
+      <span style="font-size:32px">🎖️</span>
+      <div>
+        <div style="font-size:18px;font-weight:900;color:#92400E">${earned} з ${ACHIEVEMENTS.length} отримано</div>
+        <div style="font-size:12px;font-weight:700;color:#B45309">Отримав приз — попроси батьків відмітити!</div>
+      </div>
     </div>
+    <div class="achievements-grid">${html}</div>
   </div>`;
 }
 
