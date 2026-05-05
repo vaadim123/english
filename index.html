@@ -292,7 +292,8 @@ body.child-theme .btn-success{background:linear-gradient(180deg,#4caf50,#2e7d32)
 body.child-theme .menu-btn.primary-btn{background:linear-gradient(180deg,#7dc850,#5ba032);box-shadow:0 7px 0 #2d5a27;border-color:transparent}
 body.child-theme .menu-btn.primary-btn:hover{box-shadow:0 9px 0 #2d5a27;transform:translateY(-3px)}
 body.child-theme .progress-fill,.child-theme .xp-bar-fill{background:linear-gradient(90deg,#5ba032,#FFD700)}
-body.child-theme .study-btn.btn-flip{background:linear-gradient(180deg,#ffd54f,#f57f17);box-shadow:0 5px 0 #bf360c;color:#3e2000}
+body.child-theme .study-btn.btn-list2{background:linear-gradient(180deg,#5c6bc0,#283593);box-shadow:0 5px 0 #1a237e;color:white}
+body.child-theme .study-btn.btn-list2.active{background:linear-gradient(180deg,#66bb6a,#2e7d32);box-shadow:0 5px 0 #1b5e20}
 body.child-theme .study-btn.btn-know{background:linear-gradient(180deg,#66bb6a,#2e7d32);box-shadow:0 5px 0 #1b5e20}
 body.child-theme .study-btn.btn-know:hover{box-shadow:0 7px 0 #1b5e20}
 body.child-theme .study-btn.btn-unknown{background:linear-gradient(180deg,#ef5350,#b71c1c);box-shadow:0 5px 0 #7f0000}
@@ -540,11 +541,11 @@ const BIOMES = [
   {min:21, max:99, name:'The End', emoji:'🌌'},
 ];
 function getBiome(lvl){ return BIOMES.find(b=>lvl>=b.min&&lvl<=b.max)||BIOMES[BIOMES.length-1]; }
-function showMcAchievement(icon, name){
+function showMcAchievement(icon, name, reward){
   if(!isKid()) return;
   const el=document.createElement('div');
   el.className='mc-achievement-popup';
-  el.innerHTML=`<span class="mc-ach-icon">${icon}</span><div><div class="mc-ach-header">Achievement Get!</div><div class="mc-ach-name">${name}</div></div>`;
+  el.innerHTML=`<span class="mc-ach-icon">${icon}</span><div><div class="mc-ach-header">🏆 НАГОРОДА!</div><div class="mc-ach-name">${name}</div>${reward?`<div style="color:#86EFAC;font-size:11px;font-weight:800;margin-top:2px">🎁 ${reward}</div>`:''}</div>`;
   document.body.appendChild(el);
   setTimeout(()=>el&&el.remove(),4500);
 }
@@ -904,7 +905,7 @@ function finishSession(){
   }
   saveData();
   const bossDefeated=!!(s.boss&&s.bossHp===0);
-  if(isKid()){ newAch.forEach((id,i)=>{ const a=ACHIEVEMENTS.find(x=>x.id===id); if(a) setTimeout(()=>showMcAchievement(a.icon,a.name),800+i*1200); }); }
+  if(isKid()){ newAch.forEach((id,i)=>{ const a=ACHIEVEMENTS.find(x=>x.id===id); if(a) setTimeout(()=>showMcAchievement(a.icon,a.name,a.reward),800+i*1200); }); }
   S.params={session,newAch,graduated,bossDefeated,boss:s.boss}; go('complete');
 }
 
@@ -981,11 +982,38 @@ function viewNewProfile(){
   </div>`;
 }
 
+function achVal(p,id){
+  const wc=p.words.length, sc=p.sessions.length, streak=p.streak||0;
+  const perfects=p.sessions.filter(s=>s.knownFirst===s.totalWords&&s.totalWords>=5).length;
+  if(id==='first_word')    return {cur:Math.min(wc,1),max:1};
+  if(id==='first_session') return {cur:Math.min(sc,1),max:1};
+  if(id==='perfect')       return {cur:Math.min(perfects,1),max:1};
+  if(id==='perfect_3')     return {cur:perfects,max:3};
+  const m=id.match(/^(\w+)_(\d+)$/); if(!m) return null;
+  const req=parseInt(m[2]);
+  if(m[1]==='words')    return {cur:wc,max:req};
+  if(m[1]==='sessions') return {cur:sc,max:req};
+  if(m[1]==='streak')   return {cur:streak,max:req};
+  return null;
+}
+function nextAchProgress(p){
+  return ACHIEVEMENTS
+    .filter(a=>!p.achievements.includes(a.id))
+    .map(a=>{ const v=achVal(p,a.id); if(!v) return null; return {...a,...v,pct:Math.min(99,Math.floor(v.cur/v.max*100))}; })
+    .filter(Boolean)
+    .sort((a,b)=>b.pct-a.pct)[0]||null;
+}
+
 function viewMenu(){
   const p=getProfile(); if(!p){ go('profiles'); return ''; }
   const lvl=getLevel(p.xp), xpPct=Math.min(100,Math.round(getXpInLevel(p.xp)/getXpForNextLevel(p.xp)*100));
   const kid=isKid(), biome=getBiome(lvl);
   const mobsUnlocked=MOBS.filter(m=>p.words.length>=m.req).length;
+  const np=nextAchProgress(p);
+  const tierColor={1:'#FEF3C7',2:'#EDE9FE',3:'#FEE2E2',4:'#DCFCE7',5:'#FEF9C3'};
+  const tierBrd={1:'#FDE68A',2:'#C4B5FD',3:'#FCA5A5',4:'#86EFAC',5:'#FDE68A'};
+  const tierBar={1:'#F59E0B',2:'#7C3AED',3:'#EF4444',4:'#10B981',5:'#F59E0B'};
+  const nextMob=MOBS.find(m=>p.words.length<m.req);
   return `
   <button class="back-btn" data-action="back">← Профілі</button>
   <div class="card">
@@ -1005,6 +1033,32 @@ function viewMenu(){
         <span class="s-label">днів</span>
       </div>
     </div>
+    ${np?`
+    <div style="background:${tierColor[np.tier]||'#FEF3C7'};border:2px solid ${tierBrd[np.tier]||'#FDE68A'};border-radius:14px;padding:12px 14px 10px;margin-bottom:14px" data-action="goAchievements">
+      <div style="font-size:10px;font-weight:800;color:#6B7280;letter-spacing:.6px;margin-bottom:8px">🎯 НАСТУПНИЙ ПРИЗ</div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
+        <span style="font-size:30px">${np.icon}</span>
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:800;font-size:14px;color:var(--text)">${np.name}</div>
+          <div style="font-size:12px;font-weight:800;color:#15803D;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">🎁 ${np.reward}</div>
+        </div>
+        <div style="font-size:22px;font-weight:900;color:${tierBar[np.tier]||'#F59E0B'};flex-shrink:0">${np.pct}%</div>
+      </div>
+      <div style="background:rgba(0,0,0,.1);border-radius:4px;height:8px;overflow:hidden">
+        <div style="background:linear-gradient(90deg,${tierBar[np.tier]||'#F59E0B'},${tierBar[np.tier]||'#F59E0B'}88);height:100%;width:${np.pct}%;border-radius:4px;transition:width .5s ease"></div>
+      </div>
+      <div style="font-size:10px;font-weight:700;color:#6B7280;margin-top:3px">📌 ${np.hint} · ${np.cur} / ${np.max}</div>
+    </div>`:''}
+    ${kid&&nextMob?`
+    <div style="background:#EFF6FF;border:2px solid #BAE6FD;border-radius:14px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:10px" data-action="goMobs">
+      <img src="${MOB_CDN}${nextMob.img}" style="width:44px;height:44px;object-fit:contain;filter:blur(6px) grayscale(1);border-radius:50%;background:#E5E7EB" loading="lazy">
+      <div style="flex:1">
+        <div style="font-size:10px;font-weight:800;color:#6B7280;letter-spacing:.6px">🔒 НАСТУПНИЙ БРАВЛЕР</div>
+        <div style="font-size:13px;font-weight:800;color:#1D4ED8">??? · ${nextMob.rarity}</div>
+        <div style="font-size:11px;font-weight:700;color:#6B7280">Потрібно: ${nextMob.req} слів · Є: ${p.words.length}</div>
+        <div style="background:#BFDBFE;border-radius:3px;height:5px;margin-top:4px;overflow:hidden"><div style="background:#3B82F6;height:100%;width:${Math.min(99,Math.floor(p.words.length/nextMob.req*100))}%;transition:width .5s"></div></div>
+      </div>
+    </div>`:''}
     <div class="menu-grid">
       <button class="menu-btn primary-btn" data-action="goStudySetup">
         <span class="mb-icon">🃏</span>
@@ -1382,16 +1436,18 @@ function viewAchievements(){
       <div style="font-size:12px;font-weight:800;color:var(--text-muted);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase">${tierNames[tier]}</div>
       ${group.map(a=>{
         const ok=p.achievements.includes(a.id);
+        const prog=ok?null:(()=>{ const v=achVal(p,a.id); return v?{...v,pct:Math.min(99,Math.floor(v.cur/v.max*100))}:null; })();
         return `<div class="ach-card ${ok?'earned':'locked'}" style="margin-bottom:8px;${ok?`background:linear-gradient(135deg,${tierColors[tier]},white);border-color:${tierBorder[tier]};`:''}">
-          <div class="ach-icon">${ok?a.icon:'🔒'}</div>
+          <div class="ach-icon" style="${ok?'':'filter:grayscale(1)'}">${ok?a.icon:a.icon}</div>
           <div style="flex:1">
             <div class="ach-name">${a.name}</div>
             ${ok
               ? `<div class="ach-reward">🎁 Приз: ${a.reward}</div>`
-              : `<div class="ach-desc">📌 ${a.hint}</div>`
+              : `<div class="ach-desc">📌 ${a.hint}</div>
+                 ${prog?`<div style="background:#E5E7EB;border-radius:3px;height:5px;margin-top:5px;overflow:hidden"><div style="background:${tierBorder[tier]||'#FDE68A'};height:100%;width:${prog.pct}%;border-radius:3px"></div></div><div style="font-size:10px;color:#9CA3AF;font-weight:700;margin-top:2px">${prog.cur} / ${prog.max}</div>`:''}`
             }
           </div>
-          ${ok?'<div style="font-size:20px">✅</div>':''}
+          ${ok?'<div style="font-size:20px">✅</div>':'<div style="font-size:16px;opacity:.4">🔒</div>'}
         </div>`;
       }).join('')}
     </div>`;
