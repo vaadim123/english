@@ -324,8 +324,8 @@
         "english": "black",
         "ukrainian": "чорний",
         "addedDate": "2026-05-04",
-        "timesStudied": 3,
-        "timesKnown": 2,
+        "timesStudied": 4,
+        "timesKnown": 3,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 2
@@ -620,7 +620,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3357,
+    "xp": 3363,
     "pinnedIds": []
   }
 ]
