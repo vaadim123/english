@@ -513,6 +513,17 @@
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "zmyrijyb9moswl1d1",
+        "english": "it",
+        "ukrainian": "воно",
+        "addedDate": "2026-05-05",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -609,7 +620,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3086,
+    "xp": 3089,
     "pinnedIds": []
   }
 ]
