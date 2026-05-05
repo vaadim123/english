@@ -889,6 +889,15 @@ function updateStudyCard(){
     if(ftag) ftag.textContent='🇺🇦 Українська'; if(btag) btag.textContent=fLbl3;
   }
   const l2btn=document.getElementById('list2-btn'); if(l2btn){ l2btn.textContent=w.listed?'✅ В Список 2':'📋 До Списку 2'; l2btn.classList.toggle('active',!!w.listed); }
+  // Відновити кнопку мікрофону якщо показувалась самоперевірка
+  if(S.speechMode){
+    const btns=document.querySelector('.study-btns');
+    const wn=currentCard();
+    if(btns&&wn&&!btns.querySelector('#rec-btn')){
+      btns.innerHTML=`<button class="study-btn" id="rec-btn" data-action="startRecognition" style="background:linear-gradient(135deg,#6366F1,#4F46E5);color:white;box-shadow:0 4px 16px rgba(99,102,241,.4);width:100%;font-size:18px;padding:18px 14px">🎤 Натисни і скажи переклад</button><button class="study-btn btn-unknown" data-action="unknown" style="font-size:13px;padding:10px;opacity:.65">⏭ Пропустити</button><button class="study-btn btn-list2 ${wn.listed?'active':''}" id="list2-btn" data-action="toggleList2">${wn.listed?'✅ В Список 2':'📋 До Списку 2'}</button><button class="study-btn btn-quit" data-action="quitStudy">⏹ Завершити заняття</button>`;
+      attachEvents();
+    }
+  }
 }
 function finishSession(){
   const s=S.session, p=getProfile(); if(!s||!p) return;
@@ -1809,10 +1818,22 @@ function handleClick(e){
     setManualMode: ()=>{ S.speechMode=false; render(); },
     setVoiceMode:  ()=>{ S.speechMode=true; render(); },
     startRecognition: ()=>{
+      const s=S.session, w=currentCard(); if(!w||!s) return;
+      // Українська відповідь — самоперевірка (браузери не підтримують uk розпізнавання)
+      if(s.direction==='en-ua'){
+        s.isFlipped=true;
+        const fc=document.querySelector('.flashcard');
+        if(fc){ fc.style.transition='none'; fc.classList.add('flipped'); setTimeout(()=>{ if(fc) fc.style.transition=''; },50); }
+        const btns=document.querySelector('.study-btns');
+        if(btns){
+          btns.innerHTML=`<div style="background:#F0FDF4;border:2px solid #86EFAC;border-radius:12px;padding:12px 14px;text-align:center;color:#166534;font-weight:700;font-size:13px">Правильна відповідь:<span style="font-size:20px;font-weight:900;display:block;margin-top:6px;color:#15803D">${esc(w.ukrainian)}</span></div><div style="text-align:center;font-size:13px;color:var(--text-muted);font-weight:700;margin-top:2px">Ти правильно сказав це слово?</div><div class="study-btns-row"><button class="study-btn btn-know" data-action="know">✅ Так, правильно!</button><button class="study-btn btn-unknown" data-action="unknown">❌ Ні, помилився</button></div><button class="study-btn btn-list2 ${w.listed?'active':''}" id="list2-btn" data-action="toggleList2">${w.listed?'✅ В Список 2':'📋 До Списку 2'}</button><button class="study-btn btn-quit" data-action="quitStudy">⏹ Завершити заняття</button>`;
+          attachEvents();
+        }
+        return;
+      }
       const SRec=window.SpeechRecognition||window.webkitSpeechRecognition;
       if(!SRec){ showToast('⚠️ Потрібен Chrome для голосової перевірки'); return; }
-      const s=S.session, w=currentCard(); if(!w||!s) return;
-      const expected=s.direction==='en-ua'?w.ukrainian:w.english;
+      const expected=w.english;
       const btn=document.getElementById('rec-btn');
       const lang=recLangCode(s.direction);
       const langLabel=recLangLabel(s.direction);
