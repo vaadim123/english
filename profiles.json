@@ -235,11 +235,11 @@
         "english": "use computer",
         "ukrainian": "використовувати компʼютер",
         "addedDate": "2026-05-04",
-        "timesStudied": 7,
+        "timesStudied": 8,
         "timesKnown": 5,
-        "timesUnknown": 2,
-        "category": "learning",
-        "streak": 2
+        "timesUnknown": 3,
+        "category": "hard",
+        "streak": 0
       },
       {
         "id": "xatt41lmemorka3b3",
@@ -588,7 +588,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2961,
+    "xp": 2962,
     "pinnedIds": []
   }
 ]
