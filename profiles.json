@@ -429,8 +429,8 @@
         "english": "children",
         "ukrainian": "діти(дітей)",
         "addedDate": "2026-05-04",
-        "timesStudied": 5,
-        "timesKnown": 1,
+        "timesStudied": 6,
+        "timesKnown": 2,
         "timesUnknown": 4,
         "category": "hard",
         "streak": 0,
@@ -589,7 +589,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2996,
+    "xp": 3001,
     "pinnedIds": []
   }
 ]
