@@ -440,8 +440,8 @@
         "english": "my",
         "ukrainian": "моє",
         "addedDate": "2026-05-04",
-        "timesStudied": 4,
-        "timesKnown": 2,
+        "timesStudied": 5,
+        "timesKnown": 3,
         "timesUnknown": 2,
         "category": "hard",
         "streak": 0
@@ -620,7 +620,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3131,
+    "xp": 3136,
     "pinnedIds": []
   }
 ]
