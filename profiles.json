@@ -189,9 +189,9 @@
         "english": "write",
         "ukrainian": "писати",
         "addedDate": "2026-05-04",
-        "timesStudied": 25,
+        "timesStudied": 24,
         "timesKnown": 6,
-        "timesUnknown": 19,
+        "timesUnknown": 18,
         "category": "hard",
         "streak": 0,
         "listed": true
@@ -201,8 +201,8 @@
         "english": "draw",
         "ukrainian": "малювати",
         "addedDate": "2026-05-04",
-        "timesStudied": 11,
-        "timesKnown": 6,
+        "timesStudied": 10,
+        "timesKnown": 5,
         "timesUnknown": 5,
         "category": "hard",
         "streak": 2
@@ -440,8 +440,8 @@
         "english": "my",
         "ukrainian": "моє",
         "addedDate": "2026-05-04",
-        "timesStudied": 5,
-        "timesKnown": 3,
+        "timesStudied": 4,
+        "timesKnown": 2,
         "timesUnknown": 2,
         "category": "hard",
         "streak": 0
@@ -474,9 +474,9 @@
         "english": "word",
         "ukrainian": "слово",
         "addedDate": "2026-05-04",
-        "timesStudied": 14,
+        "timesStudied": 13,
         "timesKnown": 2,
-        "timesUnknown": 12,
+        "timesUnknown": 11,
         "category": "hard",
         "streak": 0,
         "listed": true
@@ -620,7 +620,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3136,
+    "xp": 3124,
     "pinnedIds": []
   }
 ]
