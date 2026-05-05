@@ -491,6 +491,17 @@
         "timesUnknown": 9,
         "category": "hard",
         "streak": 0
+      },
+      {
+        "id": "esocn7lpwmoswk801",
+        "english": "he",
+        "ukrainian": "він",
+        "addedDate": "2026-05-05",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -587,7 +598,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3080,
+    "xp": 3083,
     "pinnedIds": []
   }
 ]
