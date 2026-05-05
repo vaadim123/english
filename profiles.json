@@ -440,8 +440,8 @@
         "english": "you",
         "ukrainian": "ти",
         "addedDate": "2026-05-04",
-        "timesStudied": 2,
-        "timesKnown": 1,
+        "timesStudied": 3,
+        "timesKnown": 2,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 1
@@ -588,7 +588,7 @@
       "sessions_5",
       "words_25"
     ],
-    "xp": 2930,
+    "xp": 2935,
     "pinnedIds": []
   }
 ]
