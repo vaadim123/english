@@ -189,9 +189,9 @@
         "english": "write",
         "ukrainian": "писати",
         "addedDate": "2026-05-04",
-        "timesStudied": 24,
+        "timesStudied": 25,
         "timesKnown": 6,
-        "timesUnknown": 18,
+        "timesUnknown": 19,
         "category": "hard",
         "streak": 0,
         "listed": true
@@ -620,7 +620,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3173,
+    "xp": 3174,
     "pinnedIds": []
   }
 ]
