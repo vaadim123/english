@@ -497,9 +497,9 @@
         "english": "he",
         "ukrainian": "він",
         "addedDate": "2026-05-05",
-        "timesStudied": 0,
+        "timesStudied": 1,
         "timesKnown": 0,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 0
       },
@@ -620,7 +620,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3174,
+    "xp": 3175,
     "pinnedIds": []
   }
 ]
