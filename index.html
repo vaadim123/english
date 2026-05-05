@@ -1358,18 +1358,13 @@ function viewStudy(){
     </div>
   </div>
   <div class="study-btns">
-    ${S.speechMode&&hasSpeechRec ? `
-      <button class="study-btn" id="rec-btn" data-action="startRecognition" style="background:linear-gradient(135deg,#DC2626,#991B1B);color:white;font-size:17px;padding:20px;width:100%">
-        🎤 Натисни і скажи переклад
-      </button>
-      <div style="text-align:center;color:rgba(255,255,255,.6);font-size:12px;font-weight:700;margin:-4px 0">— або —</div>
+    <div class="study-btns-row">
+      <button class="study-btn btn-know" data-action="know">✅ Знаю!</button>
       <button class="study-btn btn-unknown" data-action="unknown">❌ Не знаю</button>
-    ` : `
-      <div class="study-btns-row">
-        <button class="study-btn btn-know" data-action="know">✅ Знаю!</button>
-        <button class="study-btn btn-unknown" data-action="unknown">❌ Не знаю</button>
-      </div>
-    `}
+    </div>
+    <button class="study-btn" id="rec-btn" data-action="startRecognition" style="background:linear-gradient(135deg,#6366F1,#4F46E5);color:white;box-shadow:0 4px 16px rgba(99,102,241,.4);width:100%">
+      🎤 Сказати відповідь вголос
+    </button>
     <button class="study-btn btn-list2 ${w.listed?'active':''}" id="list2-btn" data-action="toggleList2">${w.listed?'✅ В Список 2':'📋 До Списку 2'}</button>
     <button class="study-btn btn-quit" data-action="quitStudy">⏹ Завершити заняття</button>
   </div>`;
