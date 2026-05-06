@@ -798,8 +798,8 @@
         "english": "drzewo",
         "ukrainian": "дерево",
         "addedDate": "2026-05-06",
-        "timesStudied": 0,
-        "timesKnown": 0,
+        "timesStudied": 1,
+        "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
@@ -1085,7 +1085,7 @@
     "bestStreak": 0,
     "lastStudied": null,
     "achievements": [],
-    "xp": 5,
+    "xp": 10,
     "pinnedIds": [
       "0yifyu4yzmotlqef3"
     ]
