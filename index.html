@@ -891,7 +891,7 @@ function updateStudyCard(){
   const pc=document.querySelector('.study-count'); if(pc) pc.textContent=`✅ ${done} / ${total} пройдено`;
   const pp=document.querySelector('.study-pct'); if(pp) pp.textContent=pct+'%';
   const pb=document.querySelector('.progress-fill'); if(pb) pb.style.width=pct+'%';
-  const pr=document.querySelector('.study-remaining'); if(pr) pr.textContent=`🔄 В черзі: ${s.queue.length}`;
+  const pr=document.querySelector('.study-remaining'); if(pr&&!s.boss) pr.textContent=`🔄 В черзі: ${s.queue.length}`;
   const bwl=document.querySelector('.boss-words-left'); if(bwl) bwl.textContent=s.queue.length;
   // Миттєво скидаємо картку без анімації (щоб не мелькав попередній текст)
   const fc=document.querySelector('.flashcard');
@@ -1385,7 +1385,7 @@ function viewStudy(){
   return `
   <div class="study-header">
     <button class="back-btn" style="margin-bottom:0" data-action="quitStudy">← Вийти</button>
-    <div class="study-remaining">🔄 В черзі: ${s.queue.length}</div>
+    ${!s.boss?`<div class="study-remaining">🔄 В черзі: ${s.queue.length}</div>`:''}
   </div>
   ${bossHtml}
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
