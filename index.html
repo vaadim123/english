@@ -1218,13 +1218,14 @@ function viewDictionary(){
 }
 
 function viewAddWord(){
+  const pl=isPl();
   return `
   <button class="back-btn" data-action="back">← Словник</button>
   <div class="card">
     <div class="section-title">➕ Нове слово</div>
     <div class="form-group">
-      <label class="form-label">🇬🇧 Англійською</label>
-      <input class="form-input" id="word-en" type="text" placeholder="apple" autocomplete="off" autofocus>
+      <label class="form-label">${pl?'🇵🇱 Польською':'🇬🇧 Англійською'}</label>
+      <input class="form-input" id="word-en" type="text" placeholder="${pl?'jabłko':'apple'}" autocomplete="off" autofocus>
     </div>
     <div class="form-group">
       <label class="form-label">🇺🇦 Українською</label>
@@ -1250,7 +1251,7 @@ function viewEditWord(){
   <div class="card">
     <div class="section-title">✏️ Редагувати слово</div>
     <div class="form-group">
-      <label class="form-label">🇬🇧 Англійською</label>
+      <label class="form-label">${isPl()?'🇵🇱 Польською':'🇬🇧 Англійською'}</label>
       <input class="form-input" id="word-en" type="text" value="${esc(w.english)}" autofocus>
     </div>
     <div class="form-group">
@@ -1821,7 +1822,9 @@ function handleClick(e){
     },
     addTestWords: ()=>{
       const p=getProfile(); if(!p) return;
-      const TEST=[['apple','яблуко'],['banana','банан'],['orange','апельсин'],['cat','кіт'],['dog','собака'],['bird','птах'],['house','будинок'],['car','машина'],['book','книга'],['tree','дерево'],['sun','сонце'],['moon','місяць'],['star','зірка'],['water','вода'],['fire','вогонь'],['sky','небо'],['wind','вітер'],['rain','дощ'],['snow','сніг'],['flower','квітка'],['love','любов'],['friend','друг'],['school','школа'],['game','гра'],['music','музика'],['dance','танець'],['fish','риба'],['bread','хліб'],['milk','молоко'],['egg','яйце'],['chair','стілець'],['table','стіл'],['door','двері'],['window','вікно'],['street','вулиця'],['city','місто'],['country','країна'],['river','річка'],['mountain','гора'],['sea','море'],['horse','кінь'],['cow','корова'],['bear','ведмідь'],['wolf','вовк'],['rabbit','кролик'],['butterfly','метелик'],['dragon','дракон'],['castle','замок'],['sword','меч'],['magic','магія']];
+      const TEST_EN=[['apple','яблуко'],['banana','банан'],['orange','апельсин'],['cat','кіт'],['dog','собака'],['bird','птах'],['house','будинок'],['car','машина'],['book','книга'],['tree','дерево'],['sun','сонце'],['moon','місяць'],['star','зірка'],['water','вода'],['fire','вогонь'],['sky','небо'],['wind','вітер'],['rain','дощ'],['snow','сніг'],['flower','квітка'],['love','любов'],['friend','друг'],['school','школа'],['game','гра'],['music','музика'],['dance','танець'],['fish','риба'],['bread','хліб'],['milk','молоко'],['egg','яйце'],['chair','стілець'],['table','стіл'],['door','двері'],['window','вікно'],['street','вулиця'],['city','місто'],['country','країна'],['river','річка'],['mountain','гора'],['sea','море'],['horse','кінь'],['cow','корова'],['bear','ведмідь'],['wolf','вовк'],['rabbit','кролик'],['butterfly','метелик'],['dragon','дракон'],['castle','замок'],['sword','меч'],['magic','магія']];
+      const TEST_PL=[['jabłko','яблуко'],['kot','кіт'],['pies','собака'],['dom','будинок'],['woda','вода'],['mama','мама'],['tata','тато'],['szkoła','школа'],['książka','книга'],['słońce','сонце'],['chleb','хліб'],['mleko','молоко'],['ryba','риба'],['ptak','птах'],['drzewo','дерево'],['kwiat','квітка'],['miasto','місто'],['rzeka','річка'],['morze','море'],['śnieg','сніг'],['deszcz','дощ'],['wiatr','вітер'],['ogień','вогонь'],['niebo','небо'],['przyjaciel','друг'],['muzyka','музика'],['gra','гра'],['koń','кінь'],['krowа','корова'],['niedźwiedź','ведмідь'],['wilk','вовк'],['królik','кролик'],['zamek','замок'],['magia','магія'],['serce','серце'],['ręka','рука'],['noga','нога'],['głowa','голова'],['oko','oko'],['ucho','вухо']];
+      const TEST=isPl()?TEST_PL:TEST_EN;
       let added=0;
       TEST.forEach(([en,ua])=>{ if(!p.words.some(w=>w.english===en)){ p.words.push({id:uid(),english:en,ukrainian:ua,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0}); added++; } });
       saveData(); showToast(`✅ Додано ${added} тестових слів`); render();
