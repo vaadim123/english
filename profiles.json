@@ -630,5 +630,76 @@
     ],
     "xp": 3465,
     "pinnedIds": []
+  },
+  {
+    "id": "iqyi2j5a2motlqef3",
+    "name": "Тімоха поляк",
+    "avatar": "🏆",
+    "color": "#FFC107",
+    "isChild": true,
+    "language": "pl",
+    "words": [
+      {
+        "id": "jbmoems1pmotlqef3",
+        "english": "hello",
+        "ukrainian": "привіт",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "hplvs4u24motlqef3",
+        "english": "apple",
+        "ukrainian": "яблуко",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "0yifyu4yzmotlqef3",
+        "english": "cat",
+        "ukrainian": "кіт",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "o6wuur3demotlqef3",
+        "english": "dog",
+        "ukrainian": "собака",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "qowestuqamotlqef3",
+        "english": "school",
+        "ukrainian": "школа",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      }
+    ],
+    "sessions": [],
+    "streak": 0,
+    "bestStreak": 0,
+    "lastStudied": null,
+    "achievements": [],
+    "xp": 0
   }
 ]
