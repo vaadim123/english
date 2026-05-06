@@ -508,9 +508,9 @@
         "english": "she",
         "ukrainian": "вона",
         "addedDate": "2026-05-05",
-        "timesStudied": 2,
+        "timesStudied": 3,
         "timesKnown": 1,
-        "timesUnknown": 1,
+        "timesUnknown": 2,
         "category": "learning",
         "streak": 0
       },
@@ -628,7 +628,7 @@
       "sessions_3",
       "sessions_10"
     ],
-    "xp": 3568,
+    "xp": 3569,
     "pinnedIds": []
   },
   {
