@@ -640,19 +640,8 @@
     "language": "pl",
     "words": [
       {
-        "id": "jbmoems1pmotlqef3",
-        "english": "hello",
-        "ukrainian": "привіт",
-        "addedDate": "2026-05-06",
-        "timesStudied": 0,
-        "timesKnown": 0,
-        "timesUnknown": 0,
-        "category": "learning",
-        "streak": 0
-      },
-      {
-        "id": "hplvs4u24motlqef3",
-        "english": "apple",
+        "id": "k0xok9ejbmotoykgy",
+        "english": "jabłko",
         "ukrainian": "яблуко",
         "addedDate": "2026-05-06",
         "timesStudied": 0,
@@ -662,8 +651,8 @@
         "streak": 0
       },
       {
-        "id": "0yifyu4yzmotlqef3",
-        "english": "cat",
+        "id": "f9oit1q9mmotoykgy",
+        "english": "kot",
         "ukrainian": "кіт",
         "addedDate": "2026-05-06",
         "timesStudied": 0,
@@ -673,8 +662,8 @@
         "streak": 0
       },
       {
-        "id": "o6wuur3demotlqef3",
-        "english": "dog",
+        "id": "51tueywebmotoykgy",
+        "english": "pies",
         "ukrainian": "собака",
         "addedDate": "2026-05-06",
         "timesStudied": 0,
@@ -684,9 +673,405 @@
         "streak": 0
       },
       {
-        "id": "qowestuqamotlqef3",
-        "english": "school",
+        "id": "catytr73imotoykgy",
+        "english": "dom",
+        "ukrainian": "будинок",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "uwf3i7dkamotoykgy",
+        "english": "woda",
+        "ukrainian": "вода",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "niq7fs03ymotoykgy",
+        "english": "mama",
+        "ukrainian": "мама",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "1mueh9kqdmotoykgy",
+        "english": "tata",
+        "ukrainian": "тато",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "n21fl006gmotoykgy",
+        "english": "szkoła",
         "ukrainian": "школа",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "zqh2ze77lmotoykgy",
+        "english": "książka",
+        "ukrainian": "книга",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "wcbgt9qexmotoykgy",
+        "english": "słońce",
+        "ukrainian": "сонце",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "fratyf2e5motoykgy",
+        "english": "chleb",
+        "ukrainian": "хліб",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "x9nlcnq8amotoykgy",
+        "english": "mleko",
+        "ukrainian": "молоко",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "25w1cene9motoykgy",
+        "english": "ryba",
+        "ukrainian": "риба",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "ms1eya3j8motoykgy",
+        "english": "ptak",
+        "ukrainian": "птах",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "47qt2si3zmotoykgy",
+        "english": "drzewo",
+        "ukrainian": "дерево",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "dqwurl0vwmotoykgy",
+        "english": "kwiat",
+        "ukrainian": "квітка",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "fkuym204gmotoykgy",
+        "english": "miasto",
+        "ukrainian": "місто",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "hwc9jmmgomotoykgy",
+        "english": "rzeka",
+        "ukrainian": "річка",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "4udkuvro5motoykgy",
+        "english": "morze",
+        "ukrainian": "море",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "5ogja6oe9motoykgy",
+        "english": "śnieg",
+        "ukrainian": "сніг",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "dgnlol2pkmotoykgy",
+        "english": "deszcz",
+        "ukrainian": "дощ",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "d1d7bh0uimotoykgy",
+        "english": "wiatr",
+        "ukrainian": "вітер",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "8obxgl1dvmotoykgy",
+        "english": "ogień",
+        "ukrainian": "вогонь",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "80ktj90uxmotoykgy",
+        "english": "niebo",
+        "ukrainian": "небо",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "wq8rgzrzzmotoykgy",
+        "english": "przyjaciel",
+        "ukrainian": "друг",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "93gqbh0vqmotoykgy",
+        "english": "muzyka",
+        "ukrainian": "музика",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "cg0dxi3wjmotoykgy",
+        "english": "gra",
+        "ukrainian": "гра",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "ttqsjrrv0motoykgy",
+        "english": "koń",
+        "ukrainian": "кінь",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "a3gm98dlpmotoykgy",
+        "english": "krowа",
+        "ukrainian": "корова",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "bupvur51xmotoykgy",
+        "english": "niedźwiedź",
+        "ukrainian": "ведмідь",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "o2v78iz3umotoykgy",
+        "english": "wilk",
+        "ukrainian": "вовк",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "w172r6xazmotoykgy",
+        "english": "królik",
+        "ukrainian": "кролик",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "fim6x56y9motoykgy",
+        "english": "zamek",
+        "ukrainian": "замок",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "0xcfv0aetmotoykgy",
+        "english": "magia",
+        "ukrainian": "магія",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "pxoiea9s6motoykgy",
+        "english": "serce",
+        "ukrainian": "серце",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "6focmo1s6motoykgy",
+        "english": "ręka",
+        "ukrainian": "рука",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "fqpnqsck7motoykgy",
+        "english": "noga",
+        "ukrainian": "нога",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "3v28ucbwomotoykgy",
+        "english": "głowa",
+        "ukrainian": "голова",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "m1hfqk66emotoykgy",
+        "english": "oko",
+        "ukrainian": "oko",
+        "addedDate": "2026-05-06",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "cm5nht2j8motoykgy",
+        "english": "ucho",
+        "ukrainian": "вухо",
         "addedDate": "2026-05-06",
         "timesStudied": 0,
         "timesKnown": 0,
@@ -700,6 +1085,9 @@
     "bestStreak": 0,
     "lastStudied": null,
     "achievements": [],
-    "xp": 0
+    "xp": 0,
+    "pinnedIds": [
+      "0yifyu4yzmotlqef3"
+    ]
   }
 ]
