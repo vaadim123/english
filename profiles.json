@@ -420,9 +420,9 @@
         "english": "you",
         "ukrainian": "ти",
         "addedDate": "2026-05-04",
-        "timesStudied": 6,
+        "timesStudied": 7,
         "timesKnown": 5,
-        "timesUnknown": 1,
+        "timesUnknown": 2,
         "category": "learning",
         "streak": 3
       },
@@ -812,7 +812,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 4865,
+    "xp": 4866,
     "pinnedIds": []
   },
   {
