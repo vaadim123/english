@@ -189,12 +189,12 @@
         "english": "write",
         "ukrainian": "писати",
         "addedDate": "2026-05-04",
-        "timesStudied": 31,
+        "timesStudied": 32,
         "timesKnown": 8,
-        "timesUnknown": 23,
+        "timesUnknown": 24,
         "category": "hard",
         "streak": 0,
-        "listed": true
+        "listed": false
       },
       {
         "id": "f7u4jbruamorekaw1",
@@ -628,7 +628,7 @@
       "sessions_10",
       "streak_3"
     ],
-    "xp": 4253,
+    "xp": 4254,
     "pinnedIds": []
   },
   {
