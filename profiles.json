@@ -599,9 +599,9 @@
         "english": "toy",
         "ukrainian": "іграшка",
         "addedDate": "2026-05-07",
-        "timesStudied": 0,
+        "timesStudied": 1,
         "timesKnown": 0,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 0
       },
@@ -812,7 +812,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 4618,
+    "xp": 4619,
     "pinnedIds": []
   },
   {
