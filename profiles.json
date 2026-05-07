@@ -647,6 +647,39 @@
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "kmnn5pybsmovy5fp2",
+        "english": "bread",
+        "ukrainian": "хліб",
+        "addedDate": "2026-05-07",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "t6ffxljqnmovy5fp2",
+        "english": "milk",
+        "ukrainian": "молоко",
+        "addedDate": "2026-05-07",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "lx8n99mu9movy5rsw",
+        "english": "juice",
+        "ukrainian": "сік",
+        "addedDate": "2026-05-07",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -777,7 +810,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 4480,
+    "xp": 4490,
     "pinnedIds": []
   },
   {
