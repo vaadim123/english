@@ -268,12 +268,12 @@
         "english": "yellow",
         "ukrainian": "жовтий",
         "addedDate": "2026-05-04",
-        "timesStudied": 4,
-        "timesKnown": 4,
+        "timesStudied": 5,
+        "timesKnown": 5,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 4,
-        "listed": true
+        "listed": false
       },
       {
         "id": "jxf2irbotmorka3b3",
@@ -627,7 +627,7 @@
       "sessions_10",
       "streak_3"
     ],
-    "xp": 4031,
+    "xp": 4043,
     "pinnedIds": []
   },
   {
