@@ -614,6 +614,39 @@
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "p7a9okj5fmovy4jcv",
+        "english": "bird",
+        "ukrainian": "пташка",
+        "addedDate": "2026-05-07",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "ytny0zb9lmovy4jcv",
+        "english": "fish",
+        "ukrainian": "риба",
+        "addedDate": "2026-05-07",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "vinxoyfvhmovy4jcv",
+        "english": "cow",
+        "ukrainian": "корова",
+        "addedDate": "2026-05-07",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -744,7 +777,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 4470,
+    "xp": 4480,
     "pinnedIds": []
   },
   {
