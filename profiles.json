@@ -502,7 +502,8 @@
         "timesKnown": 2,
         "timesUnknown": 5,
         "category": "hard",
-        "streak": 0
+        "streak": 0,
+        "listed": true
       },
       {
         "id": "zmyrijyb9moswl1d1",
