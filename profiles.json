@@ -359,9 +359,9 @@
         "english": "bus",
         "ukrainian": "автобус",
         "addedDate": "2026-05-04",
-        "timesStudied": 13,
+        "timesStudied": 14,
         "timesKnown": 4,
-        "timesUnknown": 9,
+        "timesUnknown": 10,
         "category": "hard",
         "streak": 0,
         "listed": true
@@ -627,7 +627,7 @@
       "sessions_10",
       "streak_3"
     ],
-    "xp": 4165,
+    "xp": 4166,
     "pinnedIds": []
   },
   {
