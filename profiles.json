@@ -537,6 +537,17 @@
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "uxas6a5btmovy08qb",
+        "english": "please",
+        "ukrainian": "будь ласка",
+        "addedDate": "2026-05-07",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -666,7 +677,7 @@
       "sessions_10",
       "streak_3"
     ],
-    "xp": 4448,
+    "xp": 4451,
     "pinnedIds": []
   },
   {
