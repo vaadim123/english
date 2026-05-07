@@ -581,6 +581,17 @@
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "qe5pr41ulmovy34bi",
+        "english": "doll",
+        "ukrainian": "лялька",
+        "addedDate": "2026-05-07",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -711,7 +722,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 4461,
+    "xp": 4464,
     "pinnedIds": []
   },
   {
