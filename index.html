@@ -1934,7 +1934,7 @@ function handleClick(e){
 }
 
 function handleKey(e){
-  if(e.key==='Enter'&&(S.view==='addWord'||S.view==='editWord')){ const btn=document.querySelector('[data-action="saveWord"],[data-action="updateWord"]'); if(btn) btn.click(); }
+  if(e.key==='Enter'&&(S.view==='addWord'||S.view==='editWord')&&e.target.tagName!=='TEXTAREA'){ const btn=document.querySelector('[data-action="saveWord"],[data-action="updateWord"]'); if(btn) btn.click(); }
   if(e.key==='ArrowLeft'&&S.view==='study') actionKnow();
   if(e.key==='ArrowRight'&&S.view==='study') actionUnknown();
   if(e.key===' '&&S.view==='study'){ e.preventDefault(); actionFlip(); }
