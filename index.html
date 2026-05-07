@@ -801,7 +801,7 @@ function diffBadge(w){
   const cat=getCategory(w), streak=w.streak||0;
   if(cat==='hard') return `<span class="word-difficulty diff-hard">🔥 ${streak}/3</span>`;
   if(cat==='easy') return `<span class="word-difficulty diff-easy">😊 Легке</span>`;
-  return `<span class="word-difficulty diff-new">📖 ${streak}/7</span>`;
+  return `<span class="word-difficulty diff-new">📖 ${streak}/5</span>`;
 }
 
 // ── SESSION ──
@@ -937,7 +937,7 @@ function finishSession(){
       if(cat==='hard' && w.streak>=3){
         w.category='learning'; w.streak=0;
         graduated.push({word:w.english,to:'learning'});
-      } else if(cat==='learning' && w.streak>=7){
+      } else if(cat==='learning' && w.streak>=5){
         w.category='easy'; w.streak=0;
         graduated.push({word:w.english,to:'easy'});
       }
