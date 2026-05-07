@@ -592,6 +592,17 @@
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "g75jnyrs2movy3gnw",
+        "english": "toy",
+        "ukrainian": "іграшка",
+        "addedDate": "2026-05-07",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -722,7 +733,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 4464,
+    "xp": 4467,
     "pinnedIds": []
   },
   {
