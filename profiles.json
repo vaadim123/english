@@ -603,6 +603,17 @@
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "39nlelv1tmovy3tat",
+        "english": "bag",
+        "ukrainian": "сумка",
+        "addedDate": "2026-05-07",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -733,7 +744,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 4467,
+    "xp": 4470,
     "pinnedIds": []
   },
   {
