@@ -559,6 +559,28 @@
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
+      },
+      {
+        "id": "sdlwgrrz5movy1siu",
+        "english": "father",
+        "ukrainian": "тато",
+        "addedDate": "2026-05-07",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
+      },
+      {
+        "id": "we6hnsob3movy1siu",
+        "english": "brother",
+        "ukrainian": "брат",
+        "addedDate": "2026-05-07",
+        "timesStudied": 0,
+        "timesKnown": 0,
+        "timesUnknown": 0,
+        "category": "learning",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -686,9 +708,10 @@
       "words_25",
       "sessions_3",
       "sessions_10",
-      "streak_3"
+      "streak_3",
+      "words_50"
     ],
-    "xp": 4454,
+    "xp": 4461,
     "pinnedIds": []
   },
   {
