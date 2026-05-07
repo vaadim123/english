@@ -158,7 +158,7 @@
         "timesKnown": 12,
         "timesUnknown": 3,
         "category": "learning",
-        "streak": 3,
+        "streak": 4,
         "listed": true
       },
       {
@@ -181,7 +181,7 @@
         "timesKnown": 9,
         "timesUnknown": 19,
         "category": "hard",
-        "streak": 1,
+        "streak": 2,
         "listed": true
       },
       {
@@ -295,7 +295,7 @@
         "timesKnown": 6,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 3,
+        "streak": 4,
         "listed": false
       },
       {
@@ -351,7 +351,7 @@
         "timesKnown": 6,
         "timesUnknown": 9,
         "category": "hard",
-        "streak": 1,
+        "streak": 2,
         "listed": true
       },
       {
@@ -363,7 +363,7 @@
         "timesKnown": 6,
         "timesUnknown": 10,
         "category": "hard",
-        "streak": 0,
+        "streak": 1,
         "listed": true
       },
       {
@@ -371,11 +371,11 @@
         "english": "bicycle",
         "ukrainian": "велосипед",
         "addedDate": "2026-05-04",
-        "timesStudied": 8,
-        "timesKnown": 5,
+        "timesStudied": 9,
+        "timesKnown": 6,
         "timesUnknown": 3,
         "category": "learning",
-        "streak": 2,
+        "streak": 0,
         "listed": true
       },
       {
@@ -387,7 +387,7 @@
         "timesKnown": 7,
         "timesUnknown": 15,
         "category": "hard",
-        "streak": 0,
+        "streak": 1,
         "listed": true
       },
       {
@@ -399,7 +399,7 @@
         "timesKnown": 6,
         "timesUnknown": 9,
         "category": "hard",
-        "streak": 0,
+        "streak": 1,
         "listed": true
       },
       {
@@ -411,7 +411,7 @@
         "timesKnown": 6,
         "timesUnknown": 11,
         "category": "hard",
-        "streak": 0,
+        "streak": 1,
         "listed": true
       },
       {
@@ -502,7 +502,7 @@
         "timesKnown": 4,
         "timesUnknown": 6,
         "category": "hard",
-        "streak": 0,
+        "streak": 1,
         "listed": true
       },
       {
@@ -621,6 +621,14 @@
         "totalWords": 45,
         "knownFirst": 36,
         "duration": 107019
+      },
+      {
+        "id": "6pkuppvnhmovxx5yv",
+        "date": "2026-05-07",
+        "direction": "en-ua",
+        "totalWords": 11,
+        "knownFirst": 9,
+        "duration": 89
       }
     ],
     "streak": 4,
@@ -636,7 +644,7 @@
       "sessions_10",
       "streak_3"
     ],
-    "xp": 4401,
+    "xp": 4441,
     "pinnedIds": []
   },
   {
