@@ -625,7 +625,8 @@
         "timesKnown": 0,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 0
+        "streak": 0,
+        "listed": true
       },
       {
         "id": "ytny0zb9lmovy4jcv",
