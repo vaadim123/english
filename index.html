@@ -1514,14 +1514,14 @@ function viewTanks(){
     </div>
     <div style="position:relative">
       <canvas id="tanks-canvas" style="display:block;width:100%;touch-action:none"></canvas>
-      <div style="position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 16px;pointer-events:none">
-        <div style="position:relative;width:130px;height:130px;pointer-events:all">
-          <button id="btn-up" style="position:absolute;top:0;left:45px;width:40px;height:40px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.4);border-radius:10px;color:white;font-size:20px;cursor:pointer;-webkit-user-select:none">▲</button>
-          <button id="btn-down" style="position:absolute;bottom:0;left:45px;width:40px;height:40px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.4);border-radius:10px;color:white;font-size:20px;cursor:pointer;-webkit-user-select:none">▼</button>
-          <button id="btn-left" style="position:absolute;top:45px;left:0;width:40px;height:40px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.4);border-radius:10px;color:white;font-size:20px;cursor:pointer;-webkit-user-select:none">◄</button>
-          <button id="btn-right" style="position:absolute;top:45px;right:0;width:40px;height:40px;background:rgba(0,0,0,.55);border:2px solid rgba(255,255,255,.4);border-radius:10px;color:white;font-size:20px;cursor:pointer;-webkit-user-select:none">►</button>
+      <div style="position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 14px;pointer-events:none">
+        <div style="position:relative;width:168px;height:168px;pointer-events:all">
+          <button id="btn-up" style="position:absolute;top:0;left:56px;width:56px;height:56px;background:rgba(0,0,0,.6);border:2px solid rgba(255,255,255,.5);border-radius:12px;color:white;font-size:26px;cursor:pointer;-webkit-user-select:none;touch-action:none">▲</button>
+          <button id="btn-down" style="position:absolute;bottom:0;left:56px;width:56px;height:56px;background:rgba(0,0,0,.6);border:2px solid rgba(255,255,255,.5);border-radius:12px;color:white;font-size:26px;cursor:pointer;-webkit-user-select:none;touch-action:none">▼</button>
+          <button id="btn-left" style="position:absolute;top:56px;left:0;width:56px;height:56px;background:rgba(0,0,0,.6);border:2px solid rgba(255,255,255,.5);border-radius:12px;color:white;font-size:26px;cursor:pointer;-webkit-user-select:none;touch-action:none">◄</button>
+          <button id="btn-right" style="position:absolute;top:56px;right:0;width:56px;height:56px;background:rgba(0,0,0,.6);border:2px solid rgba(255,255,255,.5);border-radius:12px;color:white;font-size:26px;cursor:pointer;-webkit-user-select:none;touch-action:none">►</button>
         </div>
-        <button id="btn-fire" style="background:linear-gradient(135deg,#EF4444,#DC2626);border:none;border-radius:50%;color:white;font-size:28px;font-weight:900;width:80px;height:80px;cursor:pointer;box-shadow:0 4px 16px rgba(239,68,68,.6);-webkit-user-select:none;user-select:none;pointer-events:all">🔥</button>
+        <button id="btn-fire" style="background:linear-gradient(135deg,#EF4444,#DC2626);border:none;border-radius:50%;color:white;font-size:32px;font-weight:900;width:96px;height:96px;cursor:pointer;box-shadow:0 4px 20px rgba(239,68,68,.7);-webkit-user-select:none;user-select:none;touch-action:none;pointer-events:all">🔥</button>
       </div>
     </div>
   </div>`;}
@@ -1638,53 +1638,58 @@ function startTetrisGame(totalSec){
 function startMarioGame(totalSec){
   const canvas=document.getElementById('mario-canvas');if(!canvas)return;
   const W=canvas.offsetWidth||Math.min(420,window.innerWidth-16);
-  const H=Math.max(300,window.innerHeight-100);
+  const H=Math.max(320,window.innerHeight-100);
   canvas.width=W;canvas.height=H;
+  // NEW NES-STYLE MARIO WITH MUSHROOMS + SUPER MARIO + PRE-BUILT LEVEL
   const ctx=canvas.getContext('2d');
-  const T=32; // NES tile size at 2x
-  const GY=H-T*2; // ground Y
+  const T=32;
+  const GY=H-T*2;
   let score=0,lives=3,timeLeft=totalSec,rafId=null,timerInt=null,over=false,frame=0;
   const timerEl=document.getElementById('mario-timer'),scoreEl=document.getElementById('mario-score');
   const GRAV=0.6,JUMP=-15,WALK=3.5;
   let cam=0;
-  let M={x:T*2,y:GY-32,w:22,h:32,vx:0,vy:0,onGround:false,dir:1,dying:0,invT:0,wf:0};
+  let marioSuper=false;
+  const MH_SMALL=32,MH_SUPER=60;
+  let M={x:T*2,y:GY-MH_SMALL,w:22,h:MH_SMALL,vx:0,vy:0,onGround:false,dir:1,dying:0,invT:0,wf:0};
   const keys={L:false,R:false};
-  let blocks=[],goombas=[],coinAnims=[],worldRight=0;
+  let blocks=[],goombas=[],mushrooms=[],coinAnims=[];
 
-  function genWorld(toX){
-    if(!worldRight) worldRight=T*5;
-    while(worldRight<toX){
-      const st=worldRight+T*2;
-      const tp=Math.floor(Math.random()*4);
-      if(tp===0){
-        const by=GY-T*5;
-        [{t:'Q'},{t:'B'},{t:'Q'},{t:'B'},{t:'Q'}].forEach((b,i)=>
-          blocks.push({x:st+i*T,y:by,w:T,h:T,type:b.t,s:'n',bt:0}));
-        blocks.push({x:st+2*T,y:by-T*2,w:T,h:T,type:'Q',s:'n',bt:0});
-        goombas.push({x:st-T,y:GY-T,w:T,h:T,vx:-1.2,dead:false,ft:0,wf:0});
-        worldRight=st+6*T;
-      } else if(tp===1){
-        const h=2+Math.floor(Math.random()*2);
-        for(let i=0;i<h;i++)
-          blocks.push({x:st,y:GY-T*(i+1),w:T*2,h:T,type:i===h-1?'PT':'PP',s:'n',bt:0});
-        goombas.push({x:st+3*T,y:GY-T,w:T,h:T,vx:-1.2,dead:false,ft:0,wf:0});
-        worldRight=st+5*T;
-      } else if(tp===2){
-        const r1=GY-T*5,r2=GY-T*7;
-        [0,1,2,3].forEach((i)=>blocks.push({x:st+i*T,y:r1,w:T,h:T,type:i%2?'B':'Q',s:'n',bt:0}));
-        [0,1].forEach((i)=>blocks.push({x:st+i*T,y:r2,w:T,h:T,type:'Q',s:'n',bt:0}));
-        goombas.push({x:st+5*T,y:GY-T,w:T,h:T,vx:-1.2,dead:false,ft:0,wf:0});
-        worldRight=st+7*T;
-      } else {
-        for(let i=0;i<4;i++) for(let j=0;j<=i;j++)
-          blocks.push({x:st+i*T,y:GY-T*(j+2),w:T,h:T,type:'S',s:'n',bt:0});
-        worldRight=st+7*T;
-      }
-      if(Math.random()<0.3) goombas.push({x:worldRight,y:GY-T,w:T,h:T,vx:-0.8,dead:false,ft:0,wf:0});
-      worldRight+=T*2;
-    }
+  function B(tx,rb,type){
+    const bw=(type==='PP'||type==='PT')?T*2:T;
+    blocks.push({x:tx*T,y:GY-(rb+1)*T,w:bw,h:T,type,s:'n',bt:0});
   }
-  genWorld(W*4);
+  function G(tx){
+    goombas.push({x:tx*T+4,y:GY-T,w:T-6,h:T,vx:-1.2,vy:0,dead:false,ft:0,wf:0});
+  }
+
+  function buildLevel(){
+    G(4);
+    B(6,3,'Q');B(7,3,'B');B(8,3,'Q');B(9,3,'B');B(10,3,'Q');B(8,5,'Q');
+    G(13);
+    B(16,0,'PP');B(16,1,'PT');
+    G(20);G(21);
+    B(22,3,'B');B(23,3,'Q');B(24,3,'B');B(25,3,'Q');B(26,3,'B');B(24,6,'Q');
+    B(30,0,'PP');B(30,1,'PP');B(30,2,'PT');
+    G(33);G(34);
+    B(36,5,'Q');B(37,5,'B');B(38,5,'B');B(39,5,'Q');B(40,5,'B');B(41,5,'Q');B(38,7,'Q');
+    G(42);
+    for(let i=0;i<4;i++) for(let j=0;j<=i;j++) B(44+i,j,'S');
+    for(let i=0;i<4;i++) for(let j=0;j<4-i;j++) B(50+i,j,'S');
+    B(56,0,'PP');B(56,1,'PP');B(56,2,'PP');B(56,3,'PT');
+    G(59);G(60);G(61);
+    B(62,7,'B');B(63,7,'B');B(64,7,'B');B(65,7,'B');B(66,7,'B');B(67,7,'B');
+    B(63,4,'Q');B(65,4,'B');B(66,4,'Q');
+    G(68);
+    for(let i=0;i<5;i++) for(let j=0;j<=i;j++) B(70+i,j,'S');
+    B(78,0,'PP');B(78,1,'PT');
+    G(81);G(82);
+    B(84,3,'Q');B(85,3,'Q');B(86,3,'Q');B(87,3,'Q');B(88,3,'Q');B(89,3,'Q');
+    B(86,5,'B');B(87,5,'Q');B(88,5,'B');
+    G(91);
+    for(let i=0;i<8;i++) for(let j=0;j<=i;j++) B(92+i,j,'S');
+    for(let i=0;i<8;i++) B(101,i,'S');
+  }
+  buildLevel();
 
   function tryJump(){if(over||M.dying>0)return;if(M.onGround){M.vy=JUMP;M.onGround=false;}}
   function onKey(e){
@@ -1705,26 +1710,39 @@ function startMarioGame(totalSec){
   setupBtn('btn-jump',tryJump,null);
 
   function aabb(ax,ay,aw,ah,bx,by,bw,bh){return ax<bx+bw&&ax+aw>bx&&ay<by+bh&&ay+ah>by;}
+
   function hitBlock(b){
     if(b.type==='Q'&&b.s==='n'){
-      b.s='h';b.bt=14;score+=100;if(scoreEl)scoreEl.textContent=score+' очк.';
-      coinAnims.push({x:b.x+T/2,y:b.y,vy:-5,alpha:1.0});
-    } else if(b.type==='B'){
+      b.s='h';b.bt=14;
+      if(!marioSuper){
+        mushrooms.push({x:b.x+T/2-8,y:b.y-T,vx:1.5,vy:0,collected:false,slideT:12});
+      } else {
+        score+=100;if(scoreEl)scoreEl.textContent=score+' очк.';
+        coinAnims.push({x:b.x+T/2,y:b.y,vy:-5,alpha:1.0});
+      }
+    } else if(b.type==='B'&&marioSuper){
       b.s='br';score+=50;if(scoreEl)scoreEl.textContent=score+' очк.';
     }
   }
-  function dieMario(){if(M.dying>0)return;M.dying=70;M.vy=-12;M.vx=0;}
+
+  function dieMario(){
+    if(M.dying>0)return;
+    if(marioSuper){
+      marioSuper=false;M.h=MH_SMALL;M.y+=(MH_SUPER-MH_SMALL);M.invT=90;return;
+    }
+    M.dying=70;M.vy=-12;M.vx=0;
+  }
 
   function update(){
     if(over)return;
     frame++;
-    genWorld(M.x+W*3);
     if(M.invT>0)M.invT--;
     if(M.dying>0){
       M.dying--;M.vy+=GRAV;M.y+=M.vy;
       if(M.dying<=0){
         lives--;if(lives<=0){over=true;return;}
-        M={x:cam+T*2,y:GY-32,w:22,h:32,vx:0,vy:0,onGround:false,dir:1,dying:0,invT:100,wf:0};
+        marioSuper=false;
+        M={x:cam+T*2,y:GY-MH_SMALL,w:22,h:MH_SMALL,vx:0,vy:0,onGround:false,dir:1,dying:0,invT:100,wf:0};
       }
       return;
     }
@@ -1739,9 +1757,9 @@ function startMarioGame(totalSec){
     for(const b of blocks){
       if(b.s==='br')continue;
       if(!aabb(M.x,M.y,M.w,M.h,b.x,b.y,b.w,b.h))continue;
-      const olap_b=b.y+b.h-M.y, olap_t=M.y+M.h-b.y;
-      const olap_r=b.x+b.w-M.x, olap_l=M.x+M.w-b.x;
-      const minV=Math.min(olap_b,olap_t), minH=Math.min(olap_r,olap_l);
+      const olap_b=b.y+b.h-M.y,olap_t=M.y+M.h-b.y;
+      const olap_r=b.x+b.w-M.x,olap_l=M.x+M.w-b.x;
+      const minV=Math.min(olap_b,olap_t),minH=Math.min(olap_r,olap_l);
       if(minH<minV){
         if(olap_l<olap_r){M.x=b.x-M.w;M.vx=0;}
         else{M.x=b.x+b.w;M.vx=0;}
@@ -1751,13 +1769,27 @@ function startMarioGame(totalSec){
       }
     }
     if(M.y>H+80&&M.dying<=0)dieMario();
+    mushrooms.forEach(mu=>{
+      if(mu.collected)return;
+      if(mu.slideT>0){mu.slideT--;return;}
+      mu.vy+=GRAV;mu.x+=mu.vx;mu.y+=mu.vy;
+      if(mu.y+T>=GY){mu.y=GY-T;mu.vy=0;}
+      for(const b of blocks){
+        if(b.s==='br')continue;
+        if(aabb(mu.x,mu.y,16,T,b.x,b.y,b.w,b.h)){mu.vx*=-1;break;}
+      }
+      if(aabb(M.x,M.y,M.w,M.h,mu.x,mu.y,16,T)){
+        mu.collected=true;score+=1000;if(scoreEl)scoreEl.textContent=score+' очк.';
+        if(!marioSuper){marioSuper=true;M.h=MH_SUPER;M.y-=(MH_SUPER-MH_SMALL);}
+      }
+    });
     coinAnims.forEach(c=>{c.y+=c.vy;c.vy+=0.22;c.alpha-=0.02;});
     coinAnims=coinAnims.filter(c=>c.alpha>0);
     goombas.forEach(g=>{
       if(g.ft>0){g.ft--;return;}
       if(g.dead)return;
       g.x+=g.vx;g.wf++;
-      if(g.y+g.h<GY)g.vy=(g.vy||0)+GRAV,g.y+=g.vy;
+      if(g.y+g.h<GY)g.vy+=GRAV,g.y+=g.vy;
       else{g.vy=0;g.y=GY-g.h;}
       for(const b of blocks){
         if(b.s==='br')continue;
@@ -1795,10 +1827,7 @@ function startMarioGame(totalSec){
       ctx.fillStyle=b.s==='h'?'#665500':'#C48000';
       ctx.fillRect(px,py,T,3);ctx.fillRect(px,py,3,T);
       ctx.fillStyle='rgba(255,255,255,.2)';ctx.fillRect(px+1,py+1,T-4,4);
-      if(b.s==='n'){
-        ctx.fillStyle='white';ctx.font=`bold ${T*0.6}px monospace`;ctx.textAlign='center';
-        ctx.fillText('?',px+T/2,py+T*0.76);
-      }
+      if(b.s==='n'){ctx.fillStyle='white';ctx.font=`bold ${T*0.6}px monospace`;ctx.textAlign='center';ctx.fillText('?',px+T/2,py+T*0.76);}
     } else if(b.type==='B'||b.type==='S'){
       ctx.fillStyle='#C84B11';ctx.fillRect(px,py,T,T);
       ctx.fillStyle='#9B390D';
@@ -1814,6 +1843,18 @@ function startMarioGame(totalSec){
       ctx.fillStyle='#007700';ctx.fillRect(px+3,py,b.w-6,T);
       ctx.fillStyle='#00CC00';ctx.fillRect(px+2,py,4,T);
     }
+  }
+
+  function drawMushroom(mu){
+    if(mu.collected)return;
+    const px=mu.x-cam,py=mu.y;
+    if(px+16<0||px>W)return;
+    ctx.fillStyle='#FCA474';ctx.fillRect(px+2,py+10,12,10);
+    ctx.fillStyle='#CC2222';
+    ctx.beginPath();ctx.arc(px+8,py+10,10,Math.PI,0);ctx.fill();
+    ctx.fillStyle='white';
+    ctx.beginPath();ctx.arc(px+4,py+7,4,0,6.28);ctx.fill();
+    ctx.beginPath();ctx.arc(px+12,py+6,3,0,6.28);ctx.fill();
   }
 
   function drawGoomba(g){
@@ -1842,39 +1883,41 @@ function startMarioGame(totalSec){
     if(M.invT>0&&frame%4<2)return;
     const px=M.x-cam,py=M.y,d=M.dir;
     const la=M.onGround&&Math.abs(M.vx)>0.5?Math.floor(M.wf/6)%2:0;
-    // Cap crown
-    ctx.fillStyle='#CC2222';ctx.fillRect(px+4,py,14,5);ctx.fillRect(px+7,py-5,9,5);
-    // Hair strip
-    ctx.fillStyle='#6B3B1F';ctx.fillRect(px,py+5,22,5);
-    // Face
-    ctx.fillStyle='#FCA474';ctx.fillRect(px+3,py+5,16,9);
-    // Eye
-    ctx.fillStyle='#111';ctx.fillRect(d>0?px+15:px+3,py+8,4,4);
-    // Nose
-    ctx.fillStyle='#FCA474';ctx.fillRect(d>0?px+17:px+1,py+10,4,3);
-    // Mustache
-    ctx.fillStyle='#6B3B1F';ctx.fillRect(px+2,py+12,18,4);
-    // Shirt (red)
-    ctx.fillStyle='#CC2222';ctx.fillRect(px+2,py+16,18,6);
-    // Bib (blue)
-    ctx.fillStyle='#2244CC';ctx.fillRect(px+5,py+16,12,5);
-    // Overalls body
-    ctx.fillStyle='#2244CC';ctx.fillRect(px,py+22,22,10);
-    // Suspenders
-    ctx.fillStyle='#CC2222';ctx.fillRect(px+4,py+16,3,5);ctx.fillRect(px+15,py+16,3,5);
-    // Legs
-    ctx.fillStyle='#2244CC';
-    ctx.fillRect(px+1,py+32,9,6+(la?2:0));
-    ctx.fillRect(px+12,py+32,9,6+(la?0:2));
-    // Shoes
-    ctx.fillStyle='#5C3317';
-    ctx.fillRect(px-1,py+38+(la?2:0),12,4);
-    ctx.fillRect(px+11,py+38+(la?0:2),12,4);
+    if(marioSuper){
+      ctx.fillStyle='#CC2222';ctx.fillRect(px+4,py,14,6);ctx.fillRect(px+7,py-6,9,6);
+      ctx.fillStyle='#6B3B1F';ctx.fillRect(px,py+6,22,6);
+      ctx.fillStyle='#FCA474';ctx.fillRect(px+3,py+6,16,10);
+      ctx.fillStyle='#111';ctx.fillRect(d>0?px+15:px+3,py+10,4,4);
+      ctx.fillStyle='#FCA474';ctx.fillRect(d>0?px+17:px+1,py+12,4,3);
+      ctx.fillStyle='#6B3B1F';ctx.fillRect(px+2,py+14,18,4);
+      ctx.fillStyle='#CC2222';ctx.fillRect(px+1,py+20,20,14);
+      ctx.fillStyle='#2244CC';ctx.fillRect(px+5,py+20,12,6);
+      ctx.fillStyle='#2244CC';ctx.fillRect(px,py+34,22,14);
+      ctx.fillStyle='#CC2222';ctx.fillRect(px+4,py+20,3,6);ctx.fillRect(px+15,py+20,3,6);
+      ctx.fillStyle='#2244CC';
+      ctx.fillRect(px+1,py+48,9,6+(la?2:0));ctx.fillRect(px+12,py+48,9,6+(la?0:2));
+      ctx.fillStyle='#5C3317';
+      ctx.fillRect(px-1,py+54+(la?2:0),12,6);ctx.fillRect(px+11,py+54+(la?0:2),12,6);
+    } else {
+      ctx.fillStyle='#CC2222';ctx.fillRect(px+4,py,14,5);ctx.fillRect(px+7,py-5,9,5);
+      ctx.fillStyle='#6B3B1F';ctx.fillRect(px,py+5,22,5);
+      ctx.fillStyle='#FCA474';ctx.fillRect(px+3,py+5,16,9);
+      ctx.fillStyle='#111';ctx.fillRect(d>0?px+15:px+3,py+8,4,4);
+      ctx.fillStyle='#FCA474';ctx.fillRect(d>0?px+17:px+1,py+10,4,3);
+      ctx.fillStyle='#6B3B1F';ctx.fillRect(px+2,py+12,18,4);
+      ctx.fillStyle='#CC2222';ctx.fillRect(px+2,py+16,18,6);
+      ctx.fillStyle='#2244CC';ctx.fillRect(px+5,py+16,12,5);
+      ctx.fillStyle='#2244CC';ctx.fillRect(px,py+22,22,10);
+      ctx.fillStyle='#CC2222';ctx.fillRect(px+4,py+16,3,5);ctx.fillRect(px+15,py+16,3,5);
+      ctx.fillStyle='#2244CC';
+      ctx.fillRect(px+1,py+32,9,6+(la?2:0));ctx.fillRect(px+12,py+32,9,6+(la?0:2));
+      ctx.fillStyle='#5C3317';
+      ctx.fillRect(px-1,py+38+(la?2:0),12,4);ctx.fillRect(px+11,py+38+(la?0:2),12,4);
+    }
   }
 
   function draw(){
     ctx.fillStyle='#5C94FC';ctx.fillRect(0,0,W,H);
-    // Clouds (parallax)
     ctx.fillStyle='rgba(255,255,255,.9)';
     for(let i=0;i<6;i++){
       const cx=((i*190+60)-cam*0.18)%(W+220)-110,cy=28+i*16;
@@ -1882,7 +1925,7 @@ function startMarioGame(totalSec){
     }
     drawGround();
     blocks.forEach(drawBlock);
-    // Coin pop anims
+    mushrooms.forEach(drawMushroom);
     coinAnims.forEach(c=>{
       ctx.globalAlpha=c.alpha;
       ctx.fillStyle='#FFD700';ctx.beginPath();ctx.arc(c.x-cam,c.y,9,0,6.28);ctx.fill();
@@ -1891,9 +1934,9 @@ function startMarioGame(totalSec){
     });
     goombas.forEach(drawGoomba);
     if(M.dying<=0)drawMario();
-    // Lives
     ctx.fillStyle='rgba(0,0,0,.5)';ctx.fillRect(4,4,lives*24+10,26);
     for(let i=0;i<lives;i++){ctx.fillStyle='#EF4444';ctx.font='bold 14px Nunito,sans-serif';ctx.textAlign='left';ctx.fillText('♥',8+i*24,22);}
+    if(marioSuper){ctx.fillStyle='rgba(255,220,0,0.9)';ctx.font='bold 13px Nunito,sans-serif';ctx.textAlign='left';ctx.fillText('★ SUPER',8,42);}
     if(over){
       ctx.fillStyle='rgba(0,0,0,.72)';ctx.fillRect(0,H/2-44,W,88);
       ctx.fillStyle='#FF4444';ctx.font='bold 26px Nunito,sans-serif';ctx.textAlign='center';
