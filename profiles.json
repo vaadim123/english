@@ -1045,8 +1045,8 @@
         "english": "Pat",
         "ukrainian": "пат",
         "addedDate": "2026-05-08",
-        "timesStudied": 0,
-        "timesKnown": 0,
+        "timesStudied": 1,
+        "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
@@ -1403,7 +1403,7 @@
       "words_25",
       "words_50"
     ],
-    "xp": 322,
+    "xp": 330,
     "pinnedIds": [
       "0yifyu4yzmotlqef3",
       "3v28ucbwomotoykgy"
