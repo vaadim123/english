@@ -891,9 +891,9 @@
         "english": "Pion",
         "ukrainian": "пішак",
         "addedDate": "2026-05-08",
-        "timesStudied": 0,
+        "timesStudied": 1,
         "timesKnown": 0,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 0
       },
@@ -1403,7 +1403,7 @@
       "words_25",
       "words_50"
     ],
-    "xp": 243,
+    "xp": 244,
     "pinnedIds": [
       "0yifyu4yzmotlqef3",
       "3v28ucbwomotoykgy"
