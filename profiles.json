@@ -1243,8 +1243,8 @@
         "english": "Wynik",
         "ukrainian": "результат",
         "addedDate": "2026-05-08",
-        "timesStudied": 6,
-        "timesKnown": 0,
+        "timesStudied": 7,
+        "timesKnown": 1,
         "timesUnknown": 6,
         "category": "hard",
         "streak": 0
@@ -1403,7 +1403,7 @@
       "words_25",
       "words_50"
     ],
-    "xp": 478,
+    "xp": 483,
     "pinnedIds": [
       "0yifyu4yzmotlqef3",
       "3v28ucbwomotoykgy"
