@@ -847,8 +847,8 @@
         "english": "Hetman",
         "ukrainian": "ферзь",
         "addedDate": "2026-05-08",
-        "timesStudied": 3,
-        "timesKnown": 0,
+        "timesStudied": 4,
+        "timesKnown": 1,
         "timesUnknown": 3,
         "category": "hard",
         "streak": 0
@@ -1403,7 +1403,7 @@
       "words_25",
       "words_50"
     ],
-    "xp": 393,
+    "xp": 398,
     "pinnedIds": [
       "0yifyu4yzmotlqef3",
       "3v28ucbwomotoykgy"
