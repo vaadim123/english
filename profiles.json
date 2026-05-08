@@ -1188,9 +1188,9 @@
         "english": "Protokół partii",
         "ukrainian": "бланк партії",
         "addedDate": "2026-05-08",
-        "timesStudied": 2,
+        "timesStudied": 3,
         "timesKnown": 0,
-        "timesUnknown": 2,
+        "timesUnknown": 3,
         "category": "hard",
         "streak": 0
       },
@@ -1403,7 +1403,7 @@
       "words_25",
       "words_50"
     ],
-    "xp": 433,
+    "xp": 434,
     "pinnedIds": [
       "0yifyu4yzmotlqef3",
       "3v28ucbwomotoykgy"
