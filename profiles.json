@@ -1210,10 +1210,10 @@
         "english": "Przepisy",
         "ukrainian": "правила",
         "addedDate": "2026-05-08",
-        "timesStudied": 1,
+        "timesStudied": 2,
         "timesKnown": 0,
-        "timesUnknown": 1,
-        "category": "learning",
+        "timesUnknown": 2,
+        "category": "hard",
         "streak": 0
       },
       {
@@ -1403,7 +1403,7 @@
       "words_25",
       "words_50"
     ],
-    "xp": 363,
+    "xp": 364,
     "pinnedIds": [
       "0yifyu4yzmotlqef3",
       "3v28ucbwomotoykgy"
