@@ -1232,8 +1232,8 @@
         "english": "Ranking",
         "ukrainian": "рейтинг",
         "addedDate": "2026-05-08",
-        "timesStudied": 7,
-        "timesKnown": 0,
+        "timesStudied": 8,
+        "timesKnown": 1,
         "timesUnknown": 7,
         "category": "hard",
         "streak": 0
@@ -1403,7 +1403,7 @@
       "words_25",
       "words_50"
     ],
-    "xp": 493,
+    "xp": 498,
     "pinnedIds": [
       "0yifyu4yzmotlqef3",
       "3v28ucbwomotoykgy"
