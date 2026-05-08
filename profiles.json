@@ -830,52 +830,7 @@
     "color": "#FFC107",
     "isChild": true,
     "language": "pl",
-    "words": [
-      {
-        "id": "ttqsjrrv0motoykgy",
-        "english": "koń",
-        "ukrainian": "кінь",
-        "addedDate": "2026-05-06",
-        "timesStudied": 0,
-        "timesKnown": 0,
-        "timesUnknown": 0,
-        "category": "learning",
-        "streak": 0
-      },
-      {
-        "id": "fqpnqsck7motoykgy",
-        "english": "noga",
-        "ukrainian": "нога",
-        "addedDate": "2026-05-06",
-        "timesStudied": 0,
-        "timesKnown": 0,
-        "timesUnknown": 0,
-        "category": "learning",
-        "streak": 0
-      },
-      {
-        "id": "3v28ucbwomotoykgy",
-        "english": "głowa",
-        "ukrainian": "голова",
-        "addedDate": "2026-05-06",
-        "timesStudied": 0,
-        "timesKnown": 0,
-        "timesUnknown": 0,
-        "category": "learning",
-        "streak": 0
-      },
-      {
-        "id": "m1hfqk66emotoykgy",
-        "english": "oko",
-        "ukrainian": "oko",
-        "addedDate": "2026-05-06",
-        "timesStudied": 0,
-        "timesKnown": 0,
-        "timesUnknown": 0,
-        "category": "learning",
-        "streak": 0
-      }
-    ],
+    "words": [],
     "sessions": [],
     "streak": 0,
     "bestStreak": 0,
@@ -884,9 +839,7 @@
     "xp": 10,
     "pinnedIds": [
       "0yifyu4yzmotlqef3",
-      "ttqsjrrv0motoykgy",
-      "3v28ucbwomotoykgy",
-      "m1hfqk66emotoykgy"
+      "3v28ucbwomotoykgy"
     ]
   }
 ]
