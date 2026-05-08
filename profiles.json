@@ -666,8 +666,8 @@
         "english": "milk",
         "ukrainian": "молоко",
         "addedDate": "2026-05-07",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 1
@@ -820,7 +820,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 4989,
+    "xp": 5001,
     "pinnedIds": []
   },
   {
