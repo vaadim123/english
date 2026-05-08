@@ -258,8 +258,8 @@
         "english": "green",
         "ukrainian": "зелений",
         "addedDate": "2026-05-04",
-        "timesStudied": 6,
-        "timesKnown": 6,
+        "timesStudied": 7,
+        "timesKnown": 7,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 6
@@ -442,8 +442,8 @@
         "english": "name",
         "ukrainian": "імʼя",
         "addedDate": "2026-05-04",
-        "timesStudied": 8,
-        "timesKnown": 6,
+        "timesStudied": 9,
+        "timesKnown": 7,
         "timesUnknown": 2,
         "category": "learning",
         "streak": 1
@@ -820,7 +820,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 4964,
+    "xp": 4979,
     "pinnedIds": []
   },
   {
