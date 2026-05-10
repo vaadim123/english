@@ -621,9 +621,9 @@
         "english": "bird",
         "ukrainian": "пташка",
         "addedDate": "2026-05-07",
-        "timesStudied": 4,
+        "timesStudied": 5,
         "timesKnown": 1,
-        "timesUnknown": 3,
+        "timesUnknown": 4,
         "category": "hard",
         "streak": 0,
         "listed": false
@@ -820,7 +820,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5153,
+    "xp": 5154,
     "pinnedIds": []
   },
   {
