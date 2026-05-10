@@ -567,9 +567,9 @@
         "english": "father",
         "ukrainian": "тато",
         "addedDate": "2026-05-07",
-        "timesStudied": 2,
+        "timesStudied": 3,
         "timesKnown": 1,
-        "timesUnknown": 1,
+        "timesUnknown": 2,
         "category": "learning",
         "streak": 0
       },
@@ -821,7 +821,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5376,
+    "xp": 5377,
     "pinnedIds": []
   },
   {
