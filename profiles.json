@@ -677,11 +677,11 @@
         "english": "juice",
         "ukrainian": "сік",
         "addedDate": "2026-05-07",
-        "timesStudied": 2,
+        "timesStudied": 3,
         "timesKnown": 1,
-        "timesUnknown": 1,
-        "category": "learning",
-        "streak": 1
+        "timesUnknown": 2,
+        "category": "hard",
+        "streak": 0
       }
     ],
     "sessions": [
@@ -820,7 +820,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5368,
+    "xp": 5369,
     "pinnedIds": []
   },
   {
