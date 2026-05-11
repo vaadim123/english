@@ -612,10 +612,10 @@
         "english": "bag",
         "ukrainian": "сумка",
         "addedDate": "2026-05-07",
-        "timesStudied": 5,
+        "timesStudied": 6,
         "timesKnown": 2,
-        "timesUnknown": 3,
-        "category": "learning",
+        "timesUnknown": 4,
+        "category": "hard",
         "streak": 0
       },
       {
@@ -830,7 +830,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5784,
+    "xp": 5785,
     "pinnedIds": []
   },
   {
