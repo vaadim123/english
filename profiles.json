@@ -126,7 +126,7 @@
         "timesKnown": 19,
         "timesUnknown": 6,
         "category": "learning",
-        "streak": 2,
+        "streak": 3,
         "listed": true
       },
       {
@@ -191,11 +191,11 @@
         "english": "write",
         "ukrainian": "писати",
         "addedDate": "2026-05-04",
-        "timesStudied": 45,
-        "timesKnown": 12,
+        "timesStudied": 46,
+        "timesKnown": 13,
         "timesUnknown": 33,
         "category": "hard",
-        "streak": 1,
+        "streak": 0,
         "listed": false
       },
       {
@@ -206,8 +206,8 @@
         "timesStudied": 16,
         "timesKnown": 11,
         "timesUnknown": 5,
-        "category": "learning",
-        "streak": 4
+        "category": "easy",
+        "streak": 0
       },
       {
         "id": "lqjyhmnrvmorekaw1",
@@ -218,7 +218,7 @@
         "timesKnown": 11,
         "timesUnknown": 6,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "71grepbubmorekaw1",
@@ -229,7 +229,7 @@
         "timesKnown": 12,
         "timesUnknown": 3,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "xatt41lmemorka3b3",
@@ -330,8 +330,8 @@
         "timesStudied": 10,
         "timesKnown": 9,
         "timesUnknown": 1,
-        "category": "learning",
-        "streak": 4
+        "category": "easy",
+        "streak": 0
       },
       {
         "id": "fjbjwtb5cmorka3b3",
@@ -342,7 +342,7 @@
         "timesKnown": 9,
         "timesUnknown": 4,
         "category": "learning",
-        "streak": 2
+        "streak": 0
       },
       {
         "id": "1rwln4m30morka3b3",
@@ -353,7 +353,7 @@
         "timesKnown": 10,
         "timesUnknown": 9,
         "category": "learning",
-        "streak": 1,
+        "streak": 2,
         "listed": false
       },
       {
@@ -365,7 +365,7 @@
         "timesKnown": 9,
         "timesUnknown": 10,
         "category": "learning",
-        "streak": 0,
+        "streak": 1,
         "listed": true
       },
       {
@@ -389,7 +389,7 @@
         "timesKnown": 10,
         "timesUnknown": 19,
         "category": "hard",
-        "streak": 0,
+        "streak": 1,
         "listed": true
       },
       {
@@ -401,7 +401,7 @@
         "timesKnown": 9,
         "timesUnknown": 9,
         "category": "learning",
-        "streak": 0,
+        "streak": 1,
         "listed": true
       },
       {
@@ -413,7 +413,7 @@
         "timesKnown": 9,
         "timesUnknown": 11,
         "category": "learning",
-        "streak": 0,
+        "streak": 1,
         "listed": true
       },
       {
@@ -436,7 +436,7 @@
         "timesKnown": 8,
         "timesUnknown": 2,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "lh9gd2eppmorkbqt3",
@@ -458,7 +458,7 @@
         "timesKnown": 10,
         "timesUnknown": 10,
         "category": "hard",
-        "streak": 2,
+        "streak": 0,
         "listed": true
       },
       {
@@ -482,7 +482,7 @@
         "timesKnown": 9,
         "timesUnknown": 11,
         "category": "learning",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "esocn7lpwmoswk801",
@@ -504,7 +504,7 @@
         "timesKnown": 7,
         "timesUnknown": 6,
         "category": "learning",
-        "streak": 0,
+        "streak": 1,
         "listed": true
       },
       {
@@ -516,7 +516,7 @@
         "timesKnown": 6,
         "timesUnknown": 10,
         "category": "hard",
-        "streak": 0
+        "streak": 1
       },
       {
         "id": "qtvwl7civmovxz5op",
@@ -550,7 +550,7 @@
         "timesKnown": 3,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "gshf9kfktmovy1o8x",
@@ -561,7 +561,7 @@
         "timesKnown": 3,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "sdlwgrrz5movy1siu",
@@ -583,7 +583,7 @@
         "timesKnown": 3,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "qe5pr41ulmovy34bi",
@@ -594,7 +594,7 @@
         "timesKnown": 3,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "g75jnyrs2movy3gnw",
@@ -627,7 +627,7 @@
         "timesKnown": 3,
         "timesUnknown": 7,
         "category": "hard",
-        "streak": 0,
+        "streak": 1,
         "listed": false
       },
       {
@@ -639,7 +639,7 @@
         "timesKnown": 3,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "vinxoyfvhmovy4jcv",
@@ -650,7 +650,7 @@
         "timesKnown": 3,
         "timesUnknown": 0,
         "category": "learning",
-        "streak": 2
+        "streak": 3
       },
       {
         "id": "kmnn5pybsmovy5fp2",
@@ -672,7 +672,7 @@
         "timesKnown": 4,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 2
+        "streak": 0
       },
       {
         "id": "lx8n99mu9movy5rsw",
@@ -683,7 +683,7 @@
         "timesKnown": 3,
         "timesUnknown": 4,
         "category": "hard",
-        "streak": 0
+        "streak": 1
       }
     ],
     "sessions": [
@@ -814,11 +814,19 @@
         "totalWords": 49,
         "knownFirst": 35,
         "duration": 685
+      },
+      {
+        "id": "3o8xowe9fmp1fhgtv",
+        "date": "2026-05-11",
+        "direction": "ua-en",
+        "totalWords": 39,
+        "knownFirst": 22,
+        "duration": 90129
       }
     ],
-    "streak": 1,
+    "streak": 2,
     "bestStreak": 4,
-    "lastStudied": "2026-05-10",
+    "lastStudied": "2026-05-11",
     "achievements": [
       "first_word",
       "first_session",
@@ -830,7 +838,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5846,
+    "xp": 5880,
     "pinnedIds": []
   },
   {
