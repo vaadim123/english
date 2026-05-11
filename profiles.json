@@ -179,10 +179,10 @@
         "english": "read",
         "ukrainian": "читати",
         "addedDate": "2026-05-04",
-        "timesStudied": 32,
+        "timesStudied": 33,
         "timesKnown": 11,
-        "timesUnknown": 21,
-        "category": "learning",
+        "timesUnknown": 22,
+        "category": "hard",
         "streak": 0,
         "listed": false
       },
@@ -830,7 +830,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5753,
+    "xp": 5754,
     "pinnedIds": []
   },
   {
