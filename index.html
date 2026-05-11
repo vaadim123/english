@@ -734,7 +734,7 @@ const STARTER_WORDS = [
 function createProfile(name,avatar,color,isChild=false){
   const language=S.params.language||'en';
   const words=STARTER_WORDS.map(w=>({id:uid(),english:w.english,ukrainian:w.ukrainian,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0}));
-  const p={id:uid(),name,avatar,color,isChild,language,words,sessions:[],streak:0,bestStreak:0,lastStudied:null,achievements:[],xp:0,gameTime:{}};
+  const p={id:uid(),name,avatar,color,isChild,language,words,sessions:[],streak:0,bestStreak:0,lastStudied:null,achievements:[],xp:0,gameTime:0};
   S.profiles.push(p); saveData(); return p;
 }
 function profileLang(){ return getProfile()?.language||'en'; }
@@ -1437,8 +1437,8 @@ function viewStudy(){
 function getTotalKnown(p){ return (p.sessions||[]).reduce((sum,s)=>sum+(s.knownFirst||0),0); }
 function saveGameTime(gameId,secs){
   const p=getProfile();if(!p||secs<=0)return;
-  if(!p.gameTime)p.gameTime={};
-  p.gameTime[gameId]=(p.gameTime[gameId]||0)+Math.round(secs);
+  const prev=typeof p.gameTime==='number'?p.gameTime:Object.values(p.gameTime||{}).reduce((a,b)=>a+b,0);
+  p.gameTime=prev+Math.round(secs);
   saveData();
 }
 const GAME_REWARDS=[
@@ -1451,19 +1451,23 @@ const GAME_REWARDS=[
 function viewGames(){
   const p=getProfile(); if(!p){go('profiles');return '';}
   const total=getTotalKnown(p);
+  const granted=Math.floor(total/50)*180;
+  const used=typeof p.gameTime==='number'?p.gameTime:Object.values(p.gameTime||{}).reduce((a,b)=>a+b,0);
+  const avail=Math.max(0,granted-used);
+  const mm=Math.floor(avail/60),ss=avail%60;
+  const timeStr=mm>0?(ss>0?`${mm} хв ${ss} сек`:`${mm} хв`):`${ss} сек`;
+  const needForNext=50-total%50;
   return `
   <button class="back-btn" data-action="back">← Меню</button>
   <div class="card">
     <div class="section-title">🎮 Бонусні ігри</div>
-    <div style="font-size:13px;color:var(--text-muted);font-weight:700;margin-bottom:16px">Всього правильних відповідей: <strong style="color:var(--primary)">${total}</strong></div>
+    <div style="font-size:13px;color:var(--text-muted);font-weight:700;margin-bottom:4px">Всього правильних відповідей: <strong style="color:var(--primary)">${total}</strong></div>
+    <div style="font-size:14px;font-weight:800;margin-bottom:16px;padding:10px 14px;border-radius:12px;background:${avail>0?'#F0FDF4':'#FFFBEB'};border:2px solid ${avail>0?'#86EFAC':'#FCD34D'}">
+      ⏱ Спільний час: <strong style="color:${avail>0?'#15803D':'#92400E'}">${avail>0?timeStr:'0 сек'}</strong>
+      ${avail===0&&total>=50?`<span style="color:var(--text-muted);font-size:12px;font-weight:600"> · ще ${needForNext} правильних</span>`:''}
+    </div>
     ${GAME_REWARDS.map(g=>{
       const locked=total<g.threshold;
-      const granted=locked?0:(Math.floor((total-g.threshold)/50)+1)*g.minutes;
-      const used=p.gameTime?.[g.id]||0;
-      const avail=Math.max(0,granted-used);
-      const mm=Math.floor(avail/60),ss=avail%60;
-      const timeStr=mm>0?(ss>0?`${mm} хв ${ss} сек`:`${mm} хв`):`${ss} сек`;
-      const needForNext=50-(total-g.threshold)%50;
       const state=locked?'locked':avail>0?'ready':'empty';
       const bg=state==='ready'?'#F0FDF4':state==='empty'?'#FFFBEB':'#F9FAFB';
       const border=state==='ready'?'#86EFAC':state==='empty'?'#FCD34D':'#E5E7EB';
@@ -1475,8 +1479,8 @@ function viewGames(){
             <div style="font-weight:900;font-size:18px;color:${nameColor}">${g.name}</div>
             <div style="font-size:12px;color:var(--text-muted);font-weight:600;margin-top:3px">
               ${locked?`🔒 Потрібно ${g.desc} · Зараз: ${total}/${g.threshold}`:
-                state==='ready'?`✅ Доступно: <strong>${timeStr}</strong> гри`:
-                `⏰ Час закінчився · ще ${needForNext} правильних відповідей`}
+                state==='ready'?`✅ Доступно: <strong>${timeStr}</strong>`:
+                `⏰ Час вичерпано · ще ${needForNext} правильних`}
             </div>
           </div>
         </div>
