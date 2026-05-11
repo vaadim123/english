@@ -338,9 +338,9 @@
         "english": "brown",
         "ukrainian": "коричневий",
         "addedDate": "2026-05-04",
-        "timesStudied": 11,
+        "timesStudied": 12,
         "timesKnown": 8,
-        "timesUnknown": 3,
+        "timesUnknown": 4,
         "category": "learning",
         "streak": 2
       },
@@ -829,7 +829,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5672,
+    "xp": 5673,
     "pinnedIds": []
   },
   {
