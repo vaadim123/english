@@ -734,7 +734,7 @@ const STARTER_WORDS = [
 function createProfile(name,avatar,color,isChild=false){
   const language=S.params.language||'en';
   const words=STARTER_WORDS.map(w=>({id:uid(),english:w.english,ukrainian:w.ukrainian,addedDate:today(),timesStudied:0,timesKnown:0,timesUnknown:0,category:'learning',streak:0}));
-  const p={id:uid(),name,avatar,color,isChild,language,words,sessions:[],streak:0,bestStreak:0,lastStudied:null,achievements:[],xp:0};
+  const p={id:uid(),name,avatar,color,isChild,language,words,sessions:[],streak:0,bestStreak:0,lastStudied:null,achievements:[],xp:0,gameTime:{}};
   S.profiles.push(p); saveData(); return p;
 }
 function profileLang(){ return getProfile()?.language||'en'; }
@@ -1435,6 +1435,12 @@ function viewStudy(){
 
 // ── GAMES ──
 function getTotalKnown(p){ return (p.sessions||[]).reduce((sum,s)=>sum+(s.knownFirst||0),0); }
+function saveGameTime(gameId,secs){
+  const p=getProfile();if(!p||secs<=0)return;
+  if(!p.gameTime)p.gameTime={};
+  p.gameTime[gameId]=(p.gameTime[gameId]||0)+Math.round(secs);
+  saveData();
+}
 const GAME_REWARDS=[
   {id:'tetris',name:'🟦 Тетріс',  icon:'🟦',threshold:50, minutes:180,color:'#4F46E5',desc:'50 правильних відповідей'},
   {id:'mario', name:'🍄 Маріо',    icon:'🍄',threshold:120,minutes:180,color:'#DC2626',desc:'120 правильних відповідей'},
@@ -1451,18 +1457,30 @@ function viewGames(){
     <div class="section-title">🎮 Бонусні ігри</div>
     <div style="font-size:13px;color:var(--text-muted);font-weight:700;margin-bottom:16px">Всього правильних відповідей: <strong style="color:var(--primary)">${total}</strong></div>
     ${GAME_REWARDS.map(g=>{
-      const unlocked=total>=g.threshold;
-      return `<div style="background:${unlocked?'#F0FDF4':'#F9FAFB'};border:2px solid ${unlocked?'#86EFAC':'#E5E7EB'};border-radius:16px;padding:18px;margin-bottom:14px">
-        <div style="display:flex;align-items:center;gap:14px;margin-bottom:${unlocked?'14px':'0'}">
-          <span style="font-size:48px">${g.icon}</span>
+      const locked=total<g.threshold;
+      const granted=Math.floor(total/g.threshold)*g.minutes;
+      const used=p.gameTime?.[g.id]||0;
+      const avail=Math.max(0,granted-used);
+      const mm=Math.floor(avail/60),ss=avail%60;
+      const timeStr=mm>0?(ss>0?`${mm} хв ${ss} сек`:`${mm} хв`):`${ss} сек`;
+      const needForNext=(Math.floor(total/g.threshold)+1)*g.threshold-total;
+      const state=locked?'locked':avail>0?'ready':'empty';
+      const bg=state==='ready'?'#F0FDF4':state==='empty'?'#FFFBEB':'#F9FAFB';
+      const border=state==='ready'?'#86EFAC':state==='empty'?'#FCD34D':'#E5E7EB';
+      const nameColor=state==='ready'?'#15803D':state==='empty'?'#92400E':'#9CA3AF';
+      return `<div style="background:${bg};border:2px solid ${border};border-radius:16px;padding:18px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:${state==='ready'?'14px':'0'}">
+          <span style="font-size:48px;opacity:${locked?'.4':'1'}">${g.icon}</span>
           <div style="flex:1">
-            <div style="font-weight:900;font-size:18px;color:${unlocked?'#15803D':'#9CA3AF'}">${g.name}</div>
+            <div style="font-weight:900;font-size:18px;color:${nameColor}">${g.name}</div>
             <div style="font-size:12px;color:var(--text-muted);font-weight:600;margin-top:3px">
-              ${unlocked?'✅ Розблоковано · 3 хвилини гри':`🔒 Потрібно: ${g.desc}<br>Зараз: ${total} / ${g.threshold}`}
+              ${locked?`🔒 Потрібно ${g.desc} · Зараз: ${total}/${g.threshold}`:
+                state==='ready'?`✅ Доступно: <strong>${timeStr}</strong> гри`:
+                `⏰ Час закінчився · ще ${needForNext} правильних відповідей`}
             </div>
           </div>
         </div>
-        ${unlocked?`<button class="btn btn-block" style="background:${g.color};color:white;font-size:17px;font-weight:900;padding:16px;border:none;border-radius:12px;cursor:pointer;font-family:inherit" data-action="playGame" data-game="${g.id}" data-minutes="${g.minutes}">▶ Грати 3 хвилини!</button>`:''}
+        ${state==='ready'?`<button class="btn btn-block" style="background:${g.color};color:white;font-size:17px;font-weight:900;padding:16px;border:none;border-radius:12px;cursor:pointer;font-family:inherit" data-action="playGame" data-game="${g.id}" data-minutes="${avail}">▶ Грати ${timeStr}!</button>`:''}
       </div>`;
     }).join('')}
   </div>`;
@@ -1471,34 +1489,39 @@ function viewGames(){
 function viewTetris(){
   const sec=S.params.minutes||180, m=Math.floor(sec/60), s=sec%60;
   return `
-  <div style="padding:8px 0 24px">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding:0 4px">
+  <div style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:500;background:#1a1a2e;overflow:hidden;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 12px;height:50px;flex-shrink:0;background:rgba(255,255,255,.08)">
       <button class="back-btn" style="position:static;margin:0" data-action="back">← Вийти</button>
       <div style="color:white;font-weight:900;font-size:22px" id="tetris-timer">⏱ ${m}:${s<10?'0':''}${s}</div>
       <div style="color:white;font-weight:800;font-size:15px;min-width:60px;text-align:right" id="tetris-score">0</div>
     </div>
-    <canvas id="tetris-canvas" style="border:3px solid rgba(255,255,255,.3);border-radius:10px;background:#111"></canvas>
-    <div style="color:rgba(255,255,255,.55);font-size:11px;font-weight:600;text-align:center;margin-top:8px">← → рухати · тап = повернути · свайп вниз = скинути</div>
+    <div style="flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:4px">
+      <canvas id="tetris-canvas" style="border:3px solid rgba(255,255,255,.25);border-radius:10px;background:#111;display:block"></canvas>
+    </div>
+    <div style="color:rgba(255,255,255,.5);font-size:11px;font-weight:600;text-align:center;padding:6px 0 10px;flex-shrink:0">← → рухати · тап = повернути · свайп вниз = скинути</div>
   </div>`;
 }
 
 function viewMario(){
   const sec=S.params.minutes||180, m=Math.floor(sec/60), s=sec%60;
+  const W0=window.innerWidth, H0=Math.min(Math.round(W0*1.05),440);
   return `
-  <div style="margin:-16px -16px -40px;overflow:hidden;background:#5C94FC">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(0,0,0,.3);height:50px">
+  <div style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:500;overflow:hidden;background:#5C94FC;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:rgba(0,0,0,.3);height:50px;flex-shrink:0">
       <button class="back-btn" style="position:static;margin:0" data-action="back">← Вийти</button>
       <div style="color:white;font-weight:900;font-size:20px" id="mario-timer">⏱ ${m}:${s<10?'0':''}${s}</div>
       <div style="color:white;font-weight:800;font-size:14px;min-width:70px;text-align:right" id="mario-score">0 очк.</div>
     </div>
-    <div style="position:relative">
-      <canvas id="mario-canvas" style="display:block;width:100%;touch-action:none"></canvas>
-      <div style="position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 12px;pointer-events:none">
-        <div style="display:flex;gap:10px;pointer-events:all">
-          <button id="btn-left" style="background:rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.5);border-radius:14px;color:white;font-size:30px;font-weight:900;padding:16px 22px;cursor:pointer;-webkit-user-select:none;user-select:none">◄</button>
-          <button id="btn-right" style="background:rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.5);border-radius:14px;color:white;font-size:30px;font-weight:900;padding:16px 22px;cursor:pointer;-webkit-user-select:none;user-select:none">►</button>
+    <div style="flex:1;overflow:hidden;position:relative">
+      <div style="width:100%;height:${H0}px;position:relative">
+        <canvas id="mario-canvas" style="display:block;width:100%;touch-action:none"></canvas>
+        <div style="position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 12px;pointer-events:none">
+          <div style="display:flex;gap:10px;pointer-events:all">
+            <button id="btn-left" style="background:rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.5);border-radius:14px;color:white;font-size:30px;font-weight:900;padding:16px 22px;cursor:pointer;-webkit-user-select:none;user-select:none">◄</button>
+            <button id="btn-right" style="background:rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.5);border-radius:14px;color:white;font-size:30px;font-weight:900;padding:16px 22px;cursor:pointer;-webkit-user-select:none;user-select:none">►</button>
+          </div>
+          <button id="btn-jump" style="background:linear-gradient(135deg,#EF4444,#DC2626);border:none;border-radius:50%;color:white;font-size:15px;font-weight:900;width:80px;height:80px;cursor:pointer;box-shadow:0 4px 16px rgba(239,68,68,.6);-webkit-user-select:none;user-select:none;font-family:inherit;pointer-events:all">JUMP</button>
         </div>
-        <button id="btn-jump" style="background:linear-gradient(135deg,#EF4444,#DC2626);border:none;border-radius:50%;color:white;font-size:15px;font-weight:900;width:80px;height:80px;cursor:pointer;box-shadow:0 4px 16px rgba(239,68,68,.6);-webkit-user-select:none;user-select:none;font-family:inherit;pointer-events:all">JUMP</button>
       </div>
     </div>
   </div>`;}
@@ -1506,13 +1529,13 @@ function viewMario(){
 function viewTanks(){
   const sec=S.params.minutes||180, m=Math.floor(sec/60), s=sec%60;
   return `
-  <div style="margin:-16px -16px -40px;overflow:hidden;background:#1a1a1a">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(0,0,0,.5);height:50px">
+  <div style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:500;overflow:hidden;background:#1a1a1a;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:rgba(0,0,0,.5);height:50px;flex-shrink:0">
       <button class="back-btn" style="position:static;margin:0" data-action="back">← Вийти</button>
       <div style="color:white;font-weight:900;font-size:20px" id="tanks-timer">⏱ ${m}:${s<10?'0':''}${s}</div>
       <div style="color:white;font-weight:800;font-size:14px" id="tanks-score">0 очк.</div>
     </div>
-    <div style="position:relative">
+    <div style="flex:1;position:relative;overflow:hidden">
       <canvas id="tanks-canvas" style="display:block;width:100%;touch-action:none"></canvas>
       <div style="position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 14px;pointer-events:none">
         <div style="position:relative;width:168px;height:168px;pointer-events:all">
@@ -1529,17 +1552,17 @@ function viewTanks(){
 function viewCars(){
   const sec=S.params.minutes||180, m=Math.floor(sec/60), s=sec%60;
   return `
-  <div style="margin:-16px -16px -40px;overflow:hidden;background:#2d5a27">
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(0,0,0,.35);height:50px">
+  <div style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:500;overflow:hidden;background:#2d5a27;display:flex;flex-direction:column">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:rgba(0,0,0,.35);height:50px;flex-shrink:0">
       <button class="back-btn" style="position:static;margin:0" data-action="back">← Вийти</button>
       <div style="color:white;font-weight:900;font-size:20px" id="cars-timer">⏱ ${m}:${s<10?'0':''}${s}</div>
       <div style="color:white;font-weight:800;font-size:14px" id="cars-score">0 м</div>
     </div>
-    <div style="position:relative">
+    <div style="flex:1;position:relative;overflow:hidden">
       <canvas id="cars-canvas" style="display:block;width:100%;touch-action:none"></canvas>
       <div style="position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-end;padding:0 16px;pointer-events:none">
-        <button id="btn-left" style="background:rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.4);border-radius:14px;color:white;font-size:30px;font-weight:900;padding:18px 24px;cursor:pointer;-webkit-user-select:none;pointer-events:all">◄</button>
-        <button id="btn-right" style="background:rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.4);border-radius:14px;color:white;font-size:30px;font-weight:900;padding:18px 24px;cursor:pointer;-webkit-user-select:none;pointer-events:all">►</button>
+        <button id="btn-left" style="background:rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.4);border-radius:14px;color:white;font-size:30px;font-weight:900;padding:18px 28px;cursor:pointer;-webkit-user-select:none;pointer-events:all">◄</button>
+        <button id="btn-right" style="background:rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.4);border-radius:14px;color:white;font-size:30px;font-weight:900;padding:18px 28px;cursor:pointer;-webkit-user-select:none;pointer-events:all">►</button>
       </div>
     </div>
   </div>`;}
@@ -1547,13 +1570,15 @@ function viewCars(){
 function startTetrisGame(totalSec){
   const canvas=document.getElementById('tetris-canvas'); if(!canvas) return;
   const COLS=10,ROWS=20;
-  const CSIZE=Math.max(20,Math.min(28,Math.floor((window.innerWidth-24)/COLS)));
+  const csW=Math.floor((window.innerWidth-16)/COLS);
+  const csH=Math.floor((window.innerHeight-120)/ROWS);
+  const CSIZE=Math.max(16,Math.min(csW,csH,30));
   canvas.width=COLS*CSIZE; canvas.height=ROWS*CSIZE;
   const ctx=canvas.getContext('2d');
   const COLORS=['','#EF4444','#F97316','#EAB308','#22C55E','#06B6D4','#6366F1','#EC4899'];
   const SHAPES=[[[1,1,1,1]],[[2,2],[2,2]],[[0,3,0],[3,3,3]],[[0,4,4],[4,4,0]],[[5,5,0],[0,5,5]],[[6,0,0],[6,6,6]],[[0,0,7],[7,7,7]]];
   let board=Array.from({length:ROWS},()=>new Array(COLS).fill(0));
-  let score=0,linesCleared=0,cur=null,cx=0,cy=0,dead=false,timeLeft=totalSec,rafId=null,timerInt=null;
+  let score=0,linesCleared=0,cur=null,cx=0,cy=0,dead=false,timeLeft=totalSec,timeUsed=0,rafId=null,timerInt=null;
   const scoreEl=document.getElementById('tetris-score');
   const timerEl=document.getElementById('tetris-timer');
 
@@ -1608,7 +1633,8 @@ function startTetrisGame(totalSec){
     dead=true; if(rafId) cancelAnimationFrame(rafId); if(timerInt) clearInterval(timerInt); draw();
   }
   timerInt=setInterval(()=>{
-    timeLeft--;
+    if(dead)return;
+    timeLeft--;timeUsed++;
     const m=Math.floor(timeLeft/60),s=timeLeft%60;
     if(timerEl) timerEl.textContent=`⏱ ${m}:${s<10?'0':''}${s}`;
     if(timeLeft<=0) endGame();
@@ -1631,7 +1657,7 @@ function startTetrisGame(totalSec){
     else if(Math.abs(dx)>Math.abs(dy)){if(dx<-15&&!hit(-1,0,cur))cx--;else if(dx>15&&!hit(1,0,cur))cx++;}
     else if(dy>15){while(!hit(0,1,cur))cy++;place();}
   },{passive:false});
-  window._tetrisCleanup=()=>{dead=true;if(rafId)cancelAnimationFrame(rafId);if(timerInt)clearInterval(timerInt);document.removeEventListener('keydown',onKey);};
+  window._tetrisCleanup=()=>{dead=true;saveGameTime('tetris',timeUsed);if(rafId)cancelAnimationFrame(rafId);if(timerInt)clearInterval(timerInt);document.removeEventListener('keydown',onKey);};
   newPiece(); requestAnimationFrame(loop);
 }
 
@@ -1644,7 +1670,7 @@ function startMarioGame(totalSec){
   const ctx=canvas.getContext('2d');
   const T=32;
   const GY=H-T*2;
-  let score=0,lives=3,timeLeft=totalSec,rafId=null,timerInt=null,over=false,frame=0;
+  let score=0,lives=3,timeLeft=totalSec,timeUsed=0,rafId=null,timerInt=null,over=false,frame=0;
   const timerEl=document.getElementById('mario-timer'),scoreEl=document.getElementById('mario-score');
   const GRAV=0.6,JUMP=-15,WALK=3.5;
   let cam=0;
@@ -2037,7 +2063,7 @@ function startMarioGame(totalSec){
   function loop(){update();draw();if(!over)rafId=requestAnimationFrame(loop);}
   timerInt=setInterval(()=>{
     if(over)return;
-    timeLeft--;
+    timeLeft--;timeUsed++;
     const m=Math.floor(timeLeft/60),s=timeLeft%60;
     if(timerEl)timerEl.textContent=`⏱ ${m}:${s<10?'0':''}${s}`;
     if(timeLeft<=0){
@@ -2050,6 +2076,7 @@ function startMarioGame(totalSec){
     }
   },1000);
   window._marioCleanup=()=>{
+    saveGameTime('mario',timeUsed);
     if(rafId)cancelAnimationFrame(rafId);if(timerInt)clearInterval(timerInt);
     document.removeEventListener('keydown',onKey);document.removeEventListener('keyup',onKey);
   };
@@ -2058,12 +2085,12 @@ function startMarioGame(totalSec){
 
 function startTanksGame(totalSec){
   const canvas=document.getElementById('tanks-canvas');if(!canvas)return;
-  const W=canvas.offsetWidth||Math.min(420,window.innerWidth-16);
-  const H=Math.max(300,window.innerHeight-100);
+  const W=canvas.offsetWidth||window.innerWidth;
+  const H=window.innerHeight-50;
   canvas.width=W;canvas.height=H;
   const ctx=canvas.getContext('2d');
   const T=32,COLS=Math.floor(W/T),ROWS=Math.floor(H/T);
-  let score=0,lives=3,timeLeft=totalSec,rafId=null,timerInt=null,over=false,frame=0;
+  let score=0,lives=3,timeLeft=totalSec,timeUsed=0,rafId=null,timerInt=null,over=false,frame=0;
   const timerEl=document.getElementById('tanks-timer'),scoreEl=document.getElementById('tanks-score');
   const DIRS=[{dx:0,dy:-1},{dx:1,dy:0},{dx:0,dy:1},{dx:-1,dy:0}];
   let grid=Array.from({length:ROWS},(_,r)=>Array.from({length:COLS},(_,c)=>{
@@ -2186,7 +2213,7 @@ function startTanksGame(totalSec){
   }
   function loop(){update();draw();if(!over)rafId=requestAnimationFrame(loop);}
   timerInt=setInterval(()=>{
-    if(over)return;timeLeft--;
+    if(over)return;timeLeft--;timeUsed++;
     const m=Math.floor(timeLeft/60),s=timeLeft%60;
     if(timerEl)timerEl.textContent=`⏱ ${m}:${s<10?'0':''}${s}`;
     if(timeLeft<=0){
@@ -2197,6 +2224,7 @@ function startTanksGame(totalSec){
     }
   },1000);
   window._tanksCleanup=()=>{
+    saveGameTime('tanks',timeUsed);
     if(rafId)cancelAnimationFrame(rafId);if(timerInt)clearInterval(timerInt);
     document.removeEventListener('keydown',onKey);document.removeEventListener('keyup',onKey);
   };
@@ -2205,14 +2233,14 @@ function startTanksGame(totalSec){
 
 function startCarsGame(totalSec){
   const canvas=document.getElementById('cars-canvas');if(!canvas)return;
-  const W=canvas.offsetWidth||Math.min(420,window.innerWidth-16);
-  const H=Math.max(300,window.innerHeight-100);
+  const W=canvas.offsetWidth||window.innerWidth;
+  const H=window.innerHeight-50;
   canvas.width=W;canvas.height=H;
   const ctx=canvas.getContext('2d');
   const ROAD_W=Math.min(W*0.68,220),ROAD_X=(W-Math.min(W*0.68,220))/2;
   const LW=ROAD_W/3;
   const LANES=[ROAD_X+LW/2,ROAD_X+LW*1.5,ROAD_X+LW*2.5];
-  let score=0,lives=3,timeLeft=totalSec,rafId=null,timerInt=null,over=false,frame=0;
+  let score=0,lives=3,timeLeft=totalSec,timeUsed=0,rafId=null,timerInt=null,over=false,frame=0;
   const timerEl=document.getElementById('cars-timer'),scoreEl=document.getElementById('cars-score');
   let plLane=1,plX=LANES[1],plTargX=LANES[1],plY=H-90;
   let crashed=false,crashT=0,speed=3.5;
@@ -2283,7 +2311,7 @@ function startCarsGame(totalSec){
   }
   function loop(){update();draw();if(!over)rafId=requestAnimationFrame(loop);}
   timerInt=setInterval(()=>{
-    if(over)return;timeLeft--;
+    if(over)return;timeLeft--;timeUsed++;
     const m=Math.floor(timeLeft/60),s=timeLeft%60;
     if(timerEl)timerEl.textContent=`⏱ ${m}:${s<10?'0':''}${s}`;
     if(timeLeft<=0){
@@ -2293,7 +2321,7 @@ function startCarsGame(totalSec){
       ctx.fillStyle='white';ctx.font='17px Nunito,sans-serif';ctx.fillText('Пройдено: '+score+' м',W/2,H/2+20);
     }
   },1000);
-  window._carsCleanup=()=>{if(rafId)cancelAnimationFrame(rafId);if(timerInt)clearInterval(timerInt);document.removeEventListener('keydown',onKey);};
+  window._carsCleanup=()=>{saveGameTime('cars',timeUsed);if(rafId)cancelAnimationFrame(rafId);if(timerInt)clearInterval(timerInt);document.removeEventListener('keydown',onKey);};
   loop();
 }
 
@@ -2896,7 +2924,7 @@ function scheduleAnimal(){
   _animalTimer=setTimeout(doAnimalRun,8000+Math.random()*17000);
 }
 function doAnimalRun(){
-  if(!isKid()){ scheduleAnimal(); return; }
+  if(!isKid()||['tetris','mario','tanks','cars'].includes(S.view)){ scheduleAnimal(); return; }
   const trackId=pick(['animal-runner','animal-runner','animal-runner2','animal-runner3']);
   const el=document.getElementById(trackId); if(!el){ scheduleAnimal(); return; }
   const vw=window.innerWidth, rtl=Math.random()>.5, dur=1400+Math.random()*2200;
@@ -2919,7 +2947,7 @@ function scheduleRunner(firstTime=false){
   _runnerTimer=setTimeout(doRun,delay);
 }
 function doRun(){
-  if(!isKid()){ scheduleRunner(); return; }
+  if(!isKid()||['tetris','mario','tanks','cars'].includes(S.view)){ scheduleRunner(); return; }
   const el=document.getElementById('kid-runner');
   if(!el){ scheduleRunner(); return; }
   const vw=window.innerWidth;
