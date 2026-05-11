@@ -443,11 +443,11 @@
         "english": "name",
         "ukrainian": "імʼя",
         "addedDate": "2026-05-04",
-        "timesStudied": 11,
+        "timesStudied": 12,
         "timesKnown": 8,
-        "timesUnknown": 3,
-        "category": "learning",
-        "streak": 2
+        "timesUnknown": 4,
+        "category": "hard",
+        "streak": 0
       },
       {
         "id": "2xeouka9dmorkbqt3",
@@ -829,7 +829,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5648,
+    "xp": 5649,
     "pinnedIds": []
   },
   {
