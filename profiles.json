@@ -523,11 +523,12 @@
         "english": "we",
         "ukrainian": "ми",
         "addedDate": "2026-05-07",
-        "timesStudied": 8,
-        "timesKnown": 2,
+        "timesStudied": 9,
+        "timesKnown": 3,
         "timesUnknown": 6,
         "category": "hard",
-        "streak": 0
+        "streak": 0,
+        "listed": true
       },
       {
         "id": "cgqa4w9jvmovxz5op",
@@ -829,7 +830,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5738,
+    "xp": 5748,
     "pinnedIds": []
   },
   {
