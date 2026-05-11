@@ -443,9 +443,9 @@
         "english": "name",
         "ukrainian": "імʼя",
         "addedDate": "2026-05-04",
-        "timesStudied": 12,
+        "timesStudied": 13,
         "timesKnown": 8,
-        "timesUnknown": 4,
+        "timesUnknown": 5,
         "category": "hard",
         "streak": 0
       },
@@ -829,7 +829,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5674,
+    "xp": 5675,
     "pinnedIds": []
   },
   {
