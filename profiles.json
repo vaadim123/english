@@ -454,9 +454,9 @@
         "english": "choose",
         "ukrainian": "вибрати",
         "addedDate": "2026-05-04",
-        "timesStudied": 18,
+        "timesStudied": 19,
         "timesKnown": 9,
-        "timesUnknown": 9,
+        "timesUnknown": 10,
         "category": "hard",
         "streak": 2,
         "listed": true
@@ -829,7 +829,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5708,
+    "xp": 5709,
     "pinnedIds": []
   },
   {
