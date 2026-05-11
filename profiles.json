@@ -657,11 +657,11 @@
         "english": "bread",
         "ukrainian": "хліб",
         "addedDate": "2026-05-07",
-        "timesStudied": 5,
+        "timesStudied": 6,
         "timesKnown": 3,
-        "timesUnknown": 2,
-        "category": "learning",
-        "streak": 1
+        "timesUnknown": 3,
+        "category": "hard",
+        "streak": 0
       },
       {
         "id": "t6ffxljqnmovy5fp2",
@@ -830,7 +830,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5782,
+    "xp": 5783,
     "pinnedIds": []
   },
   {
