@@ -1638,7 +1638,7 @@ function startTetrisGame(totalSec){
   }
   timerInt=setInterval(()=>{
     if(dead)return;
-    timeLeft--;timeUsed++;
+    timeLeft--;timeUsed++;saveGameTime('tetris',1);
     const m=Math.floor(timeLeft/60),s=timeLeft%60;
     if(timerEl) timerEl.textContent=`⏱ ${m}:${s<10?'0':''}${s}`;
     if(timeLeft<=0) endGame();
@@ -1661,7 +1661,7 @@ function startTetrisGame(totalSec){
     else if(Math.abs(dx)>Math.abs(dy)){if(dx<-15&&!hit(-1,0,cur))cx--;else if(dx>15&&!hit(1,0,cur))cx++;}
     else if(dy>15){while(!hit(0,1,cur))cy++;place();}
   },{passive:false});
-  window._tetrisCleanup=()=>{dead=true;saveGameTime('tetris',timeUsed);if(rafId)cancelAnimationFrame(rafId);if(timerInt)clearInterval(timerInt);document.removeEventListener('keydown',onKey);};
+  window._tetrisCleanup=()=>{dead=true;if(rafId)cancelAnimationFrame(rafId);if(timerInt)clearInterval(timerInt);document.removeEventListener('keydown',onKey);};
   newPiece(); requestAnimationFrame(loop);
 }
 
@@ -2067,7 +2067,7 @@ function startMarioGame(totalSec){
   function loop(){update();draw();if(!over)rafId=requestAnimationFrame(loop);}
   timerInt=setInterval(()=>{
     if(over)return;
-    timeLeft--;timeUsed++;
+    timeLeft--;timeUsed++;saveGameTime('mario',1);
     const m=Math.floor(timeLeft/60),s=timeLeft%60;
     if(timerEl)timerEl.textContent=`⏱ ${m}:${s<10?'0':''}${s}`;
     if(timeLeft<=0){
@@ -2080,7 +2080,6 @@ function startMarioGame(totalSec){
     }
   },1000);
   window._marioCleanup=()=>{
-    saveGameTime('mario',timeUsed);
     if(rafId)cancelAnimationFrame(rafId);if(timerInt)clearInterval(timerInt);
     document.removeEventListener('keydown',onKey);document.removeEventListener('keyup',onKey);
   };
@@ -2217,7 +2216,7 @@ function startTanksGame(totalSec){
   }
   function loop(){update();draw();if(!over)rafId=requestAnimationFrame(loop);}
   timerInt=setInterval(()=>{
-    if(over)return;timeLeft--;timeUsed++;
+    if(over)return;timeLeft--;timeUsed++;saveGameTime('tanks',1);
     const m=Math.floor(timeLeft/60),s=timeLeft%60;
     if(timerEl)timerEl.textContent=`⏱ ${m}:${s<10?'0':''}${s}`;
     if(timeLeft<=0){
@@ -2228,7 +2227,6 @@ function startTanksGame(totalSec){
     }
   },1000);
   window._tanksCleanup=()=>{
-    saveGameTime('tanks',timeUsed);
     if(rafId)cancelAnimationFrame(rafId);if(timerInt)clearInterval(timerInt);
     document.removeEventListener('keydown',onKey);document.removeEventListener('keyup',onKey);
   };
@@ -2315,7 +2313,7 @@ function startCarsGame(totalSec){
   }
   function loop(){update();draw();if(!over)rafId=requestAnimationFrame(loop);}
   timerInt=setInterval(()=>{
-    if(over)return;timeLeft--;timeUsed++;
+    if(over)return;timeLeft--;timeUsed++;saveGameTime('cars',1);
     const m=Math.floor(timeLeft/60),s=timeLeft%60;
     if(timerEl)timerEl.textContent=`⏱ ${m}:${s<10?'0':''}${s}`;
     if(timeLeft<=0){
@@ -2325,7 +2323,7 @@ function startCarsGame(totalSec){
       ctx.fillStyle='white';ctx.font='17px Nunito,sans-serif';ctx.fillText('Пройдено: '+score+' м',W/2,H/2+20);
     }
   },1000);
-  window._carsCleanup=()=>{saveGameTime('cars',timeUsed);if(rafId)cancelAnimationFrame(rafId);if(timerInt)clearInterval(timerInt);document.removeEventListener('keydown',onKey);};
+  window._carsCleanup=()=>{if(rafId)cancelAnimationFrame(rafId);if(timerInt)clearInterval(timerInt);document.removeEventListener('keydown',onKey);};
   loop();
 }
 
