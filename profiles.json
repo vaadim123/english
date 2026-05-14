@@ -1329,9 +1329,9 @@
         "english": "Otwarta linia",
         "ukrainian": "відкрита лінія",
         "addedDate": "2026-05-08",
-        "timesStudied": 1,
+        "timesStudied": 2,
         "timesKnown": 1,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 1
       },
@@ -1433,7 +1433,7 @@
       "words_50",
       "first_session"
     ],
-    "xp": 883,
+    "xp": 884,
     "pinnedIds": [
       "0yifyu4yzmotlqef3",
       "3v28ucbwomotoykgy"
