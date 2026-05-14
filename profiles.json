@@ -965,11 +965,11 @@
         "english": "Wykonać ruch",
         "ukrainian": "зробити хід",
         "addedDate": "2026-05-08",
-        "timesStudied": 2,
+        "timesStudied": 3,
         "timesKnown": 1,
-        "timesUnknown": 1,
-        "category": "learning",
-        "streak": 1
+        "timesUnknown": 2,
+        "category": "hard",
+        "streak": 0
       },
       {
         "id": "t3l47xu3emox8k59i",
@@ -1433,7 +1433,7 @@
       "words_50",
       "first_session"
     ],
-    "xp": 911,
+    "xp": 912,
     "pinnedIds": [
       "0yifyu4yzmotlqef3",
       "3v28ucbwomotoykgy"
