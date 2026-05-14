@@ -1340,10 +1340,10 @@
         "english": "Widełki",
         "ukrainian": "вилка",
         "addedDate": "2026-05-08",
-        "timesStudied": 4,
+        "timesStudied": 5,
         "timesKnown": 2,
-        "timesUnknown": 2,
-        "category": "learning",
+        "timesUnknown": 3,
+        "category": "hard",
         "streak": 0
       },
       {
@@ -1433,7 +1433,7 @@
       "words_50",
       "first_session"
     ],
-    "xp": 919,
+    "xp": 920,
     "pinnedIds": [
       "0yifyu4yzmotlqef3",
       "3v28ucbwomotoykgy"
