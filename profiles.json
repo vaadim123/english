@@ -397,8 +397,8 @@
         "english": "How many?",
         "ukrainian": "скільки",
         "addedDate": "2026-05-04",
-        "timesStudied": 18,
-        "timesKnown": 9,
+        "timesStudied": 19,
+        "timesKnown": 10,
         "timesUnknown": 9,
         "category": "learning",
         "streak": 1,
@@ -838,7 +838,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6023,
+    "xp": 6029,
     "pinnedIds": [],
     "gameTime": 168
   },
