@@ -590,9 +590,9 @@
         "english": "doll",
         "ukrainian": "лялька",
         "addedDate": "2026-05-07",
-        "timesStudied": 3,
+        "timesStudied": 4,
         "timesKnown": 3,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 3
       },
@@ -838,7 +838,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6029,
+    "xp": 6030,
     "pinnedIds": [],
     "gameTime": 168
   },
