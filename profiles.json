@@ -55,8 +55,8 @@
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-04",
-        "timesStudied": 32,
-        "timesKnown": 18,
+        "timesStudied": 33,
+        "timesKnown": 19,
         "timesUnknown": 14,
         "category": "hard",
         "streak": 0
@@ -421,8 +421,8 @@
         "english": "you",
         "ukrainian": "ти",
         "addedDate": "2026-05-04",
-        "timesStudied": 17,
-        "timesKnown": 8,
+        "timesStudied": 18,
+        "timesKnown": 9,
         "timesUnknown": 9,
         "category": "hard",
         "streak": 0
@@ -838,7 +838,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 5950,
+    "xp": 5981,
     "pinnedIds": [],
     "gameTime": 168
   },
