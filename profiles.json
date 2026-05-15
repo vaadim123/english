@@ -179,8 +179,8 @@
         "english": "read",
         "ukrainian": "читати",
         "addedDate": "2026-05-04",
-        "timesStudied": 35,
-        "timesKnown": 12,
+        "timesStudied": 36,
+        "timesKnown": 13,
         "timesUnknown": 23,
         "category": "hard",
         "streak": 0,
@@ -838,7 +838,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6154,
+    "xp": 6160,
     "pinnedIds": [],
     "gameTime": 168
   },
