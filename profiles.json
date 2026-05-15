@@ -478,8 +478,8 @@
         "english": "picture",
         "ukrainian": "картинка",
         "addedDate": "2026-05-04",
-        "timesStudied": 20,
-        "timesKnown": 9,
+        "timesStudied": 21,
+        "timesKnown": 10,
         "timesUnknown": 11,
         "category": "learning",
         "streak": 1
@@ -838,7 +838,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6081,
+    "xp": 6087,
     "pinnedIds": [],
     "gameTime": 168
   },
