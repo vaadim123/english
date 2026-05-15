@@ -657,8 +657,8 @@
         "english": "bread",
         "ukrainian": "хліб",
         "addedDate": "2026-05-07",
-        "timesStudied": 7,
-        "timesKnown": 4,
+        "timesStudied": 8,
+        "timesKnown": 5,
         "timesUnknown": 3,
         "category": "hard",
         "streak": 0
@@ -838,7 +838,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6119,
+    "xp": 6131,
     "pinnedIds": [],
     "gameTime": 168
   },
