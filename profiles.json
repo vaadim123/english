@@ -546,8 +546,8 @@
         "english": "please",
         "ukrainian": "будь ласка",
         "addedDate": "2026-05-07",
-        "timesStudied": 3,
-        "timesKnown": 3,
+        "timesStudied": 4,
+        "timesKnown": 4,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 3
@@ -838,7 +838,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6039,
+    "xp": 6045,
     "pinnedIds": [],
     "gameTime": 168
   },
