@@ -646,8 +646,8 @@
         "english": "cow",
         "ukrainian": "корова",
         "addedDate": "2026-05-07",
-        "timesStudied": 4,
-        "timesKnown": 4,
+        "timesStudied": 5,
+        "timesKnown": 5,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 3
@@ -838,7 +838,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6182,
+    "xp": 6191,
     "pinnedIds": [],
     "gameTime": 268
   },
