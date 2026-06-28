@@ -293,8 +293,8 @@
         "english": "purple",
         "ukrainian": "фіолетовий",
         "addedDate": "2026-05-04",
-        "timesStudied": 10,
-        "timesKnown": 8,
+        "timesStudied": 11,
+        "timesKnown": 9,
         "timesUnknown": 2,
         "category": "easy",
         "streak": 0,
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6922,
+    "xp": 6928,
     "pinnedIds": [],
     "gameTime": 683
   },
