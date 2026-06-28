@@ -316,8 +316,8 @@
         "english": "white",
         "ukrainian": "білий",
         "addedDate": "2026-05-04",
-        "timesStudied": 7,
-        "timesKnown": 7,
+        "timesStudied": 8,
+        "timesKnown": 8,
         "timesUnknown": 0,
         "category": "easy",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6880,
+    "xp": 6892,
     "pinnedIds": [],
     "gameTime": 683
   },
