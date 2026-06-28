@@ -580,8 +580,8 @@
         "english": "brother",
         "ukrainian": "брат",
         "addedDate": "2026-05-07",
-        "timesStudied": 5,
-        "timesKnown": 5,
+        "timesStudied": 6,
+        "timesKnown": 6,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 4
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6709,
+    "xp": 6715,
     "pinnedIds": [],
     "gameTime": 421
   },
