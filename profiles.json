@@ -636,8 +636,8 @@
         "english": "fish",
         "ukrainian": "риба",
         "addedDate": "2026-05-07",
-        "timesStudied": 5,
-        "timesKnown": 4,
+        "timesStudied": 6,
+        "timesKnown": 5,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 4
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6640,
+    "xp": 6646,
     "pinnedIds": [],
     "gameTime": 421
   },
