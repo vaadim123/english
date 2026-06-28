@@ -845,8 +845,8 @@
         "english": "Cheese",
         "ukrainian": "сир",
         "addedDate": "2026-06-28",
-        "timesStudied": 2,
-        "timesKnown": 0,
+        "timesStudied": 3,
+        "timesKnown": 1,
         "timesUnknown": 2,
         "category": "learning",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7400,
+    "xp": 7406,
     "pinnedIds": [],
     "gameTime": 693
   },
