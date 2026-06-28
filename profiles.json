@@ -22,8 +22,8 @@
         "english": "apple",
         "ukrainian": "яблуко",
         "addedDate": "2026-05-04",
-        "timesStudied": 10,
-        "timesKnown": 10,
+        "timesStudied": 11,
+        "timesKnown": 11,
         "timesUnknown": 0,
         "category": "easy",
         "streak": 2
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6950,
+    "xp": 6960,
     "pinnedIds": [],
     "gameTime": 683
   },
