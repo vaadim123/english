@@ -361,8 +361,8 @@
         "english": "bus",
         "ukrainian": "автобус",
         "addedDate": "2026-05-04",
-        "timesStudied": 20,
-        "timesKnown": 10,
+        "timesStudied": 21,
+        "timesKnown": 11,
         "timesUnknown": 10,
         "category": "learning",
         "streak": 2,
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6679,
+    "xp": 6685,
     "pinnedIds": [],
     "gameTime": 421
   },
