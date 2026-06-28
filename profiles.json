@@ -757,8 +757,8 @@
         "english": "Door",
         "ukrainian": "двері",
         "addedDate": "2026-06-28",
-        "timesStudied": 3,
-        "timesKnown": 0,
+        "timesStudied": 4,
+        "timesKnown": 1,
         "timesUnknown": 3,
         "category": "hard",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7650,
+    "xp": 7656,
     "pinnedIds": [],
     "gameTime": 693
   },
