@@ -421,8 +421,8 @@
         "english": "you",
         "ukrainian": "ти",
         "addedDate": "2026-05-04",
-        "timesStudied": 22,
-        "timesKnown": 11,
+        "timesStudied": 23,
+        "timesKnown": 12,
         "timesUnknown": 11,
         "category": "hard",
         "streak": 1
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6986,
+    "xp": 6992,
     "pinnedIds": [],
     "gameTime": 683
   },
