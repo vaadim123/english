@@ -812,8 +812,8 @@
         "english": "Rabbit",
         "ukrainian": "кролик",
         "addedDate": "2026-06-28",
-        "timesStudied": 12,
-        "timesKnown": 0,
+        "timesStudied": 13,
+        "timesKnown": 1,
         "timesUnknown": 12,
         "category": "hard",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7704,
+    "xp": 7710,
     "pinnedIds": [],
     "gameTime": 693
   },
