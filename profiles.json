@@ -966,9 +966,9 @@
         "english": "Dress",
         "ukrainian": "сукня",
         "addedDate": "2026-06-28",
-        "timesStudied": 4,
+        "timesStudied": 5,
         "timesKnown": 0,
-        "timesUnknown": 4,
+        "timesUnknown": 5,
         "category": "hard",
         "streak": 0
       }
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7685,
+    "xp": 7686,
     "pinnedIds": [],
     "gameTime": 693
   },
