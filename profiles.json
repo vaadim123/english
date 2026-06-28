@@ -702,8 +702,8 @@
         "english": "Grandma",
         "ukrainian": "бабуся",
         "addedDate": "2026-06-28",
-        "timesStudied": 0,
-        "timesKnown": 0,
+        "timesStudied": 1,
+        "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6646,
+    "xp": 6652,
     "pinnedIds": [],
     "gameTime": 421
   },
