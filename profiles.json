@@ -466,9 +466,9 @@
         "english": "word",
         "ukrainian": "слово",
         "addedDate": "2026-05-04",
-        "timesStudied": 46,
+        "timesStudied": 47,
         "timesKnown": 10,
-        "timesUnknown": 36,
+        "timesUnknown": 37,
         "category": "hard",
         "streak": 0,
         "listed": false
@@ -846,7 +846,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6456,
+    "xp": 6457,
     "pinnedIds": [],
     "gameTime": 268
   },
