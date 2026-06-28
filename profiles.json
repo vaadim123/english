@@ -569,8 +569,8 @@
         "english": "father",
         "ukrainian": "тато",
         "addedDate": "2026-05-07",
-        "timesStudied": 11,
-        "timesKnown": 5,
+        "timesStudied": 12,
+        "timesKnown": 6,
         "timesUnknown": 6,
         "category": "hard",
         "streak": 1
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6652,
+    "xp": 6661,
     "pinnedIds": [],
     "gameTime": 421
   },
