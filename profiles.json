@@ -512,8 +512,8 @@
         "english": "it",
         "ukrainian": "воно",
         "addedDate": "2026-05-05",
-        "timesStudied": 26,
-        "timesKnown": 9,
+        "timesStudied": 27,
+        "timesKnown": 10,
         "timesUnknown": 17,
         "category": "hard",
         "streak": 0
@@ -602,8 +602,8 @@
         "english": "toy",
         "ukrainian": "іграшка",
         "addedDate": "2026-05-07",
-        "timesStudied": 16,
-        "timesKnown": 8,
+        "timesStudied": 17,
+        "timesKnown": 9,
         "timesUnknown": 8,
         "category": "hard",
         "streak": 1
@@ -746,8 +746,8 @@
         "english": "Room",
         "ukrainian": "кімната",
         "addedDate": "2026-06-28",
-        "timesStudied": 4,
-        "timesKnown": 1,
+        "timesStudied": 5,
+        "timesKnown": 2,
         "timesUnknown": 3,
         "category": "hard",
         "streak": 0
@@ -834,8 +834,8 @@
         "english": "Egg",
         "ukrainian": "яйце",
         "addedDate": "2026-06-28",
-        "timesStudied": 0,
-        "timesKnown": 0,
+        "timesStudied": 1,
+        "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7092,
+    "xp": 7123,
     "pinnedIds": [],
     "gameTime": 683
   },
