@@ -539,7 +539,8 @@
         "timesKnown": 4,
         "timesUnknown": 32,
         "category": "hard",
-        "streak": 0
+        "streak": 0,
+        "listed": true
       },
       {
         "id": "uxas6a5btmovy08qb",
