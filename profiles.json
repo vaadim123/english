@@ -624,9 +624,9 @@
         "english": "bird",
         "ukrainian": "пташка",
         "addedDate": "2026-05-07",
-        "timesStudied": 16,
+        "timesStudied": 17,
         "timesKnown": 5,
-        "timesUnknown": 11,
+        "timesUnknown": 12,
         "category": "learning",
         "streak": 0,
         "listed": false
@@ -856,8 +856,8 @@
         "english": "Chicken",
         "ukrainian": "курка",
         "addedDate": "2026-06-28",
-        "timesStudied": 0,
-        "timesKnown": 0,
+        "timesStudied": 1,
+        "timesKnown": 1,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6700,
+    "xp": 6707,
     "pinnedIds": [],
     "gameTime": 421
   },
