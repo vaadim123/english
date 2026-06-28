@@ -790,8 +790,8 @@
         "english": "Kitchen",
         "ukrainian": "кухня",
         "addedDate": "2026-06-28",
-        "timesStudied": 6,
-        "timesKnown": 2,
+        "timesStudied": 7,
+        "timesKnown": 3,
         "timesUnknown": 4,
         "category": "hard",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7561,
+    "xp": 7571,
     "pinnedIds": [],
     "gameTime": 693
   },
