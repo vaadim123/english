@@ -349,9 +349,9 @@
         "english": "gray",
         "ukrainian": "сірий",
         "addedDate": "2026-05-04",
-        "timesStudied": 21,
+        "timesStudied": 22,
         "timesKnown": 11,
-        "timesUnknown": 10,
+        "timesUnknown": 11,
         "category": "learning",
         "streak": 3,
         "listed": false
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6639,
+    "xp": 6640,
     "pinnedIds": [],
     "gameTime": 421
   },
