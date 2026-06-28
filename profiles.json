@@ -612,8 +612,8 @@
         "english": "bag",
         "ukrainian": "сумка",
         "addedDate": "2026-05-07",
-        "timesStudied": 10,
-        "timesKnown": 4,
+        "timesStudied": 11,
+        "timesKnown": 5,
         "timesUnknown": 6,
         "category": "hard",
         "streak": 0
@@ -846,7 +846,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6377,
+    "xp": 6383,
     "pinnedIds": [],
     "gameTime": 268
   },
