@@ -385,9 +385,9 @@
         "english": "walk",
         "ukrainian": "ходити",
         "addedDate": "2026-05-04",
-        "timesStudied": 40,
+        "timesStudied": 41,
         "timesKnown": 14,
-        "timesUnknown": 26,
+        "timesUnknown": 27,
         "category": "hard",
         "streak": 1,
         "listed": true
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7433,
+    "xp": 7434,
     "pinnedIds": [],
     "gameTime": 693
   },
