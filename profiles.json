@@ -680,8 +680,8 @@
         "english": "juice",
         "ukrainian": "сік",
         "addedDate": "2026-05-07",
-        "timesStudied": 12,
-        "timesKnown": 5,
+        "timesStudied": 13,
+        "timesKnown": 6,
         "timesUnknown": 7,
         "category": "hard",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6834,
+    "xp": 6840,
     "pinnedIds": [],
     "gameTime": 683
   },
