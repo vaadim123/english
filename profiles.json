@@ -454,9 +454,9 @@
         "english": "choose",
         "ukrainian": "вибрати",
         "addedDate": "2026-05-04",
-        "timesStudied": 21,
+        "timesStudied": 22,
         "timesKnown": 10,
-        "timesUnknown": 11,
+        "timesUnknown": 12,
         "category": "hard",
         "streak": 0,
         "listed": true
@@ -846,7 +846,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6410,
+    "xp": 6411,
     "pinnedIds": [],
     "gameTime": 268
   },
