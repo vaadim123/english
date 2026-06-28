@@ -421,9 +421,9 @@
         "english": "you",
         "ukrainian": "ти",
         "addedDate": "2026-05-04",
-        "timesStudied": 21,
+        "timesStudied": 22,
         "timesKnown": 11,
-        "timesUnknown": 10,
+        "timesUnknown": 11,
         "category": "hard",
         "streak": 1
       },
@@ -867,9 +867,9 @@
         "english": "Cake",
         "ukrainian": "торт",
         "addedDate": "2026-06-28",
-        "timesStudied": 0,
+        "timesStudied": 1,
         "timesKnown": 0,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 0
       },
@@ -900,9 +900,9 @@
         "english": "Boat",
         "ukrainian": "човен",
         "addedDate": "2026-06-28",
-        "timesStudied": 2,
+        "timesStudied": 3,
         "timesKnown": 0,
-        "timesUnknown": 2,
+        "timesUnknown": 3,
         "category": "hard",
         "streak": 0
       },
@@ -1141,9 +1141,9 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6777,
+    "xp": 6780,
     "pinnedIds": [],
-    "gameTime": 421
+    "gameTime": 480
   },
   {
     "id": "iqyi2j5a2motlqef3",
