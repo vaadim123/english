@@ -922,8 +922,8 @@
         "english": "T-shirt",
         "ukrainian": "футболка",
         "addedDate": "2026-06-28",
-        "timesStudied": 1,
-        "timesKnown": 0,
+        "timesStudied": 2,
+        "timesKnown": 1,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7546,
+    "xp": 7552,
     "pinnedIds": [],
     "gameTime": 693
   },
