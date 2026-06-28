@@ -145,8 +145,8 @@
         "english": "table",
         "ukrainian": "стіл",
         "addedDate": "2026-05-04",
-        "timesStudied": 14,
-        "timesKnown": 12,
+        "timesStudied": 15,
+        "timesKnown": 13,
         "timesUnknown": 2,
         "category": "easy",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6905,
+    "xp": 6914,
     "pinnedIds": [],
     "gameTime": 683
   },
