@@ -823,8 +823,8 @@
         "english": "Bear",
         "ukrainian": "ведмідь",
         "addedDate": "2026-06-28",
-        "timesStudied": 3,
-        "timesKnown": 0,
+        "timesStudied": 4,
+        "timesKnown": 1,
         "timesUnknown": 3,
         "category": "hard",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7036,
+    "xp": 7042,
     "pinnedIds": [],
     "gameTime": 683
   },
