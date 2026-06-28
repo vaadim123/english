@@ -801,8 +801,8 @@
         "english": "Pig",
         "ukrainian": "свиня",
         "addedDate": "2026-06-28",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7452,
+    "xp": 7458,
     "pinnedIds": [],
     "gameTime": 693
   },
