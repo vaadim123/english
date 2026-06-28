@@ -889,8 +889,8 @@
         "english": "Plane",
         "ukrainian": "літак",
         "addedDate": "2026-06-28",
-        "timesStudied": 7,
-        "timesKnown": 0,
+        "timesStudied": 8,
+        "timesKnown": 1,
         "timesUnknown": 7,
         "category": "hard",
         "streak": 0
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7687,
+    "xp": 7693,
     "pinnedIds": [],
     "gameTime": 693
   },
