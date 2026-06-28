@@ -409,9 +409,9 @@
         "english": "children",
         "ukrainian": "діти(дітей)",
         "addedDate": "2026-05-04",
-        "timesStudied": 23,
+        "timesStudied": 24,
         "timesKnown": 11,
-        "timesUnknown": 12,
+        "timesUnknown": 13,
         "category": "learning",
         "streak": 0,
         "listed": true
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6743,
+    "xp": 6744,
     "pinnedIds": [],
     "gameTime": 421
   },
