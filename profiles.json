@@ -443,8 +443,8 @@
         "english": "name",
         "ukrainian": "імʼя",
         "addedDate": "2026-05-04",
-        "timesStudied": 16,
-        "timesKnown": 10,
+        "timesStudied": 17,
+        "timesKnown": 11,
         "timesUnknown": 6,
         "category": "hard",
         "streak": 0
@@ -838,7 +838,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6215,
+    "xp": 6224,
     "pinnedIds": [],
     "gameTime": 268
   },
