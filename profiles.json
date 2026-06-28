@@ -523,9 +523,9 @@
         "english": "we",
         "ukrainian": "ми",
         "addedDate": "2026-05-07",
-        "timesStudied": 11,
+        "timesStudied": 12,
         "timesKnown": 3,
-        "timesUnknown": 8,
+        "timesUnknown": 9,
         "category": "hard",
         "streak": 0,
         "listed": true
@@ -838,7 +838,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6189,
+    "xp": 6190,
     "pinnedIds": [],
     "gameTime": 268
   },
