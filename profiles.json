@@ -911,9 +911,9 @@
         "english": "Hat",
         "ukrainian": "шапка",
         "addedDate": "2026-06-28",
-        "timesStudied": 0,
+        "timesStudied": 1,
         "timesKnown": 0,
-        "timesUnknown": 0,
+        "timesUnknown": 1,
         "category": "learning",
         "streak": 0
       },
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7240,
+    "xp": 7241,
     "pinnedIds": [],
     "gameTime": 693
   },
