@@ -735,9 +735,9 @@
         "english": "Family",
         "ukrainian": "сім’я",
         "addedDate": "2026-06-28",
-        "timesStudied": 3,
+        "timesStudied": 4,
         "timesKnown": 0,
-        "timesUnknown": 3,
+        "timesUnknown": 4,
         "category": "hard",
         "streak": 0
       },
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7640,
+    "xp": 7641,
     "pinnedIds": [],
     "gameTime": 693
   },
