@@ -601,8 +601,8 @@
         "english": "toy",
         "ukrainian": "іграшка",
         "addedDate": "2026-05-07",
-        "timesStudied": 13,
-        "timesKnown": 5,
+        "timesStudied": 14,
+        "timesKnown": 6,
         "timesUnknown": 8,
         "category": "hard",
         "streak": 0
@@ -846,7 +846,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6431,
+    "xp": 6437,
     "pinnedIds": [],
     "gameTime": 268
   },
