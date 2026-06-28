@@ -500,8 +500,8 @@
         "english": "she",
         "ukrainian": "вона",
         "addedDate": "2026-05-05",
-        "timesStudied": 15,
-        "timesKnown": 9,
+        "timesStudied": 16,
+        "timesKnown": 10,
         "timesUnknown": 6,
         "category": "learning",
         "streak": 2,
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7247,
+    "xp": 7253,
     "pinnedIds": [],
     "gameTime": 693
   },
