@@ -111,9 +111,9 @@
         "english": "boy",
         "ukrainian": "хлопчик",
         "addedDate": "2026-05-04",
-        "timesStudied": 15,
+        "timesStudied": 16,
         "timesKnown": 13,
-        "timesUnknown": 2,
+        "timesUnknown": 3,
         "category": "easy",
         "streak": 0
       },
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7020,
+    "xp": 7021,
     "pinnedIds": [],
     "gameTime": 683
   },
