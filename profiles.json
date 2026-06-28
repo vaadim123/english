@@ -878,10 +878,10 @@
         "english": "Train",
         "ukrainian": "поїзд",
         "addedDate": "2026-06-28",
-        "timesStudied": 2,
+        "timesStudied": 3,
         "timesKnown": 0,
-        "timesUnknown": 2,
-        "category": "learning",
+        "timesUnknown": 3,
+        "category": "hard",
         "streak": 0
       },
       {
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6775,
+    "xp": 6776,
     "pinnedIds": [],
     "gameTime": 421
   },
