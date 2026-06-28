@@ -489,9 +489,9 @@
         "english": "he",
         "ukrainian": "він",
         "addedDate": "2026-05-05",
-        "timesStudied": 17,
+        "timesStudied": 18,
         "timesKnown": 8,
-        "timesUnknown": 9,
+        "timesUnknown": 10,
         "category": "hard",
         "streak": 0
       },
@@ -846,7 +846,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6409,
+    "xp": 6410,
     "pinnedIds": [],
     "gameTime": 268
   },
