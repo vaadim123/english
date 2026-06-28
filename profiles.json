@@ -558,8 +558,8 @@
         "english": "mother",
         "ukrainian": "мама",
         "addedDate": "2026-05-07",
-        "timesStudied": 4,
-        "timesKnown": 4,
+        "timesStudied": 5,
+        "timesKnown": 5,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 4
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7540,
+    "xp": 7546,
     "pinnedIds": [],
     "gameTime": 693
   },
