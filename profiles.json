@@ -338,8 +338,8 @@
         "english": "brown",
         "ukrainian": "коричневий",
         "addedDate": "2026-05-04",
-        "timesStudied": 14,
-        "timesKnown": 10,
+        "timesStudied": 15,
+        "timesKnown": 11,
         "timesUnknown": 4,
         "category": "learning",
         "streak": 1
@@ -443,8 +443,8 @@
         "english": "name",
         "ukrainian": "імʼя",
         "addedDate": "2026-05-04",
-        "timesStudied": 20,
-        "timesKnown": 13,
+        "timesStudied": 21,
+        "timesKnown": 14,
         "timesUnknown": 7,
         "category": "hard",
         "streak": 2
@@ -636,8 +636,8 @@
         "english": "fish",
         "ukrainian": "риба",
         "addedDate": "2026-05-07",
-        "timesStudied": 6,
-        "timesKnown": 5,
+        "timesStudied": 7,
+        "timesKnown": 6,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 4
@@ -647,8 +647,8 @@
         "english": "cow",
         "ukrainian": "корова",
         "addedDate": "2026-05-07",
-        "timesStudied": 4,
-        "timesKnown": 4,
+        "timesStudied": 5,
+        "timesKnown": 5,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 4
@@ -680,8 +680,8 @@
         "english": "juice",
         "ukrainian": "сік",
         "addedDate": "2026-05-07",
-        "timesStudied": 13,
-        "timesKnown": 6,
+        "timesStudied": 14,
+        "timesKnown": 7,
         "timesUnknown": 7,
         "category": "hard",
         "streak": 0
@@ -845,9 +845,9 @@
         "english": "Cheese",
         "ukrainian": "сир",
         "addedDate": "2026-06-28",
-        "timesStudied": 1,
+        "timesStudied": 2,
         "timesKnown": 0,
-        "timesUnknown": 1,
+        "timesUnknown": 2,
         "category": "learning",
         "streak": 0
       },
@@ -856,8 +856,8 @@
         "english": "Chicken",
         "ukrainian": "курка",
         "addedDate": "2026-06-28",
-        "timesStudied": 1,
-        "timesKnown": 1,
+        "timesStudied": 2,
+        "timesKnown": 2,
         "timesUnknown": 0,
         "category": "learning",
         "streak": 0
@@ -900,9 +900,9 @@
         "english": "Boat",
         "ukrainian": "човен",
         "addedDate": "2026-06-28",
-        "timesStudied": 5,
+        "timesStudied": 6,
         "timesKnown": 1,
-        "timesUnknown": 4,
+        "timesUnknown": 5,
         "category": "hard",
         "streak": 0
       },
@@ -911,10 +911,10 @@
         "english": "Hat",
         "ukrainian": "шапка",
         "addedDate": "2026-06-28",
-        "timesStudied": 1,
+        "timesStudied": 2,
         "timesKnown": 0,
-        "timesUnknown": 1,
-        "category": "learning",
+        "timesUnknown": 2,
+        "category": "hard",
         "streak": 0
       },
       {
@@ -1141,7 +1141,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 7332,
+    "xp": 7381,
     "pinnedIds": [],
     "gameTime": 693
   },
