@@ -512,9 +512,9 @@
         "english": "it",
         "ukrainian": "воно",
         "addedDate": "2026-05-05",
-        "timesStudied": 20,
+        "timesStudied": 21,
         "timesKnown": 8,
-        "timesUnknown": 12,
+        "timesUnknown": 13,
         "category": "hard",
         "streak": 0
       },
@@ -846,7 +846,7 @@
       "streak_3",
       "words_50"
     ],
-    "xp": 6427,
+    "xp": 6428,
     "pinnedIds": [],
     "gameTime": 268
   },
