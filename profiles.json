@@ -373,8 +373,8 @@
         "english": "bicycle",
         "ukrainian": "велосипед",
         "addedDate": "2026-05-04",
-        "timesStudied": 25,
-        "timesKnown": 15,
+        "timesStudied": 26,
+        "timesKnown": 16,
         "timesUnknown": 10,
         "category": "hard",
         "streak": 1,
@@ -1151,7 +1151,7 @@
       "words_50",
       "sessions_20"
     ],
-    "xp": 7933,
+    "xp": 7942,
     "pinnedIds": [],
     "gameTime": 851
   },
