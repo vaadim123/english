@@ -955,8 +955,8 @@
         "english": "Jacket",
         "ukrainian": "куртка",
         "addedDate": "2026-06-28",
-        "timesStudied": 5,
-        "timesKnown": 1,
+        "timesStudied": 6,
+        "timesKnown": 2,
         "timesUnknown": 4,
         "category": "hard",
         "streak": 0
@@ -1151,7 +1151,7 @@
       "words_50",
       "sessions_20"
     ],
-    "xp": 8196,
+    "xp": 8205,
     "pinnedIds": [],
     "gameTime": 851
   },
