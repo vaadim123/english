@@ -55,8 +55,8 @@
         "english": "school",
         "ukrainian": "школа",
         "addedDate": "2026-05-04",
-        "timesStudied": 37,
-        "timesKnown": 23,
+        "timesStudied": 38,
+        "timesKnown": 24,
         "timesUnknown": 14,
         "category": "learning",
         "streak": 0
@@ -1151,7 +1151,7 @@
       "words_50",
       "sessions_20"
     ],
-    "xp": 8006,
+    "xp": 8012,
     "pinnedIds": [],
     "gameTime": 851
   },
