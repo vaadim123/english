@@ -944,9 +944,9 @@
         "english": "Socks",
         "ukrainian": "шкарпетки",
         "addedDate": "2026-06-28",
-        "timesStudied": 3,
+        "timesStudied": 4,
         "timesKnown": 1,
-        "timesUnknown": 2,
+        "timesUnknown": 3,
         "category": "hard",
         "streak": 0
       },
@@ -1151,7 +1151,7 @@
       "words_50",
       "sessions_20"
     ],
-    "xp": 7979,
+    "xp": 7980,
     "pinnedIds": [],
     "gameTime": 851
   },
