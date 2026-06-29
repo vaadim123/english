@@ -432,8 +432,8 @@
         "english": "my",
         "ukrainian": "моє",
         "addedDate": "2026-05-04",
-        "timesStudied": 15,
-        "timesKnown": 12,
+        "timesStudied": 16,
+        "timesKnown": 13,
         "timesUnknown": 3,
         "category": "learning",
         "streak": 1
@@ -1151,7 +1151,7 @@
       "words_50",
       "sessions_20"
     ],
-    "xp": 7953,
+    "xp": 7959,
     "pinnedIds": [],
     "gameTime": 851
   },
