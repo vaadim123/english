@@ -900,8 +900,8 @@
         "english": "Boat",
         "ukrainian": "човен",
         "addedDate": "2026-06-28",
-        "timesStudied": 7,
-        "timesKnown": 2,
+        "timesStudied": 8,
+        "timesKnown": 3,
         "timesUnknown": 5,
         "category": "hard",
         "streak": 0
@@ -1151,7 +1151,7 @@
       "words_50",
       "sessions_20"
     ],
-    "xp": 7921,
+    "xp": 7927,
     "pinnedIds": [],
     "gameTime": 851
   },
