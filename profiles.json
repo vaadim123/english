@@ -779,8 +779,8 @@
         "english": "Lamp",
         "ukrainian": "лампа",
         "addedDate": "2026-06-28",
-        "timesStudied": 2,
-        "timesKnown": 1,
+        "timesStudied": 3,
+        "timesKnown": 2,
         "timesUnknown": 1,
         "category": "learning",
         "streak": 1
@@ -1151,7 +1151,7 @@
       "words_50",
       "sessions_20"
     ],
-    "xp": 8021,
+    "xp": 8031,
     "pinnedIds": [],
     "gameTime": 851
   },
