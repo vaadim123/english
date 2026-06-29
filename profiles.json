@@ -746,8 +746,8 @@
         "english": "Room",
         "ukrainian": "кімната",
         "addedDate": "2026-06-28",
-        "timesStudied": 6,
-        "timesKnown": 3,
+        "timesStudied": 7,
+        "timesKnown": 4,
         "timesUnknown": 3,
         "category": "hard",
         "streak": 1
@@ -1151,7 +1151,7 @@
       "words_50",
       "sessions_20"
     ],
-    "xp": 8170,
+    "xp": 8176,
     "pinnedIds": [],
     "gameTime": 851
   },
