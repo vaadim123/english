@@ -535,9 +535,9 @@
         "english": "they",
         "ukrainian": "вони",
         "addedDate": "2026-05-07",
-        "timesStudied": 54,
+        "timesStudied": 55,
         "timesKnown": 8,
-        "timesUnknown": 46,
+        "timesUnknown": 47,
         "category": "hard",
         "streak": 0,
         "listed": true
@@ -1151,7 +1151,7 @@
       "words_50",
       "sessions_20"
     ],
-    "xp": 8118,
+    "xp": 8119,
     "pinnedIds": [],
     "gameTime": 851
   },
