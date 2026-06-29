@@ -768,8 +768,8 @@
         "english": "Window",
         "ukrainian": "вікно",
         "addedDate": "2026-06-28",
-        "timesStudied": 13,
-        "timesKnown": 1,
+        "timesStudied": 14,
+        "timesKnown": 2,
         "timesUnknown": 12,
         "category": "hard",
         "streak": 0
@@ -1151,7 +1151,7 @@
       "words_50",
       "sessions_20"
     ],
-    "xp": 8229,
+    "xp": 8235,
     "pinnedIds": [],
     "gameTime": 851
   },
