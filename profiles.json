@@ -783,7 +783,8 @@
         "timesKnown": 2,
         "timesUnknown": 1,
         "category": "learning",
-        "streak": 2
+        "streak": 2,
+        "listed": true
       },
       {
         "id": "iq170goj5mqxhfn9m",
