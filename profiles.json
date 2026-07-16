@@ -934,9 +934,9 @@
         "english": "Shoes",
         "ukrainian": "взуття",
         "addedDate": "2026-06-28",
-        "timesStudied": 4,
+        "timesStudied": 5,
         "timesKnown": 2,
-        "timesUnknown": 2,
+        "timesUnknown": 3,
         "category": "learning",
         "streak": 1
       },
@@ -1160,7 +1160,7 @@
       "words_50",
       "sessions_20"
     ],
-    "xp": 8308,
+    "xp": 8309,
     "pinnedIds": [],
     "gameTime": 856
   },
