@@ -868,8 +868,8 @@
         "english": "Cake",
         "ukrainian": "торт",
         "addedDate": "2026-06-28",
-        "timesStudied": 5,
-        "timesKnown": 3,
+        "timesStudied": 6,
+        "timesKnown": 4,
         "timesUnknown": 2,
         "category": "learning",
         "streak": 1
@@ -1160,7 +1160,7 @@
       "words_50",
       "sessions_20"
     ],
-    "xp": 8315,
+    "xp": 8321,
     "pinnedIds": [],
     "gameTime": 856
   },
